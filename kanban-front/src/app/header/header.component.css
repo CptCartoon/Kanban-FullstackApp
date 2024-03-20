@@ -6,6 +6,7 @@ header {
 .header-wrapper {
   display: flex;
   flex-direction: row;
+  transition: all 0.2s ease-in-out;
 }
 
 .logo-mobile {
@@ -19,6 +20,7 @@ header {
   padding-bottom: 1.9rem;
   padding-right: 9rem;
   border-right: 1px solid var(--LinesDark);
+  border-bottom: 1px solid var(--DarkGrey);
   transition: all 0.2s ease-in-out;
 }
 
@@ -174,6 +176,7 @@ header {
   .header-wrapper {
     min-width: 250px;
   }
+
   .logo-desktop {
     display: none;
   }
@@ -189,6 +192,8 @@ header {
     padding-bottom: 1.25rem;
     padding-right: 1rem;
     border: none;
+    border-right: none;
+    border-bottom: 1px solid var(--LinesDark);
   }
 
   .platform-launch {

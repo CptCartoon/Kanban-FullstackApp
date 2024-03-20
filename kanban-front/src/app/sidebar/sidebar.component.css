@@ -1,0 +1,138 @@
+.sidebar {
+  background-color: var(--DarkGrey);
+  height: 100%;
+  border-right: 1px solid var(--LinesDark);
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-wrapper {
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+  padding-right: 1.45rem;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+}
+
+.hide-sidebar-btn {
+  background-color: unset;
+  background-image: url("/assets/icon-hide-sidebar.svg");
+  background-repeat: no-repeat;
+  background-position-y: 0.16rem;
+  padding-left: 2rem;
+  border: none;
+  color: var(--MediumGrey);
+  font-size: 0.938rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  margin-left: 2rem;
+}
+
+.hide-sidebar-btn:hover {
+  cursor: pointer;
+  background-image: url("/assets/icon-hide-sidebar-hover.svg");
+  color: var(--White);
+}
+
+.hide-sidebar-btn::before {
+  content: "Hide Sidebar";
+}
+
+h4 {
+  color: var(--MediumGrey);
+  font-size: 0.75rem;
+  letter-spacing: 2.4px;
+  margin-left: 2rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.navlist-buttons {
+  text-align: left;
+  list-style-type: none;
+  margin-top: 1.125rem;
+}
+
+.navlist-btn {
+  text-align: left;
+  color: var(--MediumGrey);
+  border: none;
+  background-color: unset;
+  font-size: 0.938rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  padding: 0.875rem 0 0.875rem 4rem;
+  width: 276px;
+  background-image: url("/assets/icon-board.svg");
+  background-repeat: no-repeat;
+  background-position-y: 1.02rem;
+  background-position-x: 2rem;
+  border-radius: 0 50px 50px 0;
+}
+
+.navlist-btn:hover {
+  cursor: pointer;
+  color: white;
+  background-color: var(--MainPurple);
+
+  background-image: url("/assets/icon-board-hover.svg");
+}
+
+.btn-add {
+  background-image: url("/assets/icon-board-purple.svg");
+  color: var(--MainPurple);
+}
+
+.show-sidebar-btn {
+  display: none;
+}
+@media screen and (min-width: 765px) {
+  .show-sidebar-btn {
+    display: none;
+    position: absolute;
+    bottom: 4rem;
+    padding: 1rem 1.225rem;
+    border-radius: 0 50px 50px 0;
+    border: none;
+    background-color: var(--MainPurple);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .show-sidebar-btn::before {
+    content: url("/assets/icon-show-sidebar.svg");
+    text-align: center;
+  }
+
+  .show-sidebar-btn:hover {
+    cursor: pointer;
+    background-color: var(--MainPurpleHover);
+  }
+}
+
+@media screen and (min-width: 765px) and (max-width: 1024px) {
+  .sidebar-wrapper {
+    padding-right: 1.09rem;
+  }
+
+  h4 {
+    margin-left: 1.5rem;
+  }
+
+  .navlist-btn {
+    width: 240px;
+    padding-left: 3.5rem;
+    background-position-x: 1.5rem;
+  }
+
+  .sidebar {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .sidebar {
+    margin-left: -400px;
+  }
+}
