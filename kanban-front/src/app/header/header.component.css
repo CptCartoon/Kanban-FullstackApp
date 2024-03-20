@@ -1,0 +1,272 @@
+header {
+  width: 100vw;
+  background-color: var(--DarkGrey);
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo-mobile {
+  display: none;
+}
+
+.header-logo {
+  max-width: 300px;
+  padding-left: 2rem;
+  padding-top: 1.9rem;
+  padding-bottom: 1.9rem;
+  padding-right: 9rem;
+  border-right: 1px solid var(--LinesDark);
+  transition: all 0.2s ease-in-out;
+}
+
+.platform-launch {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--LinesDark);
+  padding-left: 1.5rem;
+  padding-right: 1.9rem;
+}
+
+.platform-heading-left {
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+}
+
+/* ADD NEW TASK BUTTON */
+
+.add-new-task-btn {
+  content: "xdd";
+  font-size: 0.938rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--MainPurple);
+  border: none;
+  padding: 0.938rem 1.5rem;
+  border-radius: 50px;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-new-task-btn:hover {
+  cursor: pointer;
+  background-color: var(--MainPurpleHover);
+}
+
+.add-new-task-btn::before {
+  content: "+Add New Task";
+}
+
+/* DROP DOWN VERTICAL ELIPSES */
+
+.manage-board-btn {
+  background-color: unset;
+  background-image: url("/assets/icon-vertical-ellipsis.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 1rem;
+  height: 2rem;
+  border-radius: 100%;
+  transition: all 0.2s ease-in-out;
+  margin-left: 1.25rem;
+}
+
+.manage-board-btn:hover {
+  cursor: pointer;
+}
+
+.manage-board-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.manage-board-dropdown-content {
+  position: absolute;
+  z-index: 1;
+  right: 1.5rem;
+  top: 4rem;
+  background-color: var(--VeryDarkGrey);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 0 1rem 0;
+  margin-top: 1.25rem;
+  border-radius: 8px;
+  max-width: 192px;
+}
+
+.medium-grey {
+  color: var(--MediumGrey);
+}
+
+.red {
+  color: var(--Red);
+}
+
+.manage-board-dropdown-btn {
+  text-align: left;
+  border: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  width: 192px;
+  background-color: unset;
+  font-size: 0.813rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.manage-board-dropdown-btn:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.manage-board-dropdown-btn:hover {
+  cursor: pointer;
+  background-color: var(--LinesDark);
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu {
+  display: none;
+}
+
+@media screen and (min-width: 765px) and (max-width: 1024px) {
+  .header-logo {
+    max-width: 260px;
+    padding-left: 1.5rem;
+    padding-top: 1.6rem;
+    padding-bottom: 1.5rem;
+    padding-right: 5rem;
+  }
+
+  .platform-heading-left {
+    font-size: 0.85rem;
+  }
+
+  .manage-board-dropdown-content {
+    top: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .header {
+    min-width: 250px;
+  }
+
+  .header-wrapper {
+    min-width: 250px;
+  }
+  .logo-desktop {
+    display: none;
+  }
+
+  .logo-mobile {
+    display: block;
+  }
+
+  .header-logo {
+    max-width: unset;
+    padding-left: 1rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    padding-right: 1rem;
+    border: none;
+  }
+
+  .platform-launch {
+    padding-left: unset;
+    white-space: nowrap;
+  }
+
+  .platform-heading-left {
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .add-new-task-btn {
+    padding: 0.625rem 1.125rem;
+  }
+
+  .add-new-task-btn::before {
+    content: url("/assets/icon-add-task-mobile.svg");
+  }
+
+  .manage-board-dropdown-content {
+    top: 2.5rem;
+  }
+
+  /* MOBILE MENU */
+
+  .mobile-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-sidebar-btn {
+    background-color: unset;
+    background-image: url("/assets/icon-chevron-down.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    width: 1rem;
+    height: 0.75rem;
+    border-radius: 100%;
+    transition: all 0.2s ease-in-out;
+    margin-left: 0.75rem;
+  }
+
+  .mobile-sidebar-btn:hover {
+    cursor: pointer;
+  }
+
+  .mobile-sidebar-dropdown-content {
+    position: absolute;
+    z-index: 1001;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 3.5rem;
+    background-color: var(--VeryDarkGrey);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0 1rem 0;
+    margin-top: 1.25rem;
+    border-radius: 8px;
+    max-width: 264px;
+    box-shadow: 0px 5px 22px -9px var(--MainPurpleHover);
+  }
+
+  .backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+}

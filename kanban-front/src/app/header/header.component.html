@@ -1,1 +1,39 @@
-<p>header works!</p>
+<header>
+  <div class="backdrop"></div>
+  <div class="header-wrapper">
+    <div class="header-logo">
+      <img class="logo-desktop" src="assets/logo-light.svg" alt="" />
+      <img class="logo-mobile" src="assets/logo-mobile.svg" alt="" />
+    </div>
+    <div class="platform-launch">
+      <div class="platform-heading-left">
+        <h2>Platform Launch</h2>
+        <div class="mobile-menu">
+          <button class="mobile-sidebar-btn"></button>
+          <div class="mobile-sidebar-dropdown-content">
+            <button class="manage-board-dropdown-btn medium-grey">
+              board1
+            </button>
+            <button class="manage-board-dropdown-btn red">board2</button>
+          </div>
+        </div>
+      </div>
+      <div class="platform-options-right">
+        <div class="options">
+          <button class="add-new-task-btn"></button>
+          <div class="manage-board-dropdown">
+            <button class="manage-board-btn" (click)="showDropDown()"></button>
+            <div class="manage-board-dropdown-content display-none" #optionsbar>
+              <button class="manage-board-dropdown-btn medium-grey">
+                Edit Board
+              </button>
+              <button class="manage-board-dropdown-btn red">
+                Delete Board
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
