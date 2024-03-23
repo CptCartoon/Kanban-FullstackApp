@@ -72,12 +72,18 @@ h4 {
   border-radius: 0 50px 50px 0;
 }
 
+.navlist-btn-active {
+  color: var(--White);
+  background-color: var(--MainPurple);
+  background-image: url("/assets/icon-board-hover.svg");
+}
+
 .navlist-btn:hover {
   cursor: pointer;
-  color: white;
-  background-color: var(--MainPurple);
+  color: var(--MainPurple);
+  background-color: var(--White);
 
-  background-image: url("/assets/icon-board-hover.svg");
+  background-image: url("/assets/icon-board-purple.svg");
 }
 
 .btn-add {
@@ -85,9 +91,15 @@ h4 {
   color: var(--MainPurple);
 }
 
+.btn-add:hover {
+  background-image: url("/assets/icon-board-purple.svg");
+  background-color: white;
+  color: var(--MainPurple);
+}
 .show-sidebar-btn {
   display: none;
 }
+
 @media screen and (min-width: 765px) {
   .show-sidebar-btn {
     display: none;
@@ -135,4 +147,7 @@ h4 {
   .sidebar {
     margin-left: -400px;
   }
+}
+.margin-left {
+  margin-left: -400px;
 }

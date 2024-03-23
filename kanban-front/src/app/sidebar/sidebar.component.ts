@@ -11,13 +11,12 @@ export class SidebarComponent {
   @ViewChild('sidebar') sidebar!: ElementRef;
   @ViewChild('showbtn') showbtn!: ElementRef;
 
-  hideSidebar() {
-    this.sidebar.nativeElement.style.marginLeft = '-400px';
-    this.showbtn.nativeElement.style.display = 'block';
-  }
-
-  showSidebar() {
-    this.sidebar.nativeElement.style.marginLeft = `${0}px`;
-    this.showbtn.nativeElement.style.display = 'none';
+  toggleSidebar() {
+    this.sidebar.nativeElement.classList.toggle('margin-left');
+    if (this.sidebar.nativeElement.classList.contains('margin-left')) {
+      this.showbtn.nativeElement.style.display = 'block';
+    } else {
+      this.showbtn.nativeElement.style.display = 'none';
+    }
   }
 }

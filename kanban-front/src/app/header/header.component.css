@@ -20,7 +20,7 @@ header {
   padding-bottom: 1.9rem;
   padding-right: 9rem;
   border-right: 1px solid var(--LinesDark);
-  border-bottom: 1px solid var(--DarkGrey);
+  border-bottom: 1px solid var(--LinesDark);
   transition: all 0.2s ease-in-out;
 }
 
