@@ -1,4 +1,4 @@
-.add-board-wrapper {
+.edit-board-wrapper {
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -37,7 +37,13 @@
   opacity: 1; /* Firefox */
 }
 
+.input:hover {
+  border-color: var(--MainPurple);
+  outline: none;
+}
+
 .input:focus {
+  border-color: var(--MainPurpleHover);
   outline: none;
 }
 

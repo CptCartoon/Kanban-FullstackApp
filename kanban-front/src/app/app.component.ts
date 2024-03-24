@@ -8,6 +8,8 @@ import { DeleteBoardComponent } from './modals/delete-board/delete-board.compone
 import { DeleteTaskComponent } from './modals/delete-task/delete-task.component';
 import { AddBoardComponent } from './modals/add-board/add-board.component';
 import { EditBoardComponent } from './modals/edit-board/edit-board.component';
+import { AddTaskComponent } from './modals/add-task/add-task.component';
+import { EditTaskComponent } from './modals/edit-task/edit-task.component';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,8 @@ import { EditBoardComponent } from './modals/edit-board/edit-board.component';
     DeleteTaskComponent,
     AddBoardComponent,
     EditBoardComponent,
+    AddTaskComponent,
+    EditTaskComponent,
   ],
 })
 export class AppComponent {

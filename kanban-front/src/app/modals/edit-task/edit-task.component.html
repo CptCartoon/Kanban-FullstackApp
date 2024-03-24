@@ -1,0 +1,59 @@
+<app-modal>
+  <div class="edit-task-wrapper">
+    <h2 class="heading">Edit Task</h2>
+    <form>
+      <div class="board-name-container">
+        <div class="input-info">
+          <p class="input-heading">Title</p>
+        </div>
+        <input
+          id="boardName"
+          class="input input-name"
+          type="text"
+          placeholder="e.g. Web Design"
+        />
+      </div>
+
+      <div class="description-container">
+        <div class="input-info">
+          <p class="input-heading">Description</p>
+        </div>
+        <textarea
+          class="textarea"
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
+        ></textarea>
+      </div>
+
+      <div class="subtasks-container">
+        <div class="input-info"><p class="input-heading">Subtasks</p></div>
+        <div class="column-input">
+          <input
+            id="boardColumns"
+            class="input column-input"
+            type="text"
+            placeholder="e.g. Make Coffee"
+          /><button class="remove-btn"></button>
+        </div>
+        <div class="column-input">
+          <input
+            id="boardColumns"
+            class="input column-input"
+            type="text"
+            placeholder="e.g. Drink Coffee & Smile"
+          /><button class="remove-btn"></button>
+        </div>
+        <button class="btn add-subtask-btn">+Add New Subtask</button>
+      </div>
+      <div class="status-container">
+        <div class="input-info"><p class="input-heading">Status</p></div>
+        <div class="status-input" (click)="showDropdown()">Todo</div>
+        <div class="status-dropdown" #dropdown>
+          <div class="dropdown-option">Todo</div>
+          <div class="dropdown-option">Doing</div>
+          <div class="dropdown-option">Done</div>
+        </div>
+      </div>
+      <button class="btn create-board-btn">Save Changes</button>
+    </form>
+  </div>
+</app-modal>
