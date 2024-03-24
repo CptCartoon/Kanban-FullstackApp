@@ -1,0 +1,40 @@
+<app-modal>
+  <div class="add-board-wrapper">
+    <h2 class="heading">Edit Board</h2>
+    <form>
+      <div class="board-name-container">
+        <div class="input-info">
+          <p class="input-heading">Board Name</p>
+        </div>
+        <input
+          id="boardName"
+          class="input input-name"
+          type="text"
+          placeholder="e.g. Web Design"
+        />
+      </div>
+
+      <div class="board-columns-container">
+        <div class="input-info"><p class="input-heading">Board Columns</p></div>
+        <div class="column-input">
+          <input
+            id="boardColumns"
+            class="input column-input"
+            type="text"
+            placeholder="e.g. Todo"
+          /><button class="remove-btn"></button>
+        </div>
+        <div class="column-input">
+          <input
+            id="boardColumns"
+            class="input column-input"
+            type="text"
+            placeholder="e.g. Doing"
+          /><button class="remove-btn"></button>
+        </div>
+        <button class="btn add-column-btn">+Add New Column</button>
+      </div>
+      <button class="btn create-board-btn">Save Changes</button>
+    </form>
+  </div>
+</app-modal>

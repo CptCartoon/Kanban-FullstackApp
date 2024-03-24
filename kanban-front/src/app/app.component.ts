@@ -6,6 +6,8 @@ import { ColumnsComponent } from './columns/columns.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { DeleteBoardComponent } from './modals/delete-board/delete-board.component';
 import { DeleteTaskComponent } from './modals/delete-task/delete-task.component';
+import { AddBoardComponent } from './modals/add-board/add-board.component';
+import { EditBoardComponent } from './modals/edit-board/edit-board.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,8 @@ import { DeleteTaskComponent } from './modals/delete-task/delete-task.component'
     ModalComponent,
     DeleteBoardComponent,
     DeleteTaskComponent,
+    AddBoardComponent,
+    EditBoardComponent,
   ],
 })
 export class AppComponent {
