@@ -1,11 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { BoardsNavlistComponent } from './boards-navlist/boards-navlist.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
+  imports: [BoardsNavlistComponent],
 })
 export class SidebarComponent {
   @ViewChild('sidebar') sidebar!: ElementRef;

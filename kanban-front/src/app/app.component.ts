@@ -10,6 +10,7 @@ import { AddBoardComponent } from './modals/add-board/add-board.component';
 import { EditBoardComponent } from './modals/edit-board/edit-board.component';
 import { AddTaskComponent } from './modals/add-task/add-task.component';
 import { EditTaskComponent } from './modals/edit-task/edit-task.component';
+import { MobileNavComponent } from './modals/mobile-nav/mobile-nav.component';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ import { EditTaskComponent } from './modals/edit-task/edit-task.component';
     EditBoardComponent,
     AddTaskComponent,
     EditTaskComponent,
+    MobileNavComponent,
   ],
 })
 export class AppComponent {

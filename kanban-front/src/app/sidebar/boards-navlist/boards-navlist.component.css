@@ -1,0 +1,79 @@
+.hide-sidebar-btn {
+  background-color: unset;
+  background-image: url("/assets/icon-hide-sidebar.svg");
+  background-repeat: no-repeat;
+  background-position-y: 0.16rem;
+  padding-left: 2rem;
+  border: none;
+  color: var(--MediumGrey);
+  font-size: 0.938rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  margin-left: 2rem;
+}
+
+.hide-sidebar-btn:hover {
+  cursor: pointer;
+  background-image: url("/assets/icon-hide-sidebar-hover.svg");
+  color: var(--White);
+}
+
+.hide-sidebar-btn::before {
+  content: "Hide Sidebar";
+}
+
+h4 {
+  color: var(--MediumGrey);
+  font-size: 0.75rem;
+  letter-spacing: 2.4px;
+  margin-left: 2rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.navlist-buttons {
+  text-align: left;
+  list-style-type: none;
+  margin-top: 1.125rem;
+}
+
+.navlist-btn {
+  text-align: left;
+  color: var(--MediumGrey);
+  border: none;
+  background-color: unset;
+  font-size: 0.938rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  padding: 0.875rem 0 0.875rem 4rem;
+  width: 276px;
+  background-image: url("/assets/icon-board.svg");
+  background-repeat: no-repeat;
+  background-position-y: 1.02rem;
+  background-position-x: 2rem;
+  border-radius: 0 50px 50px 0;
+}
+
+.navlist-btn-active {
+  color: var(--White);
+  background-color: var(--MainPurple);
+  background-image: url("/assets/icon-board-hover.svg");
+}
+
+.navlist-btn:hover {
+  cursor: pointer;
+  color: var(--MainPurple);
+  background-color: var(--White);
+
+  background-image: url("/assets/icon-board-purple.svg");
+}
+
+.btn-add {
+  background-image: url("/assets/icon-board-purple.svg");
+  color: var(--MainPurple);
+}
+
+.btn-add:hover {
+  background-image: url("/assets/icon-board-purple.svg");
+  background-color: white;
+  color: var(--MainPurple);
+}
