@@ -1,13 +1,13 @@
-package com.kanbanapp.kanbanapp;
+package com.kanban.kanbanapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KanbanappApplication {
+public class KanbanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KanbanappApplication.class, args);
+		SpringApplication.run(KanbanApplication.class, args);
 	}
 
 }

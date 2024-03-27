@@ -1,1 +1,4 @@
-com\kanbanapp\kanbanapp\KanbanappApplication.class
+com\kanban\kanbanapp\BoardRepository.class
+com\kanban\kanbanapp\KanbanController.class
+com\kanban\kanbanapp\Board.class
+com\kanban\kanbanapp\KanbanApplication.class

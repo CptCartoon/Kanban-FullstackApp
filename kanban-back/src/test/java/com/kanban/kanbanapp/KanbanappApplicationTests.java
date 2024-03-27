@@ -1,4 +1,4 @@
-package com.kanbanapp.kanbanapp;
+package com.kanban.kanbanapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
