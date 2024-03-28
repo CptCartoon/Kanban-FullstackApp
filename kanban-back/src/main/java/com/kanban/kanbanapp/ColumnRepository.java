@@ -6,14 +6,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public class BoardRepository {
+public class ColumnRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<Board> getBoards() {
-        return jdbcTemplate.query("select * from board",
-                BeanPropertyRowMapper.newInstance(Board.class));
-    }
 
+    public List<Column> getColumns() {
+        return jdbcTemplate.query("select * from boardColumn",
+                BeanPropertyRowMapper.newInstance(Column.class));
+    }
 }

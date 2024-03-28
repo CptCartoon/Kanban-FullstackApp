@@ -6,14 +6,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public class BoardRepository {
+public class SubtaskRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<Board> getBoards() {
-        return jdbcTemplate.query("select * from board",
-                BeanPropertyRowMapper.newInstance(Board.class));
-    }
 
+    public List<Subtask> getSubtasks() {
+        return jdbcTemplate.query("select * from subtask",
+                BeanPropertyRowMapper.newInstance(Subtask.class));
+    }
 }

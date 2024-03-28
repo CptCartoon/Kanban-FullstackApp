@@ -6,14 +6,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public class BoardRepository {
+public class FullBoardRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<Board> getBoards() {
-        return jdbcTemplate.query("select * from board",
-                BeanPropertyRowMapper.newInstance(Board.class));
-    }
 
+    public List<FullBoard> getAll() {
+        return jdbcTemplate.query("select * from board join boardColumn using(board_id) join task using(column_id) join subtask using(task_id)",
+                BeanPropertyRowMapper.newInstance(FullBoard.class));
+    }
 }
+
+

@@ -1,19 +1,21 @@
 package com.kanban.kanbanapp;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public class BoardRepository {
+public class TaskRepository {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<Board> getBoards() {
-        return jdbcTemplate.query("select * from board",
-                BeanPropertyRowMapper.newInstance(Board.class));
-    }
 
+    public List<Task> getTasks() {
+        return jdbcTemplate.query("select * from task",
+                BeanPropertyRowMapper.newInstance(Task.class));
+    }
 }
