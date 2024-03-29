@@ -5,22 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6074aa74-e2d1-4d41-a77e-1f686daaa78a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/Column.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/ColumnRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/FullBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/FullBoardRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/Subtask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/SubtaskRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/TaskRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/BoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/BoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/ColumnRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/ColumnRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/KanbanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/KanbanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/kanban/kanbanapp/BoardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kanban/kanbanapp/BoardRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/kanban/kanbanapp/KanbanController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/kanban/kanbanapp/KanbanController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kanbandb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../kanbandb.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kanban/kanbanapp/TaskRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Board {
 
-    private int board_id;
-    private String board_name;
+    private int boardId;
+    private String boardName;
 }

@@ -2,6 +2,7 @@ package com.kanban.kanbanapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -12,23 +13,23 @@ public class KanbanController {
     @Autowired
     BoardRepository boardRepository;
 
-
-
     @GetMapping("/boards")
     public List<Board> getBoards() {
         return boardRepository.getBoards();
     }
 
     @Autowired
-    TaskRepository taskRepository;
-
+    ColumnRepository columnRepository;
     @GetMapping("/columns")
     public List<Column> getColumns() {
         return columnRepository.getColumns();
     }
 
+    @GetMapping("/columns/byboard/{id}")
+    public Column getColumnsByBoardId(@PathVariable("id") int id) { return columnRepository.getColumnsByBoardId(id); }
+
     @Autowired
-    ColumnRepository columnRepository;
+    TaskRepository taskRepository;
 
     @GetMapping("/tasks")
     public List<Task> getTask() {
@@ -42,12 +43,12 @@ public class KanbanController {
         return subtaskRepository.getSubtasks();
     }
 
-    @Autowired
-    FullBoardRepository fullboardRepository;
+   // @Autowired
+   // FullBoardRepository fullboardRepository;
 
-    @GetMapping("/all")
-    public List<FullBoard> getAll() {
-        return fullboardRepository.getAll();
-    }
+   // @GetMapping("/all")
+   // public List<FullBoard> getAll() {
+   //     return fullboardRepository.getAll();
+   // }
 
 }

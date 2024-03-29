@@ -18,4 +18,8 @@ public class TaskRepository {
         return jdbcTemplate.query("select * from task",
                 BeanPropertyRowMapper.newInstance(Task.class));
     }
+
+    public Task getTasksByColumnId(int id) {
+        return jdbcTemplate.queryForObject(" select * from task where column_id = ?", BeanPropertyRowMapper.newInstance(Task.class), id);
+    }
 }

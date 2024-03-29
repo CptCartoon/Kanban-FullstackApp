@@ -17,4 +17,8 @@ public class ColumnRepository {
         return jdbcTemplate.query("select * from boardColumn",
                 BeanPropertyRowMapper.newInstance(Column.class));
     }
+
+    public Column getColumnsByBoardId(int id) {
+        return jdbcTemplate.queryForObject("select * from boardColumn where board_id = 1", BeanPropertyRowMapper.newInstance(Column.class), id);
+    }
 }

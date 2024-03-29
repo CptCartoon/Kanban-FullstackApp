@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
@@ -8,4 +8,10 @@ import { ModalComponent } from '../../shared/modal/modal.component';
   styleUrl: './add-board.component.css',
   imports: [ModalComponent],
 })
-export class AddBoardComponent {}
+export class AddBoardComponent {
+  @Output() close = new EventEmitter<void>();
+
+  closeModal() {
+    this.close.emit();
+  }
+}

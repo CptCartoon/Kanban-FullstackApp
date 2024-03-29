@@ -17,6 +17,30 @@
   transition: all 0.2s ease-in-out;
 }
 
+.hide-sidebar-btn {
+  background-color: unset;
+  background-image: url("/assets/icon-hide-sidebar.svg");
+  background-repeat: no-repeat;
+  background-position-y: 0.16rem;
+  padding-left: 2rem;
+  border: none;
+  color: var(--MediumGrey);
+  font-size: 0.938rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  margin-left: 2rem;
+}
+
+.hide-sidebar-btn:hover {
+  cursor: pointer;
+  background-image: url("/assets/icon-hide-sidebar-hover.svg");
+  color: var(--White);
+}
+
+.hide-sidebar-btn::before {
+  content: "Hide Sidebar";
+}
+
 .show-sidebar-btn {
   display: none;
 }

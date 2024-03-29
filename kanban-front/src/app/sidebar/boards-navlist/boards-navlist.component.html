@@ -1,11 +1,20 @@
+<app-add-board *ngIf="show" (close)="toggleModal()"></app-add-board>
 <div class="boards-navlist">
-  <h4>ALL BOARDS (3)</h4>
+  <h4>ALL BOARDS ({{ boards.length }})</h4>
   <ul class="navlist-buttons">
-    <li>
-      <button class="navlist-btn navlist-btn-active">Platform Launch</button>
+    <li *ngFor="let board of boards">
+      <button
+        [ngClass]="isActive == board.boardId ? 'navlist-btn-active' : ''"
+        class="navlist-btn"
+        (click)="test(board)"
+      >
+        {{ board.boardName }}
+      </button>
     </li>
-    <li><button class="navlist-btn">Marketing Plan</button></li>
-    <li><button class="navlist-btn">Roadmap</button></li>
-    <button class="navlist-btn btn-add">+Create New Board</button>
+    <!-- <li><button class="navlist-btn">Marketing Plan</button></li>
+    <li><button class="navlist-btn">Roadmap</button></li> navlist-btn-active-->
+    <button class="navlist-btn btn-add" (click)="toggleModal()">
+      +Create New Board
+    </button>
   </ul>
 </div>
