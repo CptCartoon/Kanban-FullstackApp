@@ -16,4 +16,9 @@ public class BoardRepository {
                 BeanPropertyRowMapper.newInstance(Board.class));
     }
 
+    public Board getBoardId(int id) {
+        return jdbcTemplate.queryForObject("select * from board where board_id = ?",
+                BeanPropertyRowMapper.newInstance(Board.class), id);
+    }
+
 }

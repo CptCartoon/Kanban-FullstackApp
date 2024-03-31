@@ -53,3 +53,11 @@ h4 {
   background-color: white;
   color: var(--MainPurple);
 }
+
+@media screen and (min-width: 765px) and (max-width: 1024px) {
+  .navlist-btn {
+    width: 240px;
+    padding-left: 3.5rem;
+    background-position-x: 1.5rem;
+  }
+}

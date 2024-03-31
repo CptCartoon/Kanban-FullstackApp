@@ -1,12 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-empty-board',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './empty-board.component.html',
-  styleUrl: './empty-board.component.css'
+  styleUrl: './empty-board.component.css',
 })
-export class EmptyBoardComponent {
-
-}
+export class EmptyBoardComponent {}

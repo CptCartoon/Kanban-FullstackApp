@@ -13,18 +13,21 @@ import { AddBoardComponent } from '../../modals/add-board/add-board.component';
 })
 export class BoardsNavlistComponent implements OnInit {
   show = false;
-  isActive!: number;
 
   boards: Board[] = [];
+
+  active!: number;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getBoards();
+    this.active = this.boards[0]?.boardId;
   }
 
-  test(board: Board) {
-    this.isActive = board.boardId;
+  selectBoard(board: Board) {
+    this.apiService.selectBoard(board);
+    this.active = board.boardId;
   }
 
   getBoards() {

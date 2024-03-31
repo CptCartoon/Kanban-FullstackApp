@@ -18,6 +18,9 @@ public class KanbanController {
         return boardRepository.getBoards();
     }
 
+    @GetMapping("/boards/{id}")
+    public Board getBoardId(@PathVariable("id") int id) { return boardRepository.getBoardId(id); }
+
     @Autowired
     ColumnRepository columnRepository;
     @GetMapping("/columns")
@@ -26,7 +29,7 @@ public class KanbanController {
     }
 
     @GetMapping("/columns/byboard/{id}")
-    public Column getColumnsByBoardId(@PathVariable("id") int id) { return columnRepository.getColumnsByBoardId(id); }
+    public List<Column> getColumnsByBoardId(@PathVariable("id") int id) { return columnRepository.getColumnsByBoardId(id); }
 
     @Autowired
     TaskRepository taskRepository;

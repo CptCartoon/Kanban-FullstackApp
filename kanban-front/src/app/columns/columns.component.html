@@ -1,3 +1,6 @@
 <div class="columns">
-  <app-empty-board></app-empty-board>
+  <app-empty-board *ngIf="boardColumns?.length == 0"></app-empty-board>
+  <div *ngFor="let column of boardColumns">
+    <li style="color: white">{{ column.columnName }}</li>
+  </div>
 </div>

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Column {
 
-    private int column_id;
-    private int board_id;
-    private String column_name;
+    private int columnId;
+    private int boardId;
+    private String columnName;
 
 }

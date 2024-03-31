@@ -4,9 +4,9 @@
   <ul class="navlist-buttons">
     <li *ngFor="let board of boards">
       <button
-        [ngClass]="isActive == board.boardId ? 'navlist-btn-active' : ''"
+        [ngClass]="active == board.boardId ? 'navlist-btn-active' : null"
         class="navlist-btn"
-        (click)="test(board)"
+        (click)="selectBoard(board)"
       >
         {{ board.boardName }}
       </button>
