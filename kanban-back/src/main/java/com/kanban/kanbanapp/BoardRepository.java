@@ -21,4 +21,8 @@ public class BoardRepository {
                 BeanPropertyRowMapper.newInstance(Board.class), id);
     }
 
+    public int deleteBoard(int id) {
+        return jdbcTemplate.update("DELETE FROM board where board_id = ?", id);
+    }
+
 }

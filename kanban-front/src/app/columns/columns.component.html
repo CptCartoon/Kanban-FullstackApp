@@ -1,6 +1,9 @@
 <div class="columns">
-  <app-empty-board *ngIf="boardColumns?.length == 0"></app-empty-board>
-  <div *ngFor="let column of boardColumns">
-    <li style="color: white">{{ column.columnName }}</li>
+  <app-empty-board *ngIf="boardColumns?.length === 0"></app-empty-board>
+  <div class="columns-wrapper">
+    <app-column
+      *ngFor="let column of boardColumns"
+      [column]="column"
+    ></app-column>
   </div>
 </div>

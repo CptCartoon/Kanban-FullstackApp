@@ -22,4 +22,8 @@ public class ColumnRepository {
         return jdbcTemplate.query("select * from boardColumn where board_id = ?",
                 BeanPropertyRowMapper.newInstance(Column.class), id);
     }
+
+    public int deleteColumn(int id) {
+        return jdbcTemplate.update("DELETE FROM boardColumn where column_id = ?", id);
+    }
 }

@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Subtask {
-    private int subtask_id;
-    private int task_id;
-    private String subtask_title;
-    private boolean subtask_iscomplete;
+    private int subtaskId;
+    private int taskId;
+    private int boardId;
+    private String subtaskTitle;
+    private boolean subtaskIscomplete;
 }

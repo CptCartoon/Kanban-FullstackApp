@@ -19,7 +19,15 @@ public class TaskRepository {
                 BeanPropertyRowMapper.newInstance(Task.class));
     }
 
-    public Task getTasksByColumnId(int id) {
-        return jdbcTemplate.queryForObject(" select * from task where column_id = ?", BeanPropertyRowMapper.newInstance(Task.class), id);
+    public List<Task> getTasksByBoardId(int id) {
+        return jdbcTemplate.query(" select * from task where board_id = ?", BeanPropertyRowMapper.newInstance(Task.class), id);
+    }
+
+    public List<Task> getTasksByColumnId(int id) {
+        return jdbcTemplate.query(" select * from task where column_id = ?", BeanPropertyRowMapper.newInstance(Task.class), id);
+    }
+
+    public int deleteTask(int id) {
+        return jdbcTemplate.update("DELETE FROM task where task_id = ?", id);
     }
 }

@@ -1,12 +1,10 @@
-com\kanban\kanbanapp\KanbanApplication.class
-com\kanban\kanbanapp\TaskRepository.class
-com\kanban\kanbanapp\ColumnRepository.class
-com\kanban\kanbanapp\SubtaskRepository.class
-com\kanban\kanbanapp\BoardRepository.class
-com\kanban\kanbanapp\FullBoardRepository.class
-com\kanban\kanbanapp\FullBoard.class
 com\kanban\kanbanapp\Subtask.class
 com\kanban\kanbanapp\Column.class
 com\kanban\kanbanapp\KanbanController.class
 com\kanban\kanbanapp\Board.class
+com\kanban\kanbanapp\KanbanApplication.class
 com\kanban\kanbanapp\Task.class
+com\kanban\kanbanapp\TaskRepository.class
+com\kanban\kanbanapp\ColumnRepository.class
+com\kanban\kanbanapp\SubtaskRepository.class
+com\kanban\kanbanapp\BoardRepository.class

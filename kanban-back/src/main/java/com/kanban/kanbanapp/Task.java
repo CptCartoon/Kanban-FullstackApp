@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Task {
 
-    private int task_id;
-    private int column_id;
-    private String task_title;
-    private String task_description;
+    private int taskId;
+    private int columnId;
+    private int boardId;
+    private String taskTitle;
+    private String taskDescription;
 }

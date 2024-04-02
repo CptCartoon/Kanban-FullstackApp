@@ -13,8 +13,12 @@ public class SubtaskRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Subtask> getSubtasks() {
-        return jdbcTemplate.query("select * from subtask",
-                BeanPropertyRowMapper.newInstance(Subtask.class));
+    public List<Subtask> getSubtasks(int id) {
+        return jdbcTemplate.query("select * from subtask where task_id = ?",
+                BeanPropertyRowMapper.newInstance(Subtask.class), id);
+    }
+
+    public int deleteSubtask(int id) {
+        return jdbcTemplate.update("DELETE FROM subtask where subtask_id = ?", id);
     }
 }

@@ -1,0 +1,25 @@
+.task {
+  background-color: var(--DarkGrey);
+  margin-top: 1.25rem;
+  padding: 1.5rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 280px;
+  max-width: 280px;
+}
+
+.task-title {
+  font-size: 0.938rem;
+  color: white;
+  font-weight: bold;
+}
+
+.subtasks {
+  font-size: 0.938rem;
+  color: var(--MediumGrey);
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.task:hover {
+  cursor: pointer;
+}

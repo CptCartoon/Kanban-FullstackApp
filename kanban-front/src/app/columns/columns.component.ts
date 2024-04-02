@@ -1,47 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { EmptyBoardComponent } from './empty-board/empty-board.component';
-import { Board, Column } from '../core/models/model';
+import { Board, Column, Subtask, Task } from '../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
+import { ColumnComponent } from './column/column.component';
 
 @Component({
   selector: 'app-columns',
   standalone: true,
   templateUrl: './columns.component.html',
   styleUrl: './columns.component.css',
-  imports: [EmptyBoardComponent, CommonModule],
+  imports: [EmptyBoardComponent, CommonModule, ColumnComponent],
 })
 export class ColumnsComponent implements OnInit {
   boards!: Board[];
-  allColumns: Column[] = [];
-  boardColumns: Column[] | undefined = [];
+  boardColumns: Column[] | undefined;
   active!: number;
+
+  columnTasks!: Task[];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getBoards();
-    this.getColumns();
-    this.boardColumns = this.allColumns.filter(
-      (column) => column.boardId === this.boards[0].boardId
-    );
-    this.apiService.active$.subscribe((id) => {
-      this.active = id;
-      this.boardColumns = this.allColumns.filter(
-        (column) => column.boardId === this.active
-      );
-    });
+    if (this.boards) {
+      this.active = this.boards[0]?.boardId;
+      this.getColumns(this.active);
+      this.apiService.active$.subscribe((id) => {
+        this.active = id;
+        this.getColumns(this.active);
+      });
+    }
   }
 
   getBoards() {
-    this.apiService
-      .getBoards()
-      .subscribe((result: Board[]) => (this.boards = result));
+    this.apiService.getBoards().subscribe((result: Board[]) => {
+      this.boards = result;
+    });
   }
 
-  getColumns() {
-    this.apiService
-      .getColumns()
-      .subscribe((result: Column[]) => (this.allColumns = result));
+  getColumns(id: number) {
+    this.apiService.getColumns(id).subscribe((columns: Column[]) => {
+      this.boardColumns = columns.filter(
+        (column) => column.boardId === this.active
+      );
+    });
   }
 }

@@ -45,11 +45,4 @@ export class HeaderComponent implements OnInit {
       .getBoards()
       .subscribe((result: Board[]) => (this.boards = result));
   }
-
-  // getBoardId(id: number) {
-  //   this.apiService
-  //     .getBoardId(id)
-  //     .subscribe((result: Board) => (this.board = result));
-  //   console.log(this.active);
-  // }
 }
