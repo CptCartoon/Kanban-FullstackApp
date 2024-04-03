@@ -97,6 +97,7 @@
 .description {
   max-width: 26rem;
   margin-top: 1.5rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .p-description {
@@ -121,6 +122,8 @@
   font-size: 0.85rem;
   font-weight: bold;
   color: white;
+  max-width: 26rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .subtask:not(:first-child) {
@@ -229,5 +232,13 @@ input[type="checkbox"]:checked {
 @media screen and (max-width: 765px) {
   .header-wrapper {
     width: 18.438rem;
+  }
+
+  .description {
+    max-width: 18.438rem;
+  }
+
+  .subtask {
+    max-width: 18.438rem;
   }
 }

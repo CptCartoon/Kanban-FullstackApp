@@ -1,21 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Board, Column, Subtask, Task } from '../models/model';
+import { BoardService } from './board.service';
+import { ColumnService } from './column.service';
+import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
+  constructor(
+    private http: HttpClient,
+    private boardService: BoardService,
+    private columnService: ColumnService,
+    private taskService: TaskService
+  ) {}
+
   url = 'http://localhost:8080';
 
   active!: number;
   active$: Subject<number> = new Subject<number>();
 
-  constructor(private http: HttpClient) {}
-
   getBoards(): Observable<Board[]> {
-    return this.http.get<Board[]>(`${this.url}/boards`);
+    return this.http
+      .get<Board[]>(`${this.url}/boards`)
+      .pipe(tap((arrBoards) => (this.boardService._setBoards = arrBoards)));
   }
 
   getBoardId(id: number): Observable<Board> {
@@ -23,15 +33,21 @@ export class ApiService {
   }
 
   getColumns(id: number): Observable<Column[]> {
-    return this.http.get<Column[]>(`${this.url}/columns/byboard/${id}`);
+    return this.http
+      .get<Column[]>(`${this.url}/columns/byboard/${id}`)
+      .pipe(tap((arrColumns) => (this.columnService._setColumns = arrColumns)));
   }
 
   getTasks(id: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.url}/tasks/byboard/${id}`);
+    return this.http
+      .get<Task[]>(`${this.url}/tasks/byboard/${id}`)
+      .pipe(tap((arrTasks) => (this.taskService._setTasks = arrTasks)));
   }
 
   getTasksColumn(id: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.url}/tasks/bycolumn/${id}`);
+    return this.http
+      .get<Task[]>(`${this.url}/tasks/bycolumn/${id}`)
+      .pipe(tap((arrTasks) => (this.taskService._setTasks = arrTasks)));
   }
 
   getSubtasks(id: number): Observable<Subtask[]> {
@@ -39,7 +55,9 @@ export class ApiService {
   }
 
   deleteTask(id: number): Observable<number> {
-    return this.http.delete<number>(`${this.url}/tasks/${id}`);
+    return this.http
+      .delete<number>(`${this.url}/tasks/${id}`)
+      .pipe(tap(({}) => this.taskService.deleteTask(id)));
   }
 
   selectBoard(board: Board) {

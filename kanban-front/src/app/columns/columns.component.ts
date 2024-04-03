@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { EmptyBoardComponent } from './empty-board/empty-board.component';
 import { Board, Column, Subtask, Task } from '../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
 import { ColumnComponent } from './column/column.component';
+import { BoardService } from '../core/services/board.service';
+import { Subscription } from 'rxjs';
+import { ColumnService } from '../core/services/column.service';
+import { TaskService } from '../core/services/task.service';
 
 @Component({
   selector: 'app-columns',
@@ -13,13 +17,18 @@ import { ColumnComponent } from './column/column.component';
   imports: [EmptyBoardComponent, CommonModule, ColumnComponent],
 })
 export class ColumnsComponent implements OnInit {
-  boards!: Board[];
+  boards: Board[] = this.boardService._setBoards;
   boardColumns: Column[] | undefined;
   active!: number;
 
-  columnTasks!: Task[];
+  subBoard!: Subscription;
+  subColumn!: Subscription;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private boardService: BoardService,
+    private columnService: ColumnService
+  ) {}
 
   ngOnInit(): void {
     this.getBoards();
@@ -34,16 +43,28 @@ export class ColumnsComponent implements OnInit {
   }
 
   getBoards() {
-    this.apiService.getBoards().subscribe((result: Board[]) => {
-      this.boards = result;
+    this.boardService.boardsChange.subscribe({
+      next: (arrBoards) => (this.boards = arrBoards),
+    });
+
+    this.apiService.getBoards().subscribe({
+      error: (err) => console.log('Error on data BOARDS ' + err.message),
     });
   }
 
   getColumns(id: number) {
-    this.apiService.getColumns(id).subscribe((columns: Column[]) => {
-      this.boardColumns = columns.filter(
-        (column) => column.boardId === this.active
-      );
+    this.columnService.columnChange.subscribe({
+      next: (arrColumns) => {
+        this.boardColumns = arrColumns;
+      },
     });
+
+    this.apiService.getColumns(id).subscribe({
+      error: (err) => console.log('Error on data COLUMNS ' + err.message),
+    });
+  }
+
+  ngOnDestroy(): void {
+    //this.subColumn.unsubscribe();
   }
 }
