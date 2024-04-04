@@ -3,8 +3,9 @@
   <div class="columns-wrapper">
     <app-column
       *ngFor="let column of boardColumns"
+      [tasks]="tasks"
+      [subtasks]="subtasks"
       [column]="column"
-      [active]="active"
     ></app-column>
   </div>
 </div>

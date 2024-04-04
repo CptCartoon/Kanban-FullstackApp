@@ -33,13 +33,14 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.boardService.boardsChange.subscribe({
-      next: (arrBoards) => (this.boards = arrBoards),
+      next: (arrBoards) => {
+        this.boards = arrBoards;
+        this.active = this.boards[0]?.boardId;
+      },
     });
-
     this.apiService.getBoards().subscribe({
       error: (err) => console.log('Error on data BOARDS ' + err.message),
     });
-    this.active = this.boards[0]?.boardId;
   }
 
   selectBoard(board: Board) {

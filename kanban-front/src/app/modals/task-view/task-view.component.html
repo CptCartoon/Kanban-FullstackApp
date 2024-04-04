@@ -1,49 +1,74 @@
+<!-- edit task modal -->
+<app-edit-task *ngIf="edit" [task]="task" [subtasks]="subtasks"></app-edit-task>
+
 <app-modal (close)="closeModal()">
-  <div class="task-view-wrapper">
-    <div class="header-wrapper">
-      <h2 class="heading">{{ task.taskTitle }}</h2>
-      <div class="manage-task-dropdown">
-        <button class="manage-task-btn" (click)="showManageTask()"></button>
-        <div class="manage-task-dropdown-content display-none" #optionsbar>
-          <button class="manage-task-dropdown-btn medium-grey">
-            Edit Task
-          </button>
-          <button
-            class="manage-task-dropdown-btn red"
-            (click)="deleteTask(task.taskId)"
-          >
-            Delete Task
-          </button>
-        </div>
+  <!-- confirm modal -->
+  <div class="confirm modal" *ngIf="confirm">
+    <div class="modal-wrapper">
+      <h2 class="delete-heading">Delete this task?</h2>
+      <p class="delete-info">
+        Are you sure you want to delete the ‘{{ task.taskTitle }}’ task and its
+        subtasks? This action cannot be reversed.
+      </p>
+      <div class="buttons">
+        <button class="btn btn-delete" (click)="deleteTaskModal(task.taskId)">
+          Delete
+        </button>
+        <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
       </div>
     </div>
-    <div class="description">
-      <p class="p-description">{{ task.taskDescription }}</p>
-    </div>
-    <div class="subtasks-container">
-      <p class="input-heading">
-        Subtasks ({{ subtasksCompletedCount }} of {{ subtasksCount }})
-      </p>
-      <label
-        class="subtask"
-        *ngFor="let subtask of subtasks"
-        [ngClass]="subtask.subtaskIscomplete ? 'checked' : ''"
-      >
-        <input
-          [checked]="subtask.subtaskIscomplete"
-          type="checkbox"
-          name="business"
-        />
-        {{ subtask.subtaskTitle }}
-      </label>
-    </div>
-    <div class="status-container">
-      <div class="input-info"><p class="input-heading">Current Status</p></div>
-      <div class="status-input" (click)="showDropdownStatus()">Todo</div>
-      <div class="status-dropdown" #dropdown>
-        <div class="dropdown-option">Todo</div>
-        <div class="dropdown-option">Doing</div>
-        <div class="dropdown-option">Done</div>
+  </div>
+
+  <!-- taskview modal -->
+  <div *ngIf="!confirm && !edit">
+    <div class="task-view-wrapper">
+      <div class="header-wrapper">
+        <h2 class="heading">{{ task.taskTitle }}</h2>
+        <div class="manage-task-dropdown">
+          <button class="manage-task-btn" (click)="showManageTask()"></button>
+          <div class="manage-task-dropdown-content display-none" #optionsbar>
+            <button
+              class="manage-task-dropdown-btn medium-grey"
+              (click)="editTask()"
+            >
+              Edit Task
+            </button>
+            <button class="manage-task-dropdown-btn red" (click)="deleteTask()">
+              Delete Task
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="description">
+        <p class="p-description">{{ task.taskDescription }}</p>
+      </div>
+      <div class="subtasks-container">
+        <p class="input-heading">
+          Subtasks ({{ subtasksCompletedCount }} of {{ subtasksCount }})
+        </p>
+        <label
+          class="subtask"
+          *ngFor="let subtask of subtasks"
+          [ngClass]="subtask.subtaskIscomplete ? 'checked' : ''"
+        >
+          <input
+            [checked]="subtask.subtaskIscomplete"
+            type="checkbox"
+            name="business"
+          />
+          {{ subtask.subtaskTitle }}
+        </label>
+      </div>
+      <div class="status-container">
+        <div class="input-info">
+          <p class="input-heading">Current Status</p>
+        </div>
+        <div class="status-input" (click)="showDropdownStatus()">Todo</div>
+        <div class="status-dropdown" #dropdown>
+          <div class="dropdown-option">Todo</div>
+          <div class="dropdown-option">Doing</div>
+          <div class="dropdown-option">Done</div>
+        </div>
       </div>
     </div>
   </div>

@@ -18,4 +18,9 @@ export class BoardService {
     this.boards = [...arr];
     this.boardsChange.next(this._getBoards);
   }
+
+  deleteBoard(id: number): void {
+    this.boards = this.boards.filter((board) => board.boardId !== id);
+    this.boardsChange.next(this._getBoards);
+  }
 }

@@ -1,3 +1,9 @@
+<app-delete-board
+  *ngIf="confirm"
+  [boards]="boards"
+  [board]="board"
+  (confrim)="deleteBoard()"
+></app-delete-board>
 <header>
   <div class="header-wrapper">
     <div class="header-logo">
@@ -20,7 +26,10 @@
               <button class="manage-board-dropdown-btn medium-grey">
                 Edit Board
               </button>
-              <button class="manage-board-dropdown-btn red">
+              <button
+                class="manage-board-dropdown-btn red"
+                (click)="deleteBoard()"
+              >
                 Delete Board
               </button>
             </div>

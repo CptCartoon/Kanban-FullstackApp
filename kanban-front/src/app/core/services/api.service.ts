@@ -5,6 +5,7 @@ import { Board, Column, Subtask, Task } from '../models/model';
 import { BoardService } from './board.service';
 import { ColumnService } from './column.service';
 import { TaskService } from './task.service';
+import { SubtaskService } from './subtask.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class ApiService {
     private http: HttpClient,
     private boardService: BoardService,
     private columnService: ColumnService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private subtaskService: SubtaskService
   ) {}
 
   url = 'http://localhost:8080';
@@ -51,7 +53,25 @@ export class ApiService {
   }
 
   getSubtasks(id: number): Observable<Subtask[]> {
-    return this.http.get<Subtask[]>(`${this.url}/subtasks/bytask/${id}`);
+    return this.http
+      .get<Subtask[]>(`${this.url}/subtasks/byboard/${id}`)
+      .pipe(
+        tap((arrSubtasks) => (this.subtaskService._setSubtasks = arrSubtasks))
+      );
+  }
+
+  // getSubtasksByTask(id: number): Observable<Subtask[]> {
+  //   return this.http
+  //     .get<Subtask[]>(`${this.url}/subtasks/bytask/${id}`)
+  //     .pipe(
+  //       tap((arrSubtasks) => (this.subtaskService._setSubtasks = arrSubtasks))
+  //     );
+  // }
+
+  deleteBoard(id: number): Observable<number> {
+    return this.http
+      .delete<number>(`${this.url}/boards/${id}`)
+      .pipe(tap(({}) => this.boardService.deleteBoard(id)));
   }
 
   deleteTask(id: number): Observable<number> {

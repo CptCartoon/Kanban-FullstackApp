@@ -60,6 +60,11 @@ public class KanbanController {
         return subtaskRepository.getSubtasks(id);
     }
 
+    @GetMapping("/subtasks/byboard/{id}")
+    public List<Subtask> getSubtasksByBoard(@PathVariable("id") int id) {
+        return subtaskRepository.getSubtasksByBoard(id);
+    }
+
     @DeleteMapping("/subtask/{id}")
     public int deleteSubtask(@PathVariable("id") int id) {return subtaskRepository.deleteSubtask(id); }
 

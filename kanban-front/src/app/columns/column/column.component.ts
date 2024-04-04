@@ -3,32 +3,35 @@ import {
   AfterViewInit,
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
-import { Column, Task } from '../../core/models/model';
+import { Column, Subtask, Task } from '../../core/models/model';
 import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { TaskitemComponent } from '../tasks/taskitem/taskitem.component';
 import { TaskService } from '../../core/services/task.service';
 import { Subscription } from 'rxjs';
-import { TasksComponent } from '../tasks/tasks/tasks.component';
 
 @Component({
   selector: 'app-column',
   standalone: true,
   templateUrl: './column.component.html',
   styleUrl: './column.component.css',
-  imports: [CommonModule, TaskitemComponent, TasksComponent],
+  imports: [CommonModule, TaskitemComponent],
 })
-export class ColumnComponent implements OnInit {
+export class ColumnComponent implements OnInit, OnChanges {
   @Input() column!: Column;
-  @Input() active!: number;
-  tasks: Task[] = this.taskService._getTasks;
+  @Input() tasks!: Task[];
   columnTasks!: Task[];
 
+  @Input() subtasks!: Subtask[];
+  itemSubtasks!: Subtask[];
+
   taskNumber!: number;
-  sub!: Subscription;
+  subTask!: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -36,35 +39,22 @@ export class ColumnComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.tasks) {
-      if (this.active === this.column.boardId) {
-        this.getTasks(this.active);
-      }
-    }
+    //console.log(this.subtasks);
   }
 
-  getTasks(id: number) {
+  ngOnChanges(): void {
     if (this.tasks) {
-      if (this.active === this.column.boardId) {
-        this.taskService.taskChange.subscribe({
-          next: (arrTasks) => {
-            this.tasks = arrTasks;
-            this.columnTasks = this.tasks.filter(
-              (task) => task.columnId === this.column.columnId
-            );
-            console.log(this.tasks);
-            this.taskNumber = this.columnTasks.length;
-          },
-        });
-      }
+      this.columnTasks = this.tasks.filter(
+        (task) => task.columnId === this.column.columnId
+      );
+      //console.log('NGONCHANGES ' + this.columnTasks);
+      this.taskNumber = this.columnTasks.length;
     }
-
-    this.apiService.getTasks(id).subscribe({
-      error: (err) => console.log('Error on data TASKS ' + err.message),
-    });
   }
 
   ngOnDestroy(): void {
-    //this.sub.unsubscribe();
+    // if (this.subTask) {
+    //   this.subTask.unsubscribe();
+    // }
   }
 }

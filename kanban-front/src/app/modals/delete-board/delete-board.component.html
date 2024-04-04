@@ -2,12 +2,14 @@
   <div class="modal-wrapper">
     <h2 class="delete-heading">Delete this board?</h2>
     <p class="delete-info">
-      Are you sure you want to delete the ‘Platform Launch’ board? This action
-      will remove all columns and tasks and cannot be reversed.
+      Are you sure you want to delete the ‘{{ board?.boardName }}’ board? This
+      action will remove all columns and tasks and cannot be reversed.
     </p>
     <div class="buttons">
-      <button class="btn btn-delete">Delete</button>
-      <button class="btn btn-cancel">Cancel</button>
+      <button class="btn btn-delete" (click)="deleteBoard(board!.boardId)">
+        Delete
+      </button>
+      <button class="btn btn-cancel" (click)="cancelDelete()">Cancel</button>
     </div>
   </div>
 </app-modal>
