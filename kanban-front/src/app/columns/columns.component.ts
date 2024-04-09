@@ -16,13 +16,19 @@ import { Subscription } from 'rxjs';
 import { ColumnService } from '../core/services/column.service';
 import { TaskService } from '../core/services/task.service';
 import { SubtaskService } from '../core/services/subtask.service';
+import { AddColumnComponent } from '../modals/add-column/add-column.component';
 
 @Component({
   selector: 'app-columns',
   standalone: true,
   templateUrl: './columns.component.html',
   styleUrl: './columns.component.css',
-  imports: [EmptyBoardComponent, CommonModule, ColumnComponent],
+  imports: [
+    EmptyBoardComponent,
+    CommonModule,
+    ColumnComponent,
+    AddColumnComponent,
+  ],
 })
 export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
   boards: Board[] = this.boardService._setBoards;
@@ -38,6 +44,8 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
   subColumn!: Subscription;
   subTask!: Subscription;
   subSubtask!: Subscription;
+
+  show = false;
 
   constructor(
     private apiService: ApiService,
@@ -57,6 +65,10 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
         this.getSubtasks(this.active);
       });
     }
+  }
+
+  toggleModal(): void {
+    this.show = !this.show;
   }
 
   ngOnChanges(changes: SimpleChanges): void {}

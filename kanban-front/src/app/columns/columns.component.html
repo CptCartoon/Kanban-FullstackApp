@@ -1,3 +1,8 @@
+<app-add-column
+  *ngIf="show"
+  (close)="toggleModal()"
+  [active]="active"
+></app-add-column>
 <div class="columns">
   <app-empty-board *ngIf="boardColumns?.length === 0"></app-empty-board>
   <div class="columns-wrapper">
@@ -7,5 +12,6 @@
       [subtasks]="subtasks"
       [column]="column"
     ></app-column>
+    <button class="add-column" (click)="toggleModal()">+ New Column</button>
   </div>
 </div>

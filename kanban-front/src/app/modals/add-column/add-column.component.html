@@ -1,0 +1,35 @@
+<app-modal (close)="closeModal()">
+  <div class="add-column-wrapper">
+    <h2 class="heading">Add New Column</h2>
+    <form [formGroup]="postColumns">
+      <div class="board-columns-container" formArrayName="columns">
+        <div class="input-info"><p class="input-heading">New Columns</p></div>
+        <div
+          *ngFor="let column of columns.controls; index as i"
+          class="new-column"
+        >
+          <div class="column-input" [formGroupName]="i">
+            <input
+              id="boardColumns"
+              class="input column"
+              type="text"
+              placeholder="e.g. Todo"
+              formControlName="columnName"
+              required
+            /><button
+              type="button"
+              class="remove-btn"
+              (click)="removeColumn(i)"
+            ></button>
+          </div>
+        </div>
+        <button type="button" class="btn add-column-btn" (click)="addColumn()">
+          +Add New Column
+        </button>
+      </div>
+    </form>
+    <button type="submit" class="btn confirm-btn" (click)="submitForm()">
+      Confirm New Columns
+    </button>
+  </div>
+</app-modal>

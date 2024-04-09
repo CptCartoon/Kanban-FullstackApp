@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: row;
   padding: 1.5rem;
+  height: 100%;
 }
 
 .task {
@@ -16,4 +17,28 @@
   height: 200px;
   background-color: var(--DarkGrey);
   margin-top: 1.25rem;
+}
+
+.add-column {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--MediumGrey);
+  border: none;
+  background: rgb(43, 44, 55);
+  background: linear-gradient(
+    180deg,
+    rgba(43, 44, 55, 1) 0%,
+    rgba(43, 44, 55, 0.20211834733893552) 100%
+  );
+  border-radius: 6px;
+  max-height: 82vh;
+  margin-top: 35px;
+  padding: 0 3.45rem;
+  min-width: 280px;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-column:hover {
+  cursor: pointer;
+  background-color: rgba(43, 44, 55, 1);
 }

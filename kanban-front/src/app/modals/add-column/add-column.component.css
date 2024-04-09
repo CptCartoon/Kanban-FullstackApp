@@ -1,8 +1,9 @@
-.add-board-wrapper {
+.add-column-wrapper {
   padding: 2rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  min-width: 30rem;
   transition: all 0.2s ease-in-out;
 }
 
@@ -10,10 +11,6 @@
   font-size: 1.125rem;
   color: var(--White);
   font-weight: bold;
-}
-
-.board-name-container {
-  margin-top: 1.5rem;
 }
 
 .input-heading {
@@ -48,18 +45,18 @@
   outline: none;
 }
 
-.input-name {
-  width: 26rem;
-  transition: all 0.2s ease-in-out;
-}
-
 .new-column:not(:first-child) {
   margin-top: 0.5rem;
 }
 
+.column {
+  width: 24.063rem;
+  margin-right: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
 .column-input {
   width: 100%;
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -104,7 +101,7 @@
   cursor: pointer;
 }
 
-.create-board-btn {
+.create-column-btn {
   margin-top: 1.5rem;
 }
 
@@ -114,17 +111,22 @@
   background-color: white;
 }
 
-.create-board-btn {
+.confirm-btn {
   background-color: var(--MainPurple);
   color: white;
+  margin-top: 1.5rem;
 }
 
-.create-board-btn:hover {
+.confirm-btn:hover {
   background-color: var(--MainPurpleHover);
 }
 
 @media screen and (max-width: 765px) {
-  .input-name {
-    width: 18.438rem;
+  .column {
+    width: 16.5rem;
+  }
+
+  .add-column-wrapper {
+    min-width: 22.5rem;
   }
 }

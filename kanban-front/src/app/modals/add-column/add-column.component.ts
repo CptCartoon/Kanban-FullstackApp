@@ -1,34 +1,28 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ModalComponent } from '../../shared/modal/modal.component';
-import { BoardService } from '../../core/services/board.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
 import { ApiService } from '../../core/services/api.service';
+import { BoardService } from '../../core/services/board.service';
+import { ModalComponent } from '../../shared/modal/modal.component';
 import { CommonModule } from '@angular/common';
-import { Board, Column } from '../../core/models/model';
 
 @Component({
-  selector: 'app-add-board',
+  selector: 'app-add-column',
   standalone: true,
-  templateUrl: './add-board.component.html',
-  styleUrl: './add-board.component.css',
-  imports: [CommonModule, ReactiveFormsModule, ModalComponent],
+  templateUrl: './add-column.component.html',
+  styleUrl: './add-column.component.css',
+  imports: [CommonModule, ModalComponent, ReactiveFormsModule],
 })
-export class AddBoardComponent implements OnInit {
+export class AddColumnComponent {
   @Output() close = new EventEmitter<void>();
+  @Input() active!: number;
 
-  postBoard!: FormGroup;
   postColumns!: FormGroup;
-  boardId: number =
-    this.boardService._getBoards[this.boardService._getBoards.length - 1]
-      .boardId + 1;
 
   constructor(
     private apiService: ApiService,
@@ -37,11 +31,6 @@ export class AddBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postBoard = this.form.group({
-      boardId: [this.boardId, [Validators.required]],
-      boardName: [null, [Validators.required]],
-    });
-
     this.postColumns = this.form.group({
       columns: this.form.array([]),
     });
@@ -49,8 +38,6 @@ export class AddBoardComponent implements OnInit {
   }
 
   submitForm() {
-    this.boardId++;
-    this.apiService.addBoard(this.postBoard.value).subscribe();
     for (let column of this.columns.value) {
       this.apiService.addColumn(column).subscribe();
     }
@@ -67,7 +54,7 @@ export class AddBoardComponent implements OnInit {
 
   addColumn() {
     const columnForm = this.form.group({
-      boardId: [this.boardId, Validators.required],
+      boardId: [this.active, Validators.required],
       columnName: [null, Validators.required],
     });
     this.columns.push(columnForm);
