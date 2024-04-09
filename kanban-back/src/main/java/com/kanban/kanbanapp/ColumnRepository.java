@@ -26,4 +26,9 @@ public class ColumnRepository {
     public int deleteColumn(int id) {
         return jdbcTemplate.update("DELETE FROM boardColumn where column_id = ?", id);
     }
+
+    public Column addColumn(Column column) {
+        jdbcTemplate.update("INSERT INTO boardColumn(column_id, board_id, column_name) VALUES(?, ?, ?)", column.getColumnId(), column.getBoardId(), column.getColumnName());
+        return column;
+    }
 }

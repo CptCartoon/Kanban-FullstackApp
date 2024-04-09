@@ -20,6 +20,9 @@ public class KanbanController {
     @GetMapping("/boards/{id}")
     public Board getBoardId(@PathVariable("id") int id) { return boardRepository.getBoardId(id); }
 
+    @PostMapping("/board")
+    public Board addBoard(@RequestBody Board board) {return boardRepository.addBoard(board); }
+
     @DeleteMapping("/boards/{id}")
     public int deleteBoard(@PathVariable("id") int id) {return boardRepository.deleteBoard(id); }
 
@@ -32,6 +35,9 @@ public class KanbanController {
 
     @GetMapping("/columns/byboard/{id}")
     public List<Column> getColumnsByBoardId(@PathVariable("id") int id) { return columnRepository.getColumnsByBoardId(id); }
+
+    @PostMapping("/column")
+    public Column addColumn(@RequestBody Column column) {return columnRepository.addColumn(column); }
 
     @DeleteMapping("/columns/{id}")
     public int deleteColumn(@PathVariable("id") int id) {return columnRepository.deleteColumn(id); }

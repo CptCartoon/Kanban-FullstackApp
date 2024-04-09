@@ -19,4 +19,9 @@ export class ColumnService {
     this.columns = [...arr];
     this.columnChange.next(this._getColumns);
   }
+
+  addColumn(column: Column) {
+    this.columns.push(column);
+    this.columnChange.next(this._getColumns);
+  }
 }

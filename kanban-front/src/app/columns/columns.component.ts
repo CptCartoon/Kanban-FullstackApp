@@ -69,7 +69,6 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
         this.getColumns(this.active);
         this.getTasks(this.active);
         this.getSubtasks(this.active);
-        console.log(this.active);
       },
     });
 

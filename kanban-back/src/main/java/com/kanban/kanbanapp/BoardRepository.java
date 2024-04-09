@@ -24,5 +24,8 @@ public class BoardRepository {
     public int deleteBoard(int id) {
         return jdbcTemplate.update("DELETE FROM board where board_id = ?", id);
     }
-
+    public Board addBoard(Board board) {
+            jdbcTemplate.update("INSERT INTO board(board_id, board_name) VALUES (?, ?)", board.getBoardId(),board.getBoardName());
+            return board;
+    }
 }

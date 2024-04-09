@@ -34,10 +34,22 @@ export class ApiService {
     return this.http.get<Board>(`${this.url}/boards/${id}`);
   }
 
+  addBoard(board: Board): Observable<Board> {
+    return this.http
+      .post<Board>(`${this.url}/board`, board)
+      .pipe(tap((board) => this.boardService.addBoard(board)));
+  }
+
   getColumns(id: number): Observable<Column[]> {
     return this.http
       .get<Column[]>(`${this.url}/columns/byboard/${id}`)
       .pipe(tap((arrColumns) => (this.columnService._setColumns = arrColumns)));
+  }
+
+  addColumn(column: Column): Observable<Column> {
+    return this.http
+      .post<Column>(`${this.url}/column`, column)
+      .pipe(tap((column) => this.columnService.addColumn(column)));
   }
 
   getTasks(id: number): Observable<Task[]> {

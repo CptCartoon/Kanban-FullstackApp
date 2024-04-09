@@ -19,6 +19,11 @@ export class BoardService {
     this.boardsChange.next(this._getBoards);
   }
 
+  addBoard(board: Board): void {
+    this.boards.push(board);
+    this.boardsChange.next(this._getBoards);
+  }
+
   deleteBoard(id: number): void {
     this.boards = this.boards.filter((board) => board.boardId !== id);
     this.boardsChange.next(this._getBoards);

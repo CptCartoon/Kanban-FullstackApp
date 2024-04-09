@@ -13,4 +13,14 @@ public class Column {
     private int boardId;
     private String columnName;
 
+    public int getColumnId() {
+        return columnId;
+    }
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
 }
