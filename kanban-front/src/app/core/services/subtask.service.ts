@@ -37,6 +37,20 @@ export class SubtaskService {
     this.subtaskChange.next(this._getSubtasks);
   }
 
+  updateSubtask(id: number, title?: string) {
+    const searchSubtask = this.subtasks.find(
+      (subtask) => subtask.subtaskId === id
+    );
+    if (searchSubtask) {
+      searchSubtask.subtaskIscomplete = !searchSubtask.subtaskIscomplete;
+
+      if (title) {
+        searchSubtask.subtaskTitle = title;
+      }
+    }
+    this.subtaskChange.next(this._getSubtasks);
+  }
+
   deleteSubtask(id: number): void {
     this.subtasks = this.subtasks.filter((subtask) => subtask.subtaskId !== id);
     this.subtaskChange.next(this._getSubtasks);

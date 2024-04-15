@@ -81,6 +81,11 @@ public class KanbanController {
         return subtaskRepository.getSubtasks(id);
     }
 
+    @GetMapping("/subtask/{id}")
+    public Subtask getSubtaskById(@PathVariable("id") int id) {
+        return subtaskRepository.getSubtasksById(id);
+    }
+
     @GetMapping("/subtasks/byboard/{id}")
     public List<Subtask> getSubtasksByBoard(@PathVariable("id") int id) {
         return subtaskRepository.getSubtasksByBoard(id);
@@ -88,6 +93,18 @@ public class KanbanController {
 
     @PostMapping("/subtask")
     public Subtask addSubtask(@RequestBody Subtask subtask) {return subtaskRepository.addSubtask(subtask); }
+
+    @PatchMapping("/subtask/{id}")
+    public int updateSubtask(@PathVariable("id") int id, @RequestBody Subtask updateSubtask) {
+
+        Subtask subtask = subtaskRepository.getSubtasksById(id);
+
+            subtask.setSubtaskTitle(updateSubtask.getSubtaskTitle());
+            subtask.setSubtaskIscomplete(updateSubtask.getSubtaskIscomplete());
+            subtaskRepository.updateSubtask(subtask);
+
+        return 1;
+    }
 
     @DeleteMapping("/subtask/{id}")
     public int deleteSubtask(@PathVariable("id") int id) {return subtaskRepository.deleteSubtask(id); }

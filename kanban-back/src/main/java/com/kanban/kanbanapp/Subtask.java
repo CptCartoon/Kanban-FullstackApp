@@ -33,4 +33,12 @@ public class Subtask {
     public boolean getSubtaskIscomplete() {
         return subtaskIscomplete;
     }
+
+    public void setSubtaskTitle(String subtaskTitle) {
+        this.subtaskTitle = subtaskTitle;
+    }
+
+    public void setSubtaskIscomplete(boolean subtaskIscomplete) {
+        this.subtaskIscomplete = subtaskIscomplete;
+    }
 }

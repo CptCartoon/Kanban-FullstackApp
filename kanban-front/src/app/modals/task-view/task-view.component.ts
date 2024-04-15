@@ -75,7 +75,12 @@ export class TaskViewComponent implements OnInit {
   }
 
   changeComplete(subtask: Subtask) {
-    subtask.subtaskIscomplete = !subtask.subtaskIscomplete;
+    this.apiService
+      .updateSubtask(subtask.subtaskId, {
+        subtaskIscomplete: !subtask.subtaskIscomplete,
+        subtaskTitle: subtask.subtaskTitle,
+      })
+      .subscribe();
   }
 
   cancel() {

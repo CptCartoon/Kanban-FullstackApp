@@ -130,6 +130,17 @@ export class ApiService {
       .pipe(tap((subtask) => this.subtaskService.addSubtask(subtask)));
   }
 
+  updateSubtask(
+    id: number,
+    subtask: Omit<Subtask, 'subtaskId' | 'taskId' | 'boardId'>
+  ): Observable<Subtask> {
+    return this.http.patch<Subtask>(`${this.url}/subtask/${id}`, subtask).pipe(
+      tap((subtask) => {
+        this.subtaskService.updateSubtask(id, subtask.subtaskTitle);
+      })
+    );
+  }
+
   deleteSubtask(id: number): Observable<number> {
     return this.http
       .delete<number>(`${this.url}/subtask/${id}`)

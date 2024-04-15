@@ -12,6 +12,7 @@ export interface Column {
 export interface Task {
   taskId: number;
   columnId: number;
+  boardId: number;
   taskTitle: string;
   taskDescription: string;
 }
