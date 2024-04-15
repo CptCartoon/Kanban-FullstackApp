@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { BoardService } from '../../core/services/board.service';
 import {
@@ -13,6 +20,9 @@ import {
 import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { Board, Column } from '../../core/models/model';
+import { TaskService } from '../../core/services/task.service';
+import { ColumnService } from '../../core/services/column.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-add-board',
@@ -29,6 +39,7 @@ export class AddBoardComponent implements OnInit {
   boardId: number =
     this.boardService._getBoards[this.boardService._getBoards.length - 1]
       .boardId + 1;
+  columnId!: number;
 
   constructor(
     private apiService: ApiService,
@@ -45,15 +56,23 @@ export class AddBoardComponent implements OnInit {
     this.postColumns = this.form.group({
       columns: this.form.array([]),
     });
-    this.addColumn();
+    this.getColumnId();
+  }
+
+  getColumnId() {
+    this.apiService.getAllColumns().subscribe((columns) => {
+      this.columnId = columns[columns.length - 1].columnId + 1;
+      this.addColumn();
+    });
   }
 
   submitForm() {
-    this.boardId++;
     this.apiService.addBoard(this.postBoard.value).subscribe();
     for (let column of this.columns.value) {
       this.apiService.addColumn(column).subscribe();
     }
+    console.log(this.postColumns.value);
+    this.boardId++;
     this.close.emit();
   }
 
@@ -67,10 +86,12 @@ export class AddBoardComponent implements OnInit {
 
   addColumn() {
     const columnForm = this.form.group({
+      columnId: [this.columnId, Validators.required],
       boardId: [this.boardId, Validators.required],
       columnName: [null, Validators.required],
     });
     this.columns.push(columnForm);
+    this.columnId++;
   }
 
   removeColumn(index: number) {

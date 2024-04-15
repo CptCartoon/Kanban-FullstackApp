@@ -27,6 +27,11 @@ public class TaskRepository {
         return jdbcTemplate.query(" select * from task where column_id = ?", BeanPropertyRowMapper.newInstance(Task.class), id);
     }
 
+    public Task addTask(Task task) {
+        jdbcTemplate.update("INSERT INTO task(task_id, column_id, board_id, task_title, task_description) VALUES(?, ?, ?, ?, ?)", task.getTaskId(), task.getColumnId(), task.getBoardId(), task.getTaskTitle(), task.getTaskDescription());
+        return task;
+    }
+
     public int deleteTask(int id) {
         return jdbcTemplate.update("DELETE FROM task where task_id = ?", id);
     }

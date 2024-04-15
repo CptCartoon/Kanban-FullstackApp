@@ -219,6 +219,10 @@
   background-color: var(--MainPurpleHover);
 }
 
+.new-subtask:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
 @media screen and (max-width: 765px) {
   .input-name {
     width: 18.438rem;

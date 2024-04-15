@@ -15,4 +15,24 @@ public class Task {
     private int boardId;
     private String taskTitle;
     private String taskDescription;
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public int getColumnId() {
+        return columnId;
+    }
+
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public String getTaskTitle() {
+        return taskTitle;
+    }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
 }

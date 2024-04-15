@@ -55,6 +55,7 @@
             [checked]="subtask.subtaskIscomplete"
             type="checkbox"
             name="business"
+            (click)="changeComplete(subtask)"
           />
           {{ subtask.subtaskTitle }}
         </label>
@@ -63,11 +64,17 @@
         <div class="input-info">
           <p class="input-heading">Current Status</p>
         </div>
-        <div class="status-input" (click)="showDropdownStatus()">Todo</div>
+        <div class="status-input" (click)="showDropdownStatus()">
+          {{ activeColumn?.columnName }}
+        </div>
         <div class="status-dropdown" #dropdown>
-          <div class="dropdown-option">Todo</div>
-          <div class="dropdown-option">Doing</div>
-          <div class="dropdown-option">Done</div>
+          <span
+            class="dropdown-option"
+            *ngFor="let column of columns"
+            [attr.data-value]="column.columnId"
+            (click)="getDataColumn($event)"
+            >{{ column.columnName }}</span
+          >
         </div>
       </div>
     </div>

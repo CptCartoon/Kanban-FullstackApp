@@ -12,29 +12,60 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Board } from '../core/models/model';
 import { BoardService } from '../core/services/board.service';
 import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
+import { AddTaskComponent } from '../modals/add-task/add-task.component';
+import { TaskService } from '../core/services/task.service';
+import { SubtaskService } from '../core/services/subtask.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  imports: [CommonModule, DeleteBoardComponent],
+  imports: [CommonModule, DeleteBoardComponent, AddTaskComponent],
 })
 export class HeaderComponent implements OnChanges {
   @ViewChild('optionsbar') optionsbar!: ElementRef;
 
   confirm: boolean = false;
+  addtask: boolean = false;
 
   constructor(
     private apiService: ApiService,
-    private boardService: BoardService
+    private boardService: BoardService,
+    private taskService: TaskService,
+    private subtaskService: SubtaskService
   ) {}
 
   boards!: Board[];
   active!: number;
   board!: Board | undefined;
 
+  taskId!: number;
+  subtaskId!: number;
+
   ngOnInit(): void {
+    this.taskService.allTasksChange.subscribe({
+      next: (tasks) => {
+        this.taskId = tasks[tasks.length - 1].taskId + 1;
+      },
+    });
+
+    this.apiService.getAllTasks().subscribe({
+      error: (err) => console.log('Error on data ALLTASKS ' + err.message),
+    });
+
+    this.subtaskService.allSubtaskChange.subscribe({
+      next: (subtasks) => {
+        this.subtaskId = subtasks[subtasks.length - 1].subtaskId + 1;
+      },
+    });
+
+    this.apiService.getAllSubtasks().subscribe({
+      error: (err) => console.log('Error on data ALL SUBTASKS ' + err.message),
+    });
+
+    console.log(this.subtaskId);
+
     this.getBoards();
     if (this.boards) {
       this.apiService.active$.subscribe((id) => {
@@ -45,6 +76,10 @@ export class HeaderComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {}
+
+  addTaskModal() {
+    this.addtask = !this.addtask;
+  }
 
   deleteBoard() {
     this.confirm = !this.confirm;

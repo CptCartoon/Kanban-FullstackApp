@@ -1,16 +1,18 @@
-<app-modal>
+<app-modal (close)="closeModal()">
   <div class="add-task-wrapper">
     <h2 class="heading">Add New Task</h2>
-    <form>
+    <form [formGroup]="postTask">
       <div class="board-name-container">
         <div class="input-info">
           <p class="input-heading">Title</p>
         </div>
         <input
-          id="boardName"
+          id="taskTitle"
           class="input input-name"
           type="text"
           placeholder="e.g. Web Design"
+          required
+          formControlName="taskTitle"
         />
       </div>
 
@@ -19,41 +21,53 @@
           <p class="input-heading">Description</p>
         </div>
         <textarea
+          id="taskDescription"
           class="textarea"
+          formControlName="taskDescription"
           placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
         ></textarea>
       </div>
-
-      <div class="subtasks-container">
-        <div class="input-info"><p class="input-heading">Subtasks</p></div>
-        <div class="column-input">
-          <input
-            id="boardColumns"
-            class="input column-input"
-            type="text"
-            placeholder="e.g. Make Coffee"
-          /><button class="remove-btn"></button>
-        </div>
-        <div class="column-input">
-          <input
-            id="boardColumns"
-            class="input column-input"
-            type="text"
-            placeholder="e.g. Drink Coffee & Smile"
-          /><button class="remove-btn"></button>
-        </div>
-        <button class="btn add-subtask-btn">+Add New Subtask</button>
-      </div>
-      <div class="status-container">
-        <div class="input-info"><p class="input-heading">Status</p></div>
-        <div class="status-input" (click)="showDropdown()">Todo</div>
-        <div class="status-dropdown" #dropdown>
-          <div class="dropdown-option">Todo</div>
-          <div class="dropdown-option">Doing</div>
-          <div class="dropdown-option">Done</div>
-        </div>
-      </div>
-      <button class="btn create-board-btn">Create Task</button>
     </form>
+    <form [formGroup]="postSubtask">
+      <div class="subtasks-container" formArrayName="subtasks">
+        <div class="input-info"><p class="input-heading">Subtasks</p></div>
+        <div
+          class="new-subtask"
+          *ngFor="let subtask of subtasks.controls; index as i"
+        >
+          <div class="column-input" [formGroupName]="i">
+            <input
+              id="subtaskTitle"
+              class="input column-input"
+              type="text"
+              formControlName="subtaskTitle"
+              placeholder="e.g. Make Coffee"
+              required
+            /><button class="remove-btn" (click)="removeSubtask(i)"></button>
+          </div>
+        </div>
+        <button class="btn add-subtask-btn" (click)="addSubtask()">
+          +Add New Subtask
+        </button>
+      </div>
+    </form>
+    <div class="status-container">
+      <div class="input-info"><p class="input-heading">Status</p></div>
+      <div class="status-input" (click)="showDropdown()">
+        {{ selectedColumn?.columnName }}
+      </div>
+      <div class="status-dropdown" #dropdown>
+        <span
+          class="dropdown-option"
+          *ngFor="let column of columns"
+          [attr.data-value]="column.columnId"
+          (click)="getDataColumn($event)"
+          >{{ column.columnName }}</span
+        >
+      </div>
+    </div>
+    <button class="btn create-board-btn" (click)="submitForm()">
+      Create Task
+    </button>
   </div>
 </app-modal>

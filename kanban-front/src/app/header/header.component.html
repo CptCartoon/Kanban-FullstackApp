@@ -1,3 +1,10 @@
+<app-add-task
+  *ngIf="addtask"
+  [board]="board"
+  [taskId]="taskId"
+  [subtaskId]="subtaskId"
+  (close)="addTaskModal()"
+></app-add-task>
 <app-delete-board
   *ngIf="confirm"
   [boards]="boards"
@@ -19,7 +26,7 @@
       </div>
       <div class="platform-options-right">
         <div class="options">
-          <button class="add-new-task-btn"></button>
+          <button class="add-new-task-btn" (click)="addTaskModal()"></button>
           <div class="manage-board-dropdown">
             <button class="manage-board-btn" (click)="showDropDown()"></button>
             <div class="manage-board-dropdown-content display-none" #optionsbar>

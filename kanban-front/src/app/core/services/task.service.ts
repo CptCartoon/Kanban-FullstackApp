@@ -7,9 +7,20 @@ import { Subject } from 'rxjs';
 })
 export class TaskService {
   private tasks: Task[] = [];
-  taskChange = new Subject<Task[]>();
+  private allTasks: Task[] = [];
 
+  taskChange = new Subject<Task[]>();
+  allTasksChange = new Subject<Task[]>();
   constructor() {}
+
+  public get _getAllTasks() {
+    return this.allTasks.slice();
+  }
+
+  public set _setAllTasks(arr: Task[]) {
+    this.allTasks = [...arr];
+    this.allTasksChange.next(this._getAllTasks);
+  }
 
   public get _getTasks() {
     return this.tasks.slice();
@@ -20,8 +31,17 @@ export class TaskService {
     this.taskChange.next(this._getTasks);
   }
 
+  addTask(task: Task) {
+    this.tasks.push(task);
+    this.taskChange.next(this._getTasks);
+    this.allTasks.push(task);
+    this.allTasksChange.next(this._getAllTasks);
+  }
+
   deleteTask(id: number): void {
     this.tasks = this.tasks.filter((task) => task.taskId !== id);
     this.taskChange.next(this._getTasks);
+    this.allTasks = this.allTasks.filter((task) => task.taskId !== id);
+    this.allTasksChange.next(this._getAllTasks);
   }
 }

@@ -24,4 +24,9 @@ export class ColumnService {
     this.columns.push(column);
     this.columnChange.next(this._getColumns);
   }
+
+  deleteColumn(id: number) {
+    this.columns = this.columns.filter((column) => column.columnId !== id);
+    this.columnChange.next(this._getColumns);
+  }
 }

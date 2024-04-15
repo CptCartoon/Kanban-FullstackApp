@@ -9,6 +9,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class KanbanController {
 
+    // ############ BOARD
     @Autowired
     BoardRepository boardRepository;
 
@@ -26,6 +27,8 @@ public class KanbanController {
     @DeleteMapping("/boards/{id}")
     public int deleteBoard(@PathVariable("id") int id) {return boardRepository.deleteBoard(id); }
 
+
+    // ############ COLUMN
     @Autowired
     ColumnRepository columnRepository;
     @GetMapping("/columns")
@@ -42,6 +45,8 @@ public class KanbanController {
     @DeleteMapping("/columns/{id}")
     public int deleteColumn(@PathVariable("id") int id) {return columnRepository.deleteColumn(id); }
 
+
+    // ############ TASK
     @Autowired
     TaskRepository taskRepository;
 
@@ -56,11 +61,21 @@ public class KanbanController {
     @GetMapping("/tasks/bycolumn/{id}")
     public List<Task> getTasksByColumnId(@PathVariable("id") int id) { return taskRepository.getTasksByColumnId(id); }
 
+    @PostMapping("/task")
+    public Task addTask(@RequestBody Task task) {return taskRepository.addTask(task); }
+
     @DeleteMapping("/tasks/{id}")
     public int deleteTask(@PathVariable("id") int id) {return taskRepository.deleteTask(id); }
 
+
+    // ############ SUBTASK
     @Autowired
     SubtaskRepository subtaskRepository;
+
+    @GetMapping("/subtasks")
+    public List<Subtask> getAllSubtasks() {
+        return subtaskRepository.getAllSubtasks();
+    }
     @GetMapping("/subtasks/bytask/{id}")
     public List<Subtask> getSubtasks(@PathVariable("id") int id) {
         return subtaskRepository.getSubtasks(id);
@@ -70,6 +85,9 @@ public class KanbanController {
     public List<Subtask> getSubtasksByBoard(@PathVariable("id") int id) {
         return subtaskRepository.getSubtasksByBoard(id);
     }
+
+    @PostMapping("/subtask")
+    public Subtask addSubtask(@RequestBody Subtask subtask) {return subtaskRepository.addSubtask(subtask); }
 
     @DeleteMapping("/subtask/{id}")
     public int deleteSubtask(@PathVariable("id") int id) {return subtaskRepository.deleteSubtask(id); }

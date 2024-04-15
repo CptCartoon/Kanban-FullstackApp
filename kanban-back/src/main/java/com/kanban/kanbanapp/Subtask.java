@@ -13,4 +13,24 @@ public class Subtask {
     private int boardId;
     private String subtaskTitle;
     private boolean subtaskIscomplete;
+
+    public int getSubtaskId() {
+        return subtaskId;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public String getSubtaskTitle() {
+        return subtaskTitle;
+    }
+
+    public boolean getSubtaskIscomplete() {
+        return subtaskIscomplete;
+    }
 }
