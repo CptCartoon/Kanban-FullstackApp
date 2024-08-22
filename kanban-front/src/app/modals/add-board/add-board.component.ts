@@ -7,7 +7,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { BoardService } from '../../core/services/board.service';
 import {
   FormArray,
   FormBuilder,
@@ -19,10 +18,7 @@ import {
 
 import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
-import { Board, Column } from '../../core/models/model';
-import { TaskService } from '../../core/services/task.service';
-import { ColumnService } from '../../core/services/column.service';
-import { tap } from 'rxjs';
+import { BoardService } from '../../core/services/board.service';
 
 @Component({
   selector: 'app-add-board',
@@ -36,9 +32,9 @@ export class AddBoardComponent implements OnInit {
 
   postBoard!: FormGroup;
   postColumns!: FormGroup;
-  boardId: number =
-    this.boardService._getBoards[this.boardService._getBoards.length - 1]
-      .boardId + 1;
+  // boardId: number =
+  //   this.boardService._getBoard[this.boardService._getBoard.length - 1]
+  //     .boardId + 1;
   columnId!: number;
 
   constructor(
@@ -48,32 +44,32 @@ export class AddBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.postBoard = this.form.group({
-      boardId: [this.boardId, [Validators.required]],
-      boardName: [null, [Validators.required]],
-    });
+    // this.postBoard = this.form.group({
+    //   boardId: [this.boardId, [Validators.required]],
+    //   boardName: [null, [Validators.required]],
+    // });
 
     this.postColumns = this.form.group({
       columns: this.form.array([]),
     });
-    this.getColumnId();
+    //this.getColumnId();
   }
 
   getColumnId() {
-    this.apiService.getAllColumns().subscribe((columns) => {
-      this.columnId = columns[columns.length - 1].columnId + 1;
-      this.addColumn();
-    });
+    // this.apiService.getAllColumns().subscribe((columns) => {
+    //   this.columnId = columns[columns.length - 1].columnId + 1;
+    //   this.addColumn();
+    // });
   }
 
   submitForm() {
-    this.apiService.addBoard(this.postBoard.value).subscribe();
-    for (let column of this.columns.value) {
-      this.apiService.addColumn(column).subscribe();
-    }
-    console.log(this.postColumns.value);
-    this.boardId++;
-    this.close.emit();
+    // this.apiService.addBoard(this.postBoard.value).subscribe();
+    // for (let column of this.columns.value) {
+    //   this.apiService.addColumn(column).subscribe();
+    // }
+    // console.log(this.postColumns.value);
+    // this.boardId++;
+    // this.close.emit();
   }
 
   get controls() {
@@ -85,13 +81,13 @@ export class AddBoardComponent implements OnInit {
   }
 
   addColumn() {
-    const columnForm = this.form.group({
-      columnId: [this.columnId, Validators.required],
-      boardId: [this.boardId, Validators.required],
-      columnName: [null, Validators.required],
-    });
-    this.columns.push(columnForm);
-    this.columnId++;
+    // const columnForm = this.form.group({
+    //   columnId: [this.columnId, Validators.required],
+    //   boardId: [this.boardId, Validators.required],
+    //   columnName: [null, Validators.required],
+    // });
+    // this.columns.push(columnForm);
+    // this.columnId++;
   }
 
   removeColumn(index: number) {

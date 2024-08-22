@@ -12,7 +12,6 @@ import { Column, Subtask, Task } from '../../core/models/model';
 import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { TaskitemComponent } from '../tasks/taskitem/taskitem.component';
-import { TaskService } from '../../core/services/task.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,30 +23,21 @@ import { Subscription } from 'rxjs';
 })
 export class ColumnComponent implements OnInit, OnChanges {
   @Input() column!: Column;
-  @Input() tasks!: Task[];
   columnTasks!: Task[];
 
-  @Input() subtasks!: Subtask[];
-  itemSubtasks!: Subtask[];
-
   taskNumber!: number;
-  subTask!: Subscription;
 
-  constructor(
-    private apiService: ApiService,
-    private taskService: TaskService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     //console.log(this.subtasks);
   }
 
   ngOnChanges(): void {
-    if (this.tasks) {
-      this.columnTasks = this.tasks.filter(
-        (task) => task.columnId === this.column.columnId
+    if (this.column.tasks) {
+      this.columnTasks = this.column.tasks.filter(
+        (task) => task.columnId === this.column.id
       );
-      //console.log('NGONCHANGES ' + this.columnTasks);
       this.taskNumber = this.columnTasks.length;
     }
   }

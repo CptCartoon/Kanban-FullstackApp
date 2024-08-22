@@ -7,14 +7,12 @@
     <div class="modal-wrapper">
       <h2 class="delete-heading">Delete this task?</h2>
       <p class="delete-info">
-        Are you sure you want to delete the ‘{{ task.taskTitle }}’ task and its
+        Are you sure you want to delete the ‘{{ task.title }}’ task and its
         subtasks? This action cannot be reversed.
       </p>
       <div class="buttons">
-        <button class="btn btn-delete" (click)="deleteTaskModal(task.taskId)">
-          Delete
-        </button>
-        <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+        <button class="btn btn-delete" (click)="(task.id)">Delete</button>
+        <button class="btn btn-cancel" (click)="(task)">Cancel</button>
       </div>
     </div>
   </div>
@@ -23,9 +21,9 @@
   <div *ngIf="!confirm && !edit">
     <div class="task-view-wrapper">
       <div class="header-wrapper">
-        <h2 class="heading">{{ task.taskTitle }}</h2>
+        <h2 class="heading">{{ task.title }}</h2>
         <div class="manage-task-dropdown">
-          <button class="manage-task-btn" (click)="showManageTask()"></button>
+          <button class="manage-task-btn" (click)="(task)"></button>
           <div class="manage-task-dropdown-content display-none" #optionsbar>
             <button
               class="manage-task-dropdown-btn medium-grey"
@@ -40,7 +38,7 @@
         </div>
       </div>
       <div class="description">
-        <p class="p-description">{{ task.taskDescription }}</p>
+        <p class="p-description">{{ task.description }}</p>
       </div>
       <div class="subtasks-container">
         <p class="input-heading">
@@ -49,31 +47,29 @@
         <label
           class="subtask"
           *ngFor="let subtask of subtasks"
-          [ngClass]="subtask.subtaskIscomplete ? 'checked' : ''"
+          [ngClass]="subtask.completed ? 'checked' : ''"
         >
           <input
-            [checked]="subtask.subtaskIscomplete"
+            [checked]="subtask.completed"
             type="checkbox"
             name="business"
-            (click)="changeComplete(subtask)"
+            (click)="(subtask)"
           />
-          {{ subtask.subtaskTitle }}
+          {{ subtask.title }}
         </label>
       </div>
       <div class="status-container">
         <div class="input-info">
           <p class="input-heading">Current Status</p>
         </div>
-        <div class="status-input" (click)="showDropdownStatus()">
-          {{ activeColumn?.columnName }}
-        </div>
+        <div class="status-input" (click)="showDropdownStatus()"></div>
         <div class="status-dropdown" #dropdown>
           <span
             class="dropdown-option"
             *ngFor="let column of columns"
-            [attr.data-value]="column.columnId"
+            [attr.data-value]="column.id"
             (click)="getDataColumn($event)"
-            >{{ column.columnName }}</span
+            >{{ column.name }}</span
           >
         </div>
       </div>

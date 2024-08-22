@@ -11,12 +11,10 @@ import { Board, Column, Subtask, Task } from '../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
 import { ColumnComponent } from './column/column.component';
-import { BoardService } from '../core/services/board.service';
 import { Subscription } from 'rxjs';
-import { ColumnService } from '../core/services/column.service';
-import { TaskService } from '../core/services/task.service';
-import { SubtaskService } from '../core/services/subtask.service';
 import { AddColumnComponent } from '../modals/add-column/add-column.component';
+import { BoardService } from '../core/services/board.service';
+import { BoardsNamesService } from '../core/services/boards-names.service';
 
 @Component({
   selector: 'app-columns',
@@ -31,40 +29,20 @@ import { AddColumnComponent } from '../modals/add-column/add-column.component';
   ],
 })
 export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
-  boards: Board[] = this.boardService._setBoards;
-  boardColumns!: Column[];
-  tasks: Task[] = this.taskService._getTasks;
-  subtasks: Subtask[] = this.subtaskService._getSubtasks;
-
-  active!: number;
-  subtasksCount!: number;
-  subtasksCompletedCount!: number;
+  board: Board = this.boardService._setBoard;
 
   subBoard!: Subscription;
-  subColumn!: Subscription;
-  subTask!: Subscription;
-  subSubtask!: Subscription;
 
   show = false;
 
   constructor(
     private apiService: ApiService,
     private boardService: BoardService,
-    private columnService: ColumnService,
-    private taskService: TaskService,
-    private subtaskService: SubtaskService
+    private boardsNamesService: BoardsNamesService
   ) {}
 
   ngOnInit(): void {
-    this.getBoards();
-    if (this.boards) {
-      this.apiService.active$.subscribe((id) => {
-        this.active = id;
-        this.getColumns(this.active);
-        this.getTasks(this.active);
-        this.getSubtasks(this.active);
-      });
-    }
+    this.getActiveBoard();
   }
 
   toggleModal(): void {
@@ -73,75 +51,26 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {}
 
-  getBoards() {
-    this.subBoard = this.boardService.boardsChange.subscribe({
-      next: (arrBoards) => {
-        this.boards = arrBoards;
-        this.active = this.boards[0].boardId;
-        this.getColumns(this.active);
-        this.getTasks(this.active);
-        this.getSubtasks(this.active);
+  getActiveBoard() {
+    this.boardsNamesService.activeBoard$.subscribe((board) => {
+      this.getBoardById(board.id);
+    });
+  }
+
+  getBoardById(id: number) {
+    this.subBoard = this.boardService.boardChange.subscribe({
+      next: (board) => {
+        this.board = board;
       },
     });
-
-    this.apiService.getBoards().subscribe({
+    this.apiService.getBoardById(id).subscribe({
       error: (err) => console.log('Error on data BOARDS ' + err.message),
-    });
-  }
-
-  getColumns(id: number) {
-    this.subColumn = this.columnService.columnChange.subscribe({
-      next: (arrColumns) => {
-        this.boardColumns = arrColumns;
-      },
-    });
-
-    this.apiService.getColumns(id).subscribe({
-      error: (err) => console.log('Error on data COLUMNS ' + err.message),
-    });
-  }
-
-  getTasks(id: number) {
-    this.subTask = this.taskService.taskChange.subscribe({
-      next: (arrTasks) => {
-        this.tasks = arrTasks;
-        //console.log('GETTASKS' + this.tasks);
-      },
-    });
-
-    this.apiService.getTasks(id).subscribe({
-      error: (err) => console.log('Error on data TASKS ' + err.message),
-    });
-  }
-
-  getSubtasks(id: number) {
-    this.subSubtask = this.subtaskService.subtaskChange.subscribe({
-      next: (arrSubtasks) => {
-        this.subtasks = arrSubtasks;
-        //console.log('getSubtasks ' + this.subtasks);
-      },
-    });
-
-    this.apiService.getSubtasks(id).subscribe({
-      error: (err) => console.log('Error on data SUBTASKS ' + err.message),
     });
   }
 
   ngOnDestroy(): void {
     if (this.subBoard) {
       this.subBoard.unsubscribe();
-    }
-
-    if (this.subColumn) {
-      this.subColumn.unsubscribe();
-    }
-
-    if (this.subTask) {
-      this.subTask.unsubscribe();
-    }
-
-    if (this.subSubtask) {
-      this.subSubtask.unsubscribe();
     }
   }
 }

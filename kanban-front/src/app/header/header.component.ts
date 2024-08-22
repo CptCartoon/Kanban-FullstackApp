@@ -7,14 +7,10 @@ import {
   SimpleChanges,
   OnInit,
 } from '@angular/core';
-import { ApiService } from '../core/services/api.service';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Board } from '../core/models/model';
-import { BoardService } from '../core/services/board.service';
+import { Board, BoardName } from '../core/models/model';
 import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
 import { AddTaskComponent } from '../modals/add-task/add-task.component';
-import { TaskService } from '../core/services/task.service';
-import { SubtaskService } from '../core/services/subtask.service';
+import { BoardsNamesService } from '../core/services/boards-names.service';
 
 @Component({
   selector: 'app-header',
@@ -29,50 +25,44 @@ export class HeaderComponent implements OnChanges {
   confirm: boolean = false;
   addtask: boolean = false;
 
-  constructor(
-    private apiService: ApiService,
-    private boardService: BoardService,
-    private taskService: TaskService,
-    private subtaskService: SubtaskService
-  ) {}
+  constructor(private boardsNamesService: BoardsNamesService) {}
 
   boards!: Board[];
   active!: number;
-  board!: Board | undefined;
+  board!: BoardName;
 
   taskId!: number;
   subtaskId!: number;
 
   ngOnInit(): void {
-    this.taskService.allTasksChange.subscribe({
-      next: (tasks) => {
-        this.taskId = tasks[tasks.length - 1].taskId + 1;
-      },
+    // this.taskService.allTasksChange.subscribe({
+    //   next: (tasks) => {
+    //     this.taskId = tasks[tasks.length - 1].taskId + 1;
+    //   },
+    // });
+
+    // this.apiService.getAllTasks().subscribe({
+    //   error: (err) => console.log('Error on data ALLTASKS ' + err.message),
+    // });
+
+    // this.subtaskService.allSubtaskChange.subscribe({
+    //   next: (subtasks) => {
+    //     this.subtaskId = subtasks[subtasks.length - 1].subtaskId + 1;
+    //   },
+    // });
+
+    // this.apiService.getAllSubtasks().subscribe({
+    //   error: (err) => console.log('Error on data ALL SUBTASKS ' + err.message),
+    // });
+
+    this.getActiveBoard();
+  }
+
+  getActiveBoard() {
+    this.boardsNamesService.activeBoard$.subscribe((board) => {
+      this.active = board.id;
+      this.board = board;
     });
-
-    this.apiService.getAllTasks().subscribe({
-      error: (err) => console.log('Error on data ALLTASKS ' + err.message),
-    });
-
-    this.subtaskService.allSubtaskChange.subscribe({
-      next: (subtasks) => {
-        this.subtaskId = subtasks[subtasks.length - 1].subtaskId + 1;
-      },
-    });
-
-    this.apiService.getAllSubtasks().subscribe({
-      error: (err) => console.log('Error on data ALL SUBTASKS ' + err.message),
-    });
-
-    console.log(this.subtaskId);
-
-    this.getBoards();
-    if (this.boards) {
-      this.apiService.active$.subscribe((id) => {
-        this.active = id;
-        this.board = this.boards.find((board) => board.boardId === this.active);
-      });
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {}
@@ -90,16 +80,15 @@ export class HeaderComponent implements OnChanges {
   }
 
   getBoards() {
-    this.boardService.boardsChange.subscribe({
-      next: (arrBoards) => {
-        this.boards = arrBoards;
-        this.board = this.boards[0];
-      },
-    });
-
-    this.apiService.getBoards().subscribe({
-      error: (err) => console.log('Error on data BOARDS ' + err.message),
-    });
-    this.active = this.boards[0]?.boardId;
+    // this.boardsService.boardsChange.subscribe({
+    //   next: (arrBoards) => {
+    //     this.boards = arrBoards;
+    //     this.board = this.boards[0];
+    //   },
+    // });
+    // this.apiService.getBoards().subscribe({
+    //   error: (err) => console.log('Error on data BOARDS ' + err.message),
+    // });
+    //this.active = this.boards[0]?.boardId;
   }
 }

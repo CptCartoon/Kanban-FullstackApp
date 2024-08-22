@@ -8,8 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { Board } from '../../core/models/model';
-import { BoardService } from '../../core/services/board.service';
+import { Board, BoardName } from '../../core/models/model';
 import { ApiService } from '../../core/services/api.service';
 
 @Component({
@@ -21,7 +20,7 @@ import { ApiService } from '../../core/services/api.service';
 })
 export class DeleteBoardComponent {
   @Output() confrim = new EventEmitter<boolean>();
-  @Input() board!: Board | undefined;
+  @Input() board!: BoardName | undefined;
   @Input() boards!: Board[];
 
   constructor(private apiService: ApiService) {}
@@ -30,8 +29,8 @@ export class DeleteBoardComponent {
     this.confrim.emit();
   }
 
-  deleteBoard(boardId: number) {
-    this.apiService.deleteBoard(boardId).subscribe();
-    this.cancelDelete();
-  }
+  // deleteBoard(boardId: number) {
+  //   this.apiService.deleteBoard(boardId).subscribe();
+  //   this.cancelDelete();
+  // }
 }

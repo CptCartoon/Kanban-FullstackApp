@@ -35,4 +35,16 @@ public class Task {
     public String getTaskDescription() {
         return taskDescription;
     }
+
+    public void setColumnId(int columnId) {
+        this.columnId = columnId;
+    }
+
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
 }

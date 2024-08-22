@@ -64,6 +64,19 @@ public class KanbanController {
     @PostMapping("/task")
     public Task addTask(@RequestBody Task task) {return taskRepository.addTask(task); }
 
+    @PatchMapping("/task/{id}")
+    public int updateTask(@PathVariable("id") int id, @RequestBody Task updateTask) {
+
+        Task task = taskRepository.getTaskById(id);
+
+        task.setColumnId(updateTask.getColumnId());
+        task.setTaskTitle(updateTask.getTaskTitle());
+        task.setTaskDescription(updateTask.getTaskDescription());
+        taskRepository.updateTask(task);
+
+        return 1;
+    }
+
     @DeleteMapping("/tasks/{id}")
     public int deleteTask(@PathVariable("id") int id) {return taskRepository.deleteTask(id); }
 

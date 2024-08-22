@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
-import { BoardService } from '../../core/services/board.service';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { CommonModule } from '@angular/common';
+import { BoardService } from '../../core/services/board.service';
 
 @Component({
   selector: 'app-add-column',
@@ -38,10 +38,10 @@ export class AddColumnComponent {
   }
 
   submitForm() {
-    for (let column of this.columns.value) {
-      this.apiService.addColumn(column).subscribe();
-    }
-    this.close.emit();
+    // for (let column of this.columns.value) {
+    //   this.apiService.addColumn(column).subscribe();
+    // }
+    // this.close.emit();
   }
 
   get controls() {

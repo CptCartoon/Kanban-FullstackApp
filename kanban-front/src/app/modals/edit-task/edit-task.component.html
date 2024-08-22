@@ -11,7 +11,7 @@
           class="input input-name"
           type="text"
           placeholder="e.g. Web Design"
-          [value]="task.taskTitle"
+          [value]="task.title"
         />
       </div>
 
@@ -20,7 +20,7 @@
           <p class="input-heading">Description</p>
         </div>
         <textarea
-          [value]="task.taskDescription"
+          [value]="task.description"
           class="textarea"
           placeholder="No description"
         ></textarea>
@@ -33,7 +33,7 @@
             id="boardColumns"
             class="input column-input"
             type="text"
-            [value]="subtask.subtaskTitle"
+            [value]="subtask.title"
           /><button class="remove-btn"></button>
         </div>
         <button class="btn add-subtask-btn">+Add New Subtask</button>
@@ -45,11 +45,13 @@
         </div>
         <div class="status-dropdown" #dropdown>
           <div class="dropdown-option" *ngFor="let column of columns">
-            {{ column.columnName }}
+            {{ column.name }}
           </div>
         </div>
       </div>
-      <button class="btn create-board-btn">Save Changes</button>
+      <button class="btn create-board-btn" (click)="(task)">
+        Save Changes
+      </button>
     </form>
   </div>
 </app-modal>

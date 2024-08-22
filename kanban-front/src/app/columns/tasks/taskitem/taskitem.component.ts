@@ -6,12 +6,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Column, Subtask, Task } from '../../../core/models/model';
+import { Subtask, Task } from '../../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
 import { TaskViewComponent } from '../../../modals/task-view/task-view.component';
 import { Subscription } from 'rxjs';
-import { SubtaskService } from '../../../core/services/subtask.service';
 
 @Component({
   selector: 'app-taskitem',
@@ -31,21 +30,18 @@ export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
 
   subSubtask!: Subscription;
 
-  constructor(
-    private apiService: ApiService,
-    private subtaskService: SubtaskService
-  ) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.itemSubtasks = this.subtasks.filter(
-      (subtask) => subtask.taskId === this.task.taskId
+      (subtask) => subtask.taskId === this.task.id
     );
 
-    this.subtasksCount = this.itemSubtasks.length;
+    this.subtasksCount = this.subtasks.length;
     this.subtasksCompletedCount = this.itemSubtasks.filter(
-      (task) => task.subtaskIscomplete === true
+      (subtask) => subtask.completed === true
     ).length;
   }
 
@@ -54,8 +50,8 @@ export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    if (this.subSubtask) {
-      this.subSubtask.unsubscribe();
-    }
+    // if (this.subSubtask) {
+    //   this.subSubtask.unsubscribe();
+    // }
   }
 }

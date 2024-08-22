@@ -6,26 +6,17 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class BoardService {
-  private boards: Board[] = [];
-  boardsChange = new Subject<Board[]>();
+  private board: Board = {} as Board;
+  boardChange = new Subject<Board>();
+
   constructor() {}
 
-  public get _getBoards() {
-    return this.boards.slice();
+  public get _getBoard() {
+    return this.board;
   }
 
-  public set _setBoards(arr: Board[]) {
-    this.boards = [...arr];
-    this.boardsChange.next(this._getBoards);
-  }
-
-  addBoard(board: Board): void {
-    this.boards.push(board);
-    this.boardsChange.next(this._getBoards);
-  }
-
-  deleteBoard(id: number): void {
-    this.boards = this.boards.filter((board) => board.boardId !== id);
-    this.boardsChange.next(this._getBoards);
+  public set _setBoard(board: Board) {
+    this.board = board;
+    this.boardChange.next(this._getBoard);
   }
 }

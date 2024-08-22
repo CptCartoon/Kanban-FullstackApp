@@ -54,15 +54,15 @@
     <div class="status-container">
       <div class="input-info"><p class="input-heading">Status</p></div>
       <div class="status-input" (click)="showDropdown()">
-        {{ selectedColumn?.columnName }}
+        {{ selectedColumn?.name }}
       </div>
       <div class="status-dropdown" #dropdown>
         <span
           class="dropdown-option"
           *ngFor="let column of columns"
-          [attr.data-value]="column.columnId"
+          [attr.data-value]="column.id"
           (click)="getDataColumn($event)"
-          >{{ column.columnName }}</span
+          >{{ column.name }}</span
         >
       </div>
     </div>

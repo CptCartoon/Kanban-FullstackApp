@@ -12,7 +12,6 @@ import { Column, Subtask, Task } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { ColumnService } from '../../core/services/column.service';
 
 @Component({
   selector: 'app-task-view',
@@ -31,20 +30,17 @@ export class TaskViewComponent implements OnInit {
   @ViewChild('dropdown') dropdown!: ElementRef;
   @ViewChild('optionsbar') optionsbar!: ElementRef;
 
-  columns: Column[] = this.columnService._getColumns;
+  columns: Column[] = [];
   activeColumn!: Column | undefined;
 
   confirm: boolean = false;
   edit: boolean = false;
-  constructor(
-    private apiService: ApiService,
-    private columnService: ColumnService
-  ) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.activeColumn = this.columns.find(
-      (column) => column.columnId === this.task.columnId
-    );
+    // this.activeColumn = this.columns.find(
+    //   (column) => column.columnId === this.task.columnId
+    // );
   }
 
   showManageTask() {
@@ -56,10 +52,11 @@ export class TaskViewComponent implements OnInit {
   }
 
   getDataColumn(event: any) {
-    this.activeColumn = this.columns.find(
-      (column) => column.columnId === +event.target.dataset.value
-    );
-    this.showDropdownStatus();
+    // this.activeColumn = this.columns.find((column) => {
+    //   column.columnId === +event.target.dataset.value;
+    // });
+    // //this.changeColumn(this.task, +event.target.dataset.value);
+    // this.showDropdownStatus();
   }
 
   deleteTask() {
@@ -70,22 +67,32 @@ export class TaskViewComponent implements OnInit {
     this.edit = true;
   }
 
-  deleteTaskModal(id: number) {
-    this.apiService.deleteTask(id).subscribe();
-  }
+  // deleteTaskModal(id: number) {
+  //   this.apiService.deleteTask(id).subscribe();
+  // }
 
-  changeComplete(subtask: Subtask) {
-    this.apiService
-      .updateSubtask(subtask.subtaskId, {
-        subtaskIscomplete: !subtask.subtaskIscomplete,
-        subtaskTitle: subtask.subtaskTitle,
-      })
-      .subscribe();
-  }
+  // changeColumn(task: Task, columnId: number) {
+  //   this.apiService
+  //     .updateTask(task.taskId, {
+  //       columnId: columnId,
+  //       taskTitle: task.taskTitle,
+  //       taskDescription: task.taskDescription,
+  //     })
+  //     .subscribe();
+  // }
 
-  cancel() {
-    this.confirm = false;
-  }
+  // changeComplete(subtask: Subtask) {
+  //   this.apiService
+  //     .updateSubtask(subtask.subtaskId, {
+  //       subtaskIscomplete: !subtask.subtaskIscomplete,
+  //       subtaskTitle: subtask.subtaskTitle,
+  //     })
+  //     .subscribe();
+  // }
+
+  // cancel() {
+  //   this.confirm = false;
+  // }
 
   closeModal() {
     this.close.emit();
