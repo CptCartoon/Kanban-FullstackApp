@@ -2,9 +2,5 @@
   <h2 class="column-name">
     <span class="elipse"></span>{{ column.name }} ({{ taskNumber }})
   </h2>
-  <app-taskitem
-    *ngFor="let task of column.tasks"
-    [task]="task"
-    [subtasks]="task.subtasks"
-  ></app-taskitem>
+  <app-taskitem *ngFor="let task of column.tasks" [task]="task"></app-taskitem>
 </div>

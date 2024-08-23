@@ -21,29 +21,24 @@ import { Subscription } from 'rxjs';
 })
 export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
   @Input() task!: Task;
-  @Input() subtasks!: Subtask[];
 
-  itemSubtasks!: Subtask[];
-  show = false;
+  subtasks!: Subtask[];
   subtasksCount!: number;
   subtasksCompletedCount!: number;
 
-  subSubtask!: Subscription;
+  show = false;
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {}
-
-  ngOnChanges(): void {
-    this.itemSubtasks = this.subtasks.filter(
-      (subtask) => subtask.taskId === this.task.id
-    );
-
+  ngOnInit(): void {
+    this.subtasks = this.task.subtasks;
     this.subtasksCount = this.subtasks.length;
-    this.subtasksCompletedCount = this.itemSubtasks.filter(
+    this.subtasksCompletedCount = this.subtasks.filter(
       (subtask) => subtask.completed === true
     ).length;
   }
+
+  ngOnChanges(): void {}
 
   toggleModal(): void {
     this.show = !this.show;

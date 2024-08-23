@@ -21,14 +21,15 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   imports: [ModalComponent, CommonModule, EditTaskComponent],
 })
 export class TaskViewComponent implements OnInit {
-  @Output() close = new EventEmitter<void>();
-  @Input() task!: Task;
-  @Input() subtasks!: Subtask[];
-  @Input() subtasksCount!: number;
-  @Input() subtasksCompletedCount!: number;
-
   @ViewChild('dropdown') dropdown!: ElementRef;
   @ViewChild('optionsbar') optionsbar!: ElementRef;
+
+  @Input() task!: Task;
+  @Output() close = new EventEmitter<void>();
+
+  subtasks!: Subtask[];
+  subtasksCount!: number;
+  subtasksCompletedCount!: number;
 
   columns: Column[] = [];
   activeColumn!: Column | undefined;
@@ -38,9 +39,11 @@ export class TaskViewComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    // this.activeColumn = this.columns.find(
-    //   (column) => column.columnId === this.task.columnId
-    // );
+    this.subtasks = this.task.subtasks;
+    this.subtasksCount = this.subtasks.length;
+    this.subtasksCompletedCount = this.subtasks.filter(
+      (subtask) => subtask.completed === true
+    ).length;
   }
 
   showManageTask() {
@@ -90,9 +93,9 @@ export class TaskViewComponent implements OnInit {
   //     .subscribe();
   // }
 
-  // cancel() {
-  //   this.confirm = false;
-  // }
+  cancel() {
+    this.confirm = false;
+  }
 
   closeModal() {
     this.close.emit();
