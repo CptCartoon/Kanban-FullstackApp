@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { Board, BoardName } from '../models/model';
+import { Board, BoardName, TaskView } from '../models/model';
 import { BoardsNamesService } from './boards-names.service';
 import { BoardService } from './board.service';
+import { TaskViewService } from './task-view.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private boardService: BoardService,
-    private boardsNames: BoardsNamesService
+    private boardsNames: BoardsNamesService,
+    private taskViewService: TaskViewService
   ) {}
 
   url = 'https://localhost:7176/api/kanban/';
@@ -40,6 +42,12 @@ export class ApiService {
     return this.http
       .get<Board>(`${this.url}GetBoardById/${id}`)
       .pipe(tap((board) => (this.boardService._setBoard = board)));
+  }
+
+  getTaskView(id: number): Observable<TaskView> {
+    return this.http
+      .get<TaskView>(`${this.url}GetTaskViewById/${id}`)
+      .pipe(tap((taskView) => (this.taskViewService._setTaskView = taskView)));
   }
 
   // addBoard(board: Board): Observable<Board> {

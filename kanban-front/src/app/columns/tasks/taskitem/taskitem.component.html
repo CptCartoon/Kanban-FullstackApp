@@ -1,7 +1,7 @@
 <app-task-view
   *ngIf="show"
   (close)="toggleModal()"
-  [task]="task"
+  [id]="task.id"
 ></app-task-view>
 <div class="task" (click)="toggleModal()">
   <h3 class="task-title">{{ task.title }}</h3>

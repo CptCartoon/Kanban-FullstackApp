@@ -3,15 +3,24 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { Column, Subtask, Task } from '../../core/models/model';
+import {
+  Column,
+  SimpleColumn,
+  Subtask,
+  Task,
+  TaskView,
+} from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { TaskViewService } from '../../core/services/task-view.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-view',
@@ -20,30 +29,51 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   styleUrl: './task-view.component.css',
   imports: [ModalComponent, CommonModule, EditTaskComponent],
 })
-export class TaskViewComponent implements OnInit {
+export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild('dropdown') dropdown!: ElementRef;
   @ViewChild('optionsbar') optionsbar!: ElementRef;
 
-  @Input() task!: Task;
+  @Input() id!: number;
   @Output() close = new EventEmitter<void>();
+
+  taskView!: TaskView;
 
   subtasks!: Subtask[];
   subtasksCount!: number;
   subtasksCompletedCount!: number;
 
-  columns: Column[] = [];
-  activeColumn!: Column | undefined;
+  activeColumn!: SimpleColumn | undefined;
+
+  subTaskView!: Subscription;
 
   confirm: boolean = false;
   edit: boolean = false;
-  constructor(private apiService: ApiService) {}
+
+  constructor(
+    private apiService: ApiService,
+    private taskViewService: TaskViewService
+  ) {}
 
   ngOnInit(): void {
-    this.subtasks = this.task.subtasks;
-    this.subtasksCount = this.subtasks.length;
-    this.subtasksCompletedCount = this.subtasks.filter(
-      (subtask) => subtask.completed === true
-    ).length;
+    this.getTaskView(this.id);
+  }
+
+  getTaskView(id: number) {
+    this.subTaskView = this.taskViewService.taskViewChange.subscribe({
+      next: (taskView) => {
+        this.taskView = taskView;
+        this.subtasksCount = this.taskView.subtasks.length;
+        this.subtasksCompletedCount = this.taskView.subtasks.filter(
+          (subtask) => subtask.completed === true
+        ).length;
+        this.activeColumn = this.taskView.columns.find(
+          (column) => column.id === this.taskView.columnId
+        );
+      },
+    });
+    this.apiService.getTaskView(id).subscribe({
+      error: (err) => console.log('Error on data Task View ' + err.message),
+    });
   }
 
   showManageTask() {
@@ -55,11 +85,11 @@ export class TaskViewComponent implements OnInit {
   }
 
   getDataColumn(event: any) {
-    // this.activeColumn = this.columns.find((column) => {
-    //   column.columnId === +event.target.dataset.value;
-    // });
+    this.activeColumn = this.taskView.columns.find(
+      (column) => column.id === +event.target.dataset.value
+    );
     // //this.changeColumn(this.task, +event.target.dataset.value);
-    // this.showDropdownStatus();
+    this.showDropdownStatus();
   }
 
   deleteTask() {
@@ -99,5 +129,9 @@ export class TaskViewComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.subTaskView.unsubscribe();
   }
 }

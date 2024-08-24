@@ -11,12 +11,27 @@ export interface Column {
   tasks: Task[];
 }
 
+export interface SimpleColumn {
+  id: number;
+  boardId: number;
+  name: string;
+}
+
 export interface Task {
   id: number;
   columnId: number;
   title: string;
   description: string;
   subtasks: Subtask[];
+}
+
+export interface TaskView {
+  id: number;
+  title: string;
+  description: string;
+  subtasks: Subtask[];
+  columns: SimpleColumn[];
+  columnId: number;
 }
 
 export interface Subtask {
