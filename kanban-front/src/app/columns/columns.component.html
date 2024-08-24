@@ -1,4 +1,8 @@
-<app-add-column *ngIf="show" (close)="toggleModal()"></app-add-column>
+<app-add-column
+  *ngIf="show"
+  (close)="toggleModal()"
+  [boardId]="board.id"
+></app-add-column>
 <div class="columns">
   <app-empty-board *ngIf="board.columns.length === 0"></app-empty-board>
   <div class="columns-wrapper">

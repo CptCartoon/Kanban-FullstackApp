@@ -23,7 +23,7 @@ import { Subscription } from 'rxjs';
 })
 export class ColumnComponent implements OnInit, OnChanges {
   @Input() column!: Column;
-  columnTasks!: Task[];
+  columnTasks?: Task[];
 
   taskNumber!: number;
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Board } from '../models/model';
+import { AddColumn, Board, Column } from '../models/model';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -17,6 +17,16 @@ export class BoardService {
 
   public set _setBoard(board: Board) {
     this.board = board;
+    this.boardChange.next(this._getBoard);
+  }
+
+  public addColumn(column: Column) {
+    console.log(column);
+    const newColumn: any = {
+      ...column,
+      tasks: [],
+    };
+    this.board.columns.push(newColumn as Column);
     this.boardChange.next(this._getBoard);
   }
 }

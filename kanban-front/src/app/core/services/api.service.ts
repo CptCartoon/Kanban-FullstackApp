@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { Board, BoardName, TaskView } from '../models/model';
+import { AddColumn, Board, BoardName, Column, TaskView } from '../models/model';
 import { BoardsNamesService } from './boards-names.service';
 import { BoardService } from './board.service';
 import { TaskViewService } from './task-view.service';
@@ -42,6 +42,13 @@ export class ApiService {
     return this.http
       .get<Board>(`${this.url}GetBoardById/${id}`)
       .pipe(tap((board) => (this.boardService._setBoard = board)));
+  }
+
+  addColumn(column: Column, boardId: number): Observable<Column> {
+    console.log(column, boardId);
+    return this.http
+      .post<Column>(`${this.url}AddColumn/${boardId}`, column)
+      .pipe(tap((column) => this.boardService.addColumn(column)));
   }
 
   getTaskView(id: number): Observable<TaskView> {

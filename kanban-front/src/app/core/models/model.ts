@@ -1,6 +1,6 @@
 export interface Board {
-  boardId: number;
-  boardName: string;
+  id: number;
+  name: string;
   columns: Column[];
 }
 
@@ -9,6 +9,10 @@ export interface Column {
   boardId: number;
   name: string;
   tasks: Task[];
+}
+
+export interface AddColumn {
+  name: string;
 }
 
 export interface SimpleColumn {

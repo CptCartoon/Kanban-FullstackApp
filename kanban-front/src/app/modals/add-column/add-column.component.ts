@@ -20,7 +20,7 @@ import { BoardService } from '../../core/services/board.service';
 })
 export class AddColumnComponent {
   @Output() close = new EventEmitter<void>();
-  @Input() active!: number;
+  @Input() boardId!: number;
 
   postColumns!: FormGroup;
 
@@ -38,10 +38,10 @@ export class AddColumnComponent {
   }
 
   submitForm() {
-    // for (let column of this.columns.value) {
-    //   this.apiService.addColumn(column).subscribe();
-    // }
-    // this.close.emit();
+    for (let column of this.columns.value) {
+      this.apiService.addColumn(column, this.boardId).subscribe();
+    }
+    this.close.emit();
   }
 
   get controls() {
@@ -54,8 +54,7 @@ export class AddColumnComponent {
 
   addColumn() {
     const columnForm = this.form.group({
-      boardId: [this.active, Validators.required],
-      columnName: [null, Validators.required],
+      name: ['', Validators.required],
     });
     this.columns.push(columnForm);
   }
