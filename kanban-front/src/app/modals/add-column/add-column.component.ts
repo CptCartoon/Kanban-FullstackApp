@@ -42,7 +42,8 @@ export class AddColumnComponent {
     for (let column of this.columns.value) {
       this.apiService.addColumn(column, this.boardId).subscribe();
     }
-    this.newColumn.emit();
+    this.apiService.getBoardById(this.boardId).subscribe();
+    this.boardService.notifyBoardUpdated();
     this.close.emit();
   }
 

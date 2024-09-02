@@ -1,7 +1,6 @@
 <app-add-column
   *ngIf="show"
   (close)="toggleModal()"
-  (newColumn)="getBoardById(board.id)"
   [boardId]="board.id"
 ></app-add-column>
 <div class="columns">

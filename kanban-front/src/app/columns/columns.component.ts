@@ -43,6 +43,10 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.getActiveBoard();
+
+    this.boardService.getBoardUpdateListener().subscribe(() => {
+      this.getBoardById(this.board.id);
+    });
   }
 
   toggleModal(): void {
@@ -58,13 +62,14 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getBoardById(id: number) {
+    this.apiService.getBoardById(id).subscribe({
+      error: (err) => console.log('Error on data BOARDS ' + err.message),
+    });
+
     this.subBoard = this.boardService.boardChange.subscribe({
       next: (board) => {
         this.board = board;
       },
-    });
-    this.apiService.getBoardById(id).subscribe({
-      error: (err) => console.log('Error on data BOARDS ' + err.message),
     });
   }
 

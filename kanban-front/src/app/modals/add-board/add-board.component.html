@@ -15,8 +15,7 @@
           formControlName="name"
         />
       </div>
-    </form>
-    <form [formGroup]="postColumns">
+
       <div class="board-columns-container" formArrayName="columns">
         <div class="input-info"><p class="input-heading">Board Columns</p></div>
         <div
@@ -29,7 +28,7 @@
               class="input column-input"
               type="text"
               placeholder="e.g. Todo"
-              formControlName="columnName"
+              formControlName="name"
               required
             /><button
               type="button"

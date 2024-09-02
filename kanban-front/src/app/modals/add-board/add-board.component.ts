@@ -45,7 +45,7 @@ export class AddBoardComponent implements OnInit {
   ngOnInit(): void {
     this.postBoard = this.form.group({
       name: [null, [Validators.required]],
-      columns: [],
+      columns: this.form.array([]),
     });
   }
 
@@ -61,17 +61,14 @@ export class AddBoardComponent implements OnInit {
   }
 
   get columns() {
-    return this.postColumns.get('columns') as FormArray;
+    return this.postBoard.get('columns') as FormArray;
   }
 
   addColumn() {
-    // const columnForm = this.form.group({
-    //   columnId: [this.columnId, Validators.required],
-    //   boardId: [this.boardId, Validators.required],
-    //   columnName: [null, Validators.required],
-    // });
-    // this.columns.push(columnForm);
-    // this.columnId++;
+    const columnForm = this.form.group({
+      name: [null, Validators.required],
+    });
+    this.columns.push(columnForm);
   }
 
   removeColumn(index: number) {

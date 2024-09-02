@@ -13,7 +13,7 @@ export interface Column {
 
 export interface AddBoard {
   name: string;
-  columns: Column[];
+  columns: AddColumn[];
 }
 
 export interface AddColumn {
