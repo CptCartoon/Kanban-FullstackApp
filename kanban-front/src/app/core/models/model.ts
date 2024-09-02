@@ -11,6 +11,11 @@ export interface Column {
   tasks: Task[];
 }
 
+export interface AddBoard {
+  name: string;
+  columns: Column[];
+}
+
 export interface AddColumn {
   name: string;
 }

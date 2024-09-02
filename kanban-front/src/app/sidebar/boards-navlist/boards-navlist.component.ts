@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
@@ -22,7 +24,7 @@ import { BoardsNamesService } from '../../core/services/boards-names.service';
 export class BoardsNavlistComponent implements OnInit, OnDestroy {
   show = false;
 
-  boardsNames: BoardName[] = this.boardsNamesService._getBoardsNames;
+  boardsNames!: BoardName[];
 
   active!: number;
   sub!: Subscription;
@@ -33,16 +35,26 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.getBoards();
+
+    this.boardsNamesService.getBoardsUpdateListener().subscribe(() => {
+      this.getBoards();
+    });
+  }
+
+  getBoards() {
+    this.apiService.getBoardsNames().subscribe((arrBoardsNames) => {});
+
     this.sub = this.boardsNamesService.boardsNamesChange.subscribe({
       next: (arrBoardsNames) => {
         this.boardsNames = arrBoardsNames;
-        this.active = this.boardsNames[0]?.id;
         this.selectBoard(this.boardsNames[0]);
       },
     });
-    this.apiService.getBoardsNames().subscribe({
-      error: (err) => console.log('Error on data BOARDS ' + err.message),
-    });
+  }
+
+  notify() {
+    this.boardsNamesService.notifyBoardsUpdated();
   }
 
   selectBoard(board: BoardName) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AddColumn, Board, Column } from '../models/model';
+import { AddBoard, AddColumn, Board, Column } from '../models/model';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -21,7 +21,6 @@ export class BoardService {
   }
 
   public addColumn(column: Column) {
-    console.log(column);
     const newColumn: any = {
       ...column,
       tasks: [],

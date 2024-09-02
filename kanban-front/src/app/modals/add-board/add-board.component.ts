@@ -19,6 +19,7 @@ import {
 import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../core/services/board.service';
+import { BoardsNamesService } from '../../core/services/boards-names.service';
 
 @Component({
   selector: 'app-add-board',
@@ -29,47 +30,30 @@ import { BoardService } from '../../core/services/board.service';
 })
 export class AddBoardComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
+  @Output() newBoard = new EventEmitter<void>();
 
   postBoard!: FormGroup;
   postColumns!: FormGroup;
-  // boardId: number =
-  //   this.boardService._getBoard[this.boardService._getBoard.length - 1]
-  //     .boardId + 1;
   columnId!: number;
 
   constructor(
     private apiService: ApiService,
-    private boardService: BoardService,
+    private boardsNamesService: BoardsNamesService,
     private form: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    // this.postBoard = this.form.group({
-    //   boardId: [this.boardId, [Validators.required]],
-    //   boardName: [null, [Validators.required]],
-    // });
-
-    this.postColumns = this.form.group({
-      columns: this.form.array([]),
+    this.postBoard = this.form.group({
+      name: [null, [Validators.required]],
+      columns: [],
     });
-    //this.getColumnId();
-  }
-
-  getColumnId() {
-    // this.apiService.getAllColumns().subscribe((columns) => {
-    //   this.columnId = columns[columns.length - 1].columnId + 1;
-    //   this.addColumn();
-    // });
   }
 
   submitForm() {
-    // this.apiService.addBoard(this.postBoard.value).subscribe();
-    // for (let column of this.columns.value) {
-    //   this.apiService.addColumn(column).subscribe();
-    // }
-    // console.log(this.postColumns.value);
-    // this.boardId++;
-    // this.close.emit();
+    this.apiService.addBoard(this.postBoard.value).subscribe();
+    this.apiService.getBoardsNames().subscribe();
+    this.boardsNamesService.notifyBoardsUpdated();
+    this.close.emit();
   }
 
   get controls() {

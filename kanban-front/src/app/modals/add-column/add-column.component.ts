@@ -20,6 +20,7 @@ import { BoardService } from '../../core/services/board.service';
 })
 export class AddColumnComponent {
   @Output() close = new EventEmitter<void>();
+  @Output() newColumn = new EventEmitter<void>();
   @Input() boardId!: number;
 
   postColumns!: FormGroup;
@@ -41,6 +42,7 @@ export class AddColumnComponent {
     for (let column of this.columns.value) {
       this.apiService.addColumn(column, this.boardId).subscribe();
     }
+    this.newColumn.emit();
     this.close.emit();
   }
 
