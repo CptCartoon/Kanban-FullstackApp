@@ -11,6 +11,7 @@ import { Board, BoardName } from '../core/models/model';
 import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
 import { AddTaskComponent } from '../modals/add-task/add-task.component';
 import { BoardsNamesService } from '../core/services/boards-names.service';
+import { ApiService } from '../core/services/api.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,10 @@ export class HeaderComponent implements OnChanges {
   confirm: boolean = false;
   addtask: boolean = false;
 
-  constructor(private boardsNamesService: BoardsNamesService) {}
+  constructor(
+    private boardsNamesService: BoardsNamesService,
+    private apiService: ApiService
+  ) {}
 
   boards!: Board[];
   active!: number;
@@ -35,26 +39,6 @@ export class HeaderComponent implements OnChanges {
   subtaskId!: number;
 
   ngOnInit(): void {
-    // this.taskService.allTasksChange.subscribe({
-    //   next: (tasks) => {
-    //     this.taskId = tasks[tasks.length - 1].taskId + 1;
-    //   },
-    // });
-
-    // this.apiService.getAllTasks().subscribe({
-    //   error: (err) => console.log('Error on data ALLTASKS ' + err.message),
-    // });
-
-    // this.subtaskService.allSubtaskChange.subscribe({
-    //   next: (subtasks) => {
-    //     this.subtaskId = subtasks[subtasks.length - 1].subtaskId + 1;
-    //   },
-    // });
-
-    // this.apiService.getAllSubtasks().subscribe({
-    //   error: (err) => console.log('Error on data ALL SUBTASKS ' + err.message),
-    // });
-
     this.getActiveBoard();
   }
 

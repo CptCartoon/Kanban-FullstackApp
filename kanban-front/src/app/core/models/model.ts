@@ -20,9 +20,25 @@ export interface AddColumn {
   name: string;
 }
 
+export interface AddTask {
+  title: string;
+  description: string;
+  subtasks: AddSubtask[];
+}
+
+export interface AddSubtask {
+  title: string;
+  completed: boolean;
+}
+
 export interface SimpleColumn {
   id: number;
   boardId: number;
+  name: string;
+}
+
+export interface BoardColumn {
+  id: number;
   name: string;
 }
 

@@ -6,7 +6,9 @@
       will remove all columns and tasks and cannot be reversed.
     </p>
     <div class="buttons">
-      <button class="btn btn-delete" (click)="(board)">Delete</button>
+      <button class="btn btn-delete" (click)="deleteBoard(board.id)">
+        Delete
+      </button>
       <button class="btn btn-cancel" (click)="cancelDelete()">Cancel</button>
     </div>
   </div>

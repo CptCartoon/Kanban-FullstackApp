@@ -4,9 +4,12 @@ import { Observable, Subject, tap } from 'rxjs';
 import {
   AddBoard,
   AddColumn,
+  AddTask,
   Board,
+  BoardColumn,
   BoardName,
   Column,
+  Task,
   TaskView,
 } from '../models/model';
 import { BoardsNamesService } from './boards-names.service';
@@ -51,6 +54,10 @@ export class ApiService {
       .pipe(tap((board) => (this.boardService._setBoard = board)));
   }
 
+  getColumnsByBoard(id: number): Observable<BoardColumn[]> {
+    return this.http.get<BoardColumn[]>(`${this.url}GetColumnsByBoard/${id}`);
+  }
+
   addBoard(board: AddBoard): Observable<AddBoard> {
     return this.http.post<AddBoard>(`${this.url}AddBoard`, board);
   }
@@ -59,10 +66,22 @@ export class ApiService {
     return this.http.post<Column>(`${this.url}AddColumn/${boardId}`, column);
   }
 
+  addTask(task: AddTask, columnId: number): Observable<AddTask> {
+    return this.http.post<AddTask>(`${this.url}AddTask/${columnId}`, task);
+  }
+
   getTaskView(id: number): Observable<TaskView> {
     return this.http
       .get<TaskView>(`${this.url}GetTaskViewById/${id}`)
       .pipe(tap((taskView) => (this.taskViewService._setTaskView = taskView)));
+  }
+
+  deleteBoard(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.url}DeleteBoard/${id}`);
+  }
+
+  deleteTask(id: number): Observable<number> {
+    return this.http.delete<number>(`${this.url}DeleteTask/${id}`);
   }
 
   // addBoard(board: Board): Observable<Board> {

@@ -21,6 +21,8 @@ import { ApiService } from '../../core/services/api.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { TaskViewService } from '../../core/services/task-view.service';
 import { Subscription } from 'rxjs';
+import { BoardsNamesService } from '../../core/services/boards-names.service';
+import { BoardService } from '../../core/services/board.service';
 
 @Component({
   selector: 'app-task-view',
@@ -51,7 +53,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private taskViewService: TaskViewService
+    private taskViewService: TaskViewService,
+    private boardService: BoardService
   ) {}
 
   ngOnInit(): void {
@@ -93,16 +96,17 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   deleteTask() {
-    this.confirm = true;
+    this.apiService.deleteTask(this.id).subscribe();
+    this.apiService.getBoardsNames().subscribe();
+    this.boardService.notifyBoardUpdated();
+    this.confirm = !this.confirm;
   }
 
   editTask() {
     this.edit = true;
   }
 
-  // deleteTaskModal(id: number) {
-  //   this.apiService.deleteTask(id).subscribe();
-  // }
+  deleteTaskModal(id: number) {}
 
   // changeColumn(task: Task, columnId: number) {
   //   this.apiService
@@ -125,6 +129,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.confirm = false;
+  }
+
+  showConfirm() {
+    this.confirm = true;
   }
 
   closeModal() {
