@@ -70,3 +70,14 @@ export interface BoardName {
   id: number;
   name: string;
 }
+
+export interface EditBoard {
+  id: number;
+  name: string;
+  columns: EditColumn[];
+}
+
+export interface EditColumn {
+  id: number;
+  name: string;
+}

@@ -9,6 +9,7 @@ import {
   BoardColumn,
   BoardName,
   Column,
+  EditBoard,
   Task,
   TaskView,
 } from '../models/model';
@@ -68,6 +69,10 @@ export class ApiService {
 
   addTask(task: AddTask, columnId: number): Observable<AddTask> {
     return this.http.post<AddTask>(`${this.url}AddTask/${columnId}`, task);
+  }
+
+  editBoard(board: EditBoard, boardId: number): Observable<EditBoard> {
+    return this.http.put<EditBoard>(`${this.url}EditBoard/${boardId}`, board);
   }
 
   getTaskView(id: number): Observable<TaskView> {

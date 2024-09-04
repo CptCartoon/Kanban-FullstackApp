@@ -33,7 +33,6 @@ export class DeleteBoardComponent {
   }
 
   deleteBoard(boardId: number) {
-    console.log(boardId);
     this.apiService.deleteBoard(boardId).subscribe();
     this.apiService.getBoardsNames().subscribe();
     this.boardsNamesService.notifyBoardsUpdated();

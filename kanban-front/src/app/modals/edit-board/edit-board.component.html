@@ -1,40 +1,49 @@
-<app-modal>
-  <div class="edit-board-wrapper">
+<app-modal (close)="closeModal()">
+  <div class="add-board-wrapper">
     <h2 class="heading">Edit Board</h2>
-    <form>
+    <form [formGroup]="postBoard">
       <div class="board-name-container">
         <div class="input-info">
           <p class="input-heading">Board Name</p>
         </div>
         <input
-          id="boardName"
+          id="name"
           class="input input-name"
           type="text"
           placeholder="e.g. Web Design"
+          required
+          formControlName="name"
         />
       </div>
 
-      <div class="board-columns-container">
+      <div class="board-columns-container" formArrayName="columns">
         <div class="input-info"><p class="input-heading">Board Columns</p></div>
-        <div class="column-input">
-          <input
-            id="boardColumns"
-            class="input column-input"
-            type="text"
-            placeholder="e.g. Todo"
-          /><button class="remove-btn"></button>
+        <div
+          *ngFor="let column of columns.controls; index as i"
+          class="new-column"
+        >
+          <div class="column-input" [formGroupName]="i">
+            <input
+              id="boardColumns"
+              class="input column-input"
+              type="text"
+              placeholder="e.g. Todo"
+              formControlName="name"
+              required
+            /><button
+              type="button"
+              class="remove-btn"
+              (click)="removeColumn(i)"
+            ></button>
+          </div>
         </div>
-        <div class="column-input">
-          <input
-            id="boardColumns"
-            class="input column-input"
-            type="text"
-            placeholder="e.g. Doing"
-          /><button class="remove-btn"></button>
-        </div>
-        <button class="btn add-column-btn">+Add New Column</button>
+        <button type="button" class="btn add-column-btn" (click)="addColumn()">
+          +Add New Column
+        </button>
       </div>
-      <button class="btn create-board-btn">Save Changes</button>
     </form>
+    <button type="submit" class="btn create-board-btn" (click)="submitForm()">
+      Edit Board
+    </button>
   </div>
 </app-modal>

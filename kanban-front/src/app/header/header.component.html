@@ -10,6 +10,7 @@
   [board]="board"
   (confirm)="deleteBoard()"
 ></app-delete-board>
+<app-edit-board *ngIf="edit" [board]="board"> </app-edit-board>
 <header>
   <div class="header-wrapper">
     <div class="header-logo">
@@ -29,7 +30,10 @@
           <div class="manage-board-dropdown">
             <button class="manage-board-btn" (click)="showDropDown()"></button>
             <div class="manage-board-dropdown-content display-none" #optionsbar>
-              <button class="manage-board-dropdown-btn medium-grey">
+              <button
+                class="manage-board-dropdown-btn medium-grey"
+                (click)="editBoard()"
+              >
                 Edit Board
               </button>
               <button

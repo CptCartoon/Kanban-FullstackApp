@@ -12,19 +12,26 @@ import { DeleteBoardComponent } from '../modals/delete-board/delete-board.compon
 import { AddTaskComponent } from '../modals/add-task/add-task.component';
 import { BoardsNamesService } from '../core/services/boards-names.service';
 import { ApiService } from '../core/services/api.service';
+import { EditBoardComponent } from '../modals/edit-board/edit-board.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
-  imports: [CommonModule, DeleteBoardComponent, AddTaskComponent],
+  imports: [
+    CommonModule,
+    DeleteBoardComponent,
+    AddTaskComponent,
+    EditBoardComponent,
+  ],
 })
 export class HeaderComponent implements OnChanges {
   @ViewChild('optionsbar') optionsbar!: ElementRef;
 
   confirm: boolean = false;
   addtask: boolean = false;
+  edit: boolean = false;
 
   constructor(
     private boardsNamesService: BoardsNamesService,
@@ -57,6 +64,10 @@ export class HeaderComponent implements OnChanges {
 
   deleteBoard() {
     this.confirm = !this.confirm;
+  }
+
+  editBoard() {
+    this.edit = !this.edit;
   }
 
   showDropDown() {
