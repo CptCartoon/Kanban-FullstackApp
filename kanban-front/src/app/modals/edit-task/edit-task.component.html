@@ -1,17 +1,18 @@
-<app-modal>
-  <div class="edit-task-wrapper">
+<app-modal (close)="closeModal()">
+  <div class="add-task-wrapper">
     <h2 class="heading">Edit Task</h2>
-    <form>
+    <form [formGroup]="postTask">
       <div class="board-name-container">
         <div class="input-info">
           <p class="input-heading">Title</p>
         </div>
         <input
-          id="boardName"
+          id="taskTitle"
           class="input input-name"
           type="text"
           placeholder="e.g. Web Design"
-          [value]="task.title"
+          required
+          formControlName="title"
         />
       </div>
 
@@ -20,37 +21,51 @@
           <p class="input-heading">Description</p>
         </div>
         <textarea
-          [value]="task.description"
+          id="taskDescription"
           class="textarea"
-          placeholder="No description"
+          formControlName="description"
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
         ></textarea>
       </div>
 
-      <div class="subtasks-container">
+      <div class="subtasks-container" formArrayName="subtasks">
         <div class="input-info"><p class="input-heading">Subtasks</p></div>
-        <div class="column-input" *ngFor="let subtask of subtasks">
-          <input
-            id="boardColumns"
-            class="input column-input"
-            type="text"
-            [value]="subtask.title"
-          /><button class="remove-btn"></button>
+        <div
+          class="new-subtask"
+          *ngFor="let subtask of subtasks.controls; index as i"
+        >
+          <div class="column-input" [formGroupName]="i">
+            <input
+              id="subtaskTitle"
+              class="input column-input"
+              type="text"
+              formControlName="title"
+              placeholder="e.g. Make Coffee"
+              required
+            /><button class="remove-btn" (click)="removeSubtask(i)"></button>
+          </div>
         </div>
-        <button class="btn add-subtask-btn">+Add New Subtask</button>
+        <button class="btn add-subtask-btn" (click)="addSubtask()">
+          +Add New Subtask
+        </button>
       </div>
       <div class="status-container">
         <div class="input-info"><p class="input-heading">Status</p></div>
         <div class="status-input" (click)="showDropdown()">
-          {{ getActiveStatus(task.columnId) }}
+          {{ selectedColumn?.name }}
         </div>
         <div class="status-dropdown" #dropdown>
-          <div class="dropdown-option" *ngFor="let column of columns">
-            {{ column.name }}
-          </div>
+          <span
+            class="dropdown-option"
+            *ngFor="let column of columns"
+            [attr.data-value]="column.id"
+            (click)="getDataColumn($event)"
+            >{{ column.name }}</span
+          >
         </div>
       </div>
-      <button class="btn create-board-btn" (click)="(task)">
-        Save Changes
+      <button class="btn create-board-btn" (click)="submitForm()">
+        Save changes
       </button>
     </form>
   </div>

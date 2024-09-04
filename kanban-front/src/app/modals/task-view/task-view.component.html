@@ -1,8 +1,8 @@
 <!-- edit task modal -->
 <app-edit-task
   *ngIf="edit"
-  [task]="taskView"
-  [subtasks]="subtasks"
+  [taskView]="taskView"
+  (close)="editTaskModal()"
 ></app-edit-task>
 
 <app-modal (close)="closeModal()">
@@ -31,7 +31,7 @@
           <div class="manage-task-dropdown-content display-none" #optionsbar>
             <button
               class="manage-task-dropdown-btn medium-grey"
-              (click)="editTask()"
+              (click)="editTaskModal()"
             >
               Edit Task
             </button>

@@ -77,7 +77,21 @@ export interface EditBoard {
   columns: EditColumn[];
 }
 
+export interface EditTask {
+  title: string;
+  description: string;
+  subtasks: EditSubtask[];
+  columnId: number;
+}
+
 export interface EditColumn {
   id: number;
   name: string;
+}
+
+export interface EditSubtask {
+  id: number;
+  taskId: number;
+  title: string;
+  completed: boolean;
 }

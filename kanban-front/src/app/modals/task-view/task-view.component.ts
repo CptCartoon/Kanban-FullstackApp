@@ -102,7 +102,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.confirm = !this.confirm;
   }
 
-  editTask() {
+  editTaskModal() {
     this.edit = true;
   }
 
