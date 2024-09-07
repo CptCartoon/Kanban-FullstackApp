@@ -42,7 +42,7 @@ dd {
 
   --MainPurple: #635fc7; /* Buttons and text on white */
   --MainPurpleHover: #a8a4ff; /* Buttons hover */
-  --Red: #ea5555; /* Buttons */
+  --Red: #ea5555; /* Buttons and validation */
   --RedHover: #ff9898; /* Buttons hover */
   --White: #ffffff;
 

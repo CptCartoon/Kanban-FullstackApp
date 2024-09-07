@@ -5,14 +5,12 @@ import {
   ElementRef,
   OnChanges,
   SimpleChanges,
-  OnInit,
 } from '@angular/core';
-import { Board, BoardName } from '../core/models/model';
+import { BoardName } from '../core/models/model';
 import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
 import { AddTaskComponent } from '../modals/add-task/add-task.component';
 import { BoardsNamesService } from '../core/services/boards-names.service';
-import { ApiService } from '../core/services/api.service';
-import { EditBoardComponent } from '../modals/edit-board/edit-board.component';
+import { BoardEditorComponent } from '../modals/board-editor/board-editor.component';
 
 @Component({
   selector: 'app-header',
@@ -23,22 +21,18 @@ import { EditBoardComponent } from '../modals/edit-board/edit-board.component';
     CommonModule,
     DeleteBoardComponent,
     AddTaskComponent,
-    EditBoardComponent,
+    BoardEditorComponent,
   ],
 })
 export class HeaderComponent implements OnChanges {
   @ViewChild('optionsbar') optionsbar!: ElementRef;
 
   confirm: boolean = false;
-  addtask: boolean = false;
-  edit: boolean = false;
+  addTaskFlag: boolean = false; // flag to show task editor
+  editBoardFlag: boolean = false; // flag to show board editor
 
-  constructor(
-    private boardsNamesService: BoardsNamesService,
-    private apiService: ApiService
-  ) {}
+  constructor(private boardsNamesService: BoardsNamesService) {}
 
-  boards!: Board[];
   active!: number;
   board!: BoardName;
 
@@ -59,7 +53,7 @@ export class HeaderComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {}
 
   addTaskModal() {
-    this.addtask = !this.addtask;
+    this.addTaskFlag = !this.addTaskFlag;
   }
 
   deleteBoard() {
@@ -67,7 +61,7 @@ export class HeaderComponent implements OnChanges {
   }
 
   editBoard() {
-    this.edit = !this.edit;
+    this.editBoardFlag = !this.editBoardFlag;
   }
 
   showDropDown() {

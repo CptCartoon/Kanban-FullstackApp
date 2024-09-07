@@ -4,7 +4,7 @@
   [boardId]="board.id"
 ></app-add-column>
 <div class="columns">
-  <app-empty-board *ngIf="board.columns.length === 0"></app-empty-board>
+  <app-empty-board *ngIf="!board.columns.length"></app-empty-board>
   <div class="columns-wrapper">
     <app-column
       *ngFor="let column of board.columns"

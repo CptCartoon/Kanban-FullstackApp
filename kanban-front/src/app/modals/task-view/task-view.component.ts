@@ -9,20 +9,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import {
-  Column,
-  SimpleColumn,
-  Subtask,
-  Task,
-  TaskView,
-} from '../../core/models/model';
+import { SimpleColumn, Subtask, TaskView } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { TaskViewService } from '../../core/services/task-view.service';
 import { Subscription } from 'rxjs';
-import { BoardsNamesService } from '../../core/services/boards-names.service';
 import { BoardService } from '../../core/services/board.service';
+import { TaskService } from '../../core/services/task.service';
 
 @Component({
   selector: 'app-task-view',
@@ -38,7 +31,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   @Input() id!: number;
   @Output() close = new EventEmitter<void>();
 
-  taskView!: TaskView;
+  taskView: TaskView = {} as TaskView;
 
   subtasks!: Subtask[];
   subtasksCount!: number;
@@ -51,18 +44,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   confirm: boolean = false;
   edit: boolean = false;
 
-  constructor(
-    private apiService: ApiService,
-    private taskViewService: TaskViewService,
-    private boardService: BoardService
-  ) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.getTaskView(this.id);
   }
 
   getTaskView(id: number) {
-    this.subTaskView = this.taskViewService.taskViewChange.subscribe({
+    this.taskService.getTaskView(this.id);
+    this.subTaskView = this.taskService.taskViewChange.subscribe({
       next: (taskView) => {
         this.taskView = taskView;
         this.subtasksCount = this.taskView.subtasks.length;
@@ -73,9 +63,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
           (column) => column.id === this.taskView.columnId
         );
       },
-    });
-    this.apiService.getTaskView(id).subscribe({
-      error: (err) => console.log('Error on data Task View ' + err.message),
     });
   }
 
@@ -91,14 +78,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.activeColumn = this.taskView.columns.find(
       (column) => column.id === +event.target.dataset.value
     );
-    // //this.changeColumn(this.task, +event.target.dataset.value);
     this.showDropdownStatus();
   }
 
   deleteTask() {
-    this.apiService.deleteTask(this.id).subscribe();
-    this.apiService.getBoardsNames().subscribe();
-    this.boardService.notifyBoardUpdated();
+    this.taskService.deleteTask(this.taskView.id);
     this.confirm = !this.confirm;
   }
 

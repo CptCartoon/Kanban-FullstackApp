@@ -39,11 +39,9 @@ export class AddColumnComponent {
   }
 
   submitForm() {
-    for (let column of this.columns.value) {
-      this.apiService.addColumn(column, this.boardId).subscribe();
+    if (this.postColumns.valid) {
+      this.boardService.addColumns(this.columns.value, this.boardId);
     }
-    this.apiService.getBoardById(this.boardId).subscribe();
-    this.boardService.notifyBoardUpdated();
     this.close.emit();
   }
 

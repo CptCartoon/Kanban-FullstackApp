@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AddBoard,
   AddColumn,
@@ -11,206 +11,116 @@ import {
   Column,
   EditBoard,
   EditTask,
-  Task,
   TaskView,
 } from '../models/model';
-import { BoardsNamesService } from './boards-names.service';
-import { BoardService } from './board.service';
-import { TaskViewService } from './task-view.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(
-    private http: HttpClient,
-    private boardService: BoardService,
-    private boardsNames: BoardsNamesService,
-    private taskViewService: TaskViewService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   url = 'https://localhost:7176/api/kanban/';
 
-  // #### BOARDS
+  // ########## BOARDS
 
+  /**
+   * Returns all boards names with id
+   */
   getBoardsNames(): Observable<BoardName[]> {
-    return this.http
-      .get<BoardName[]>(`${this.url}GetBoardsNames`)
-      .pipe(
-        tap(
-          (arrBoardsNames) =>
-            (this.boardsNames._setBoardsNames = arrBoardsNames)
-        )
-      );
+    return this.http.get<BoardName[]>(`${this.url}GetBoardsNames`);
   }
 
-  // getBoards(): Observable<Board[]> {
-  //   return this.http
-  //     .get<Board[]>(`${this.url}GetAllBoards`)
-  //     .pipe(tap((arrBoards) => (this.boardService._setBoard = arrBoards)));
-  // }
-
-  getBoardById(id: number): Observable<Board> {
-    return this.http
-      .get<Board>(`${this.url}GetBoardById/${id}`)
-      .pipe(tap((board) => (this.boardService._setBoard = board)));
+  /**
+   * Returns board selected by id
+   * @param id - Id of board you want to get
+   */
+  getBoardById(boardId: number): Observable<Board> {
+    return this.http.get<Board>(`${this.url}GetBoardById/${boardId}`);
   }
 
-  getColumnsByBoard(id: number): Observable<BoardColumn[]> {
-    return this.http.get<BoardColumn[]>(`${this.url}GetColumnsByBoard/${id}`);
-  }
-
+  /**
+   * Add board
+   * @param board - board model that you want to add
+   */
   addBoard(board: AddBoard): Observable<AddBoard> {
     return this.http.post<AddBoard>(`${this.url}AddBoard`, board);
   }
 
-  addColumn(column: Column, boardId: number): Observable<Column> {
-    return this.http.post<Column>(`${this.url}AddColumn/${boardId}`, column);
-  }
-
-  addTask(task: AddTask, columnId: number): Observable<AddTask> {
-    return this.http.post<AddTask>(`${this.url}AddTask/${columnId}`, task);
-  }
-
+  /**
+   * Edit board
+   * @param board - edited board model
+   * @param boardId - id of board that you want to edit
+   */
   editBoard(board: EditBoard, boardId: number): Observable<EditBoard> {
     return this.http.put<EditBoard>(`${this.url}EditBoard/${boardId}`, board);
   }
 
+  /**
+   * Delete board
+   * @param id - id of board that you want to delete
+   */
+  deleteBoard(boardId: number): Observable<number> {
+    return this.http.delete<number>(`${this.url}DeleteBoard/${boardId}`);
+  }
+
+  // ########## COLUMNS
+
+  /**
+   * Returns all columns (name and id) that are in selected board
+   * @param id - id of board that you want to get columns
+   */
+  getBoardColumns(boardId: number): Observable<BoardColumn[]> {
+    return this.http.get<BoardColumn[]>(
+      `${this.url}GetColumnsByBoard/${boardId}`
+    );
+  }
+
+  /**
+   * Add column to board
+   * @param column - column model that you want to add
+   * @param board - id of board that you want to add columns
+   */
+  addColumns(column: AddColumn[], boardId: number): Observable<AddColumn[]> {
+    return this.http.post<AddColumn[]>(
+      `${this.url}AddColumns/${boardId}`,
+      column
+    );
+  }
+
+  // ########## TASKS
+
+  /**
+   * Returns task details
+   * @param id - id of task that you want to get more details
+   */
+  getTaskView(taskId: number): Observable<TaskView> {
+    return this.http.get<TaskView>(`${this.url}GetTaskViewById/${taskId}`);
+  }
+
+  /**
+   * Add task
+   * @param task - task model that you want to add
+   * @param columnId - id of column that you want to add task
+   */
+  addTask(task: AddTask, columnId: number): Observable<AddTask> {
+    return this.http.post<AddTask>(`${this.url}AddTask/${columnId}`, task);
+  }
+
+  /**
+   * Edit task
+   * @param task - edited task model
+   * @param taskId - id of task that you want to edit
+   */
   editTask(task: EditTask, taskId: number): Observable<EditTask> {
     return this.http.put<EditTask>(`${this.url}EditTask/${taskId}`, task);
   }
 
-  getTaskView(id: number): Observable<TaskView> {
-    return this.http
-      .get<TaskView>(`${this.url}GetTaskViewById/${id}`)
-      .pipe(tap((taskView) => (this.taskViewService._setTaskView = taskView)));
+  /**
+   * Delete task
+   * @param id - id of task that you want to delete
+   */
+  deleteTask(taskId: number): Observable<number> {
+    return this.http.delete<number>(`${this.url}DeleteTask/${taskId}`);
   }
-
-  deleteBoard(id: number): Observable<number> {
-    return this.http.delete<number>(`${this.url}DeleteBoard/${id}`);
-  }
-
-  deleteTask(id: number): Observable<number> {
-    return this.http.delete<number>(`${this.url}DeleteTask/${id}`);
-  }
-
-  // addBoard(board: Board): Observable<Board> {
-  //   return this.http
-  //     .post<Board>(`${this.url}/board`, board)
-  //     .pipe(tap((board) => this.boardService.addBoard(board)));
-  // }
-
-  // deleteBoard(id: number): Observable<number> {
-  //   return this.http
-  //     .delete<number>(`${this.url}/boards/${id}`)
-  //     .pipe(tap(({}) => this.boardService.deleteBoard(id)));
-  // }
-
-  // // #### COLUMNS
-
-  // getAllColumns(): Observable<Column[]> {
-  //   return this.http.get<Column[]>(`${this.url}/columns`);
-  // }
-
-  // getColumns(id: number): Observable<Column[]> {
-  //   return this.http
-  //     .get<Column[]>(`${this.url}/columns/byboard/${id}`)
-  //     .pipe(tap((arrColumns) => (this.columnService._setColumns = arrColumns)));
-  // }
-
-  // addColumn(column: Column): Observable<Column> {
-  //   return this.http
-  //     .post<Column>(`${this.url}/column`, column)
-  //     .pipe(tap((column) => this.columnService.addColumn(column)));
-  // }
-
-  // deleteColumn(id: number) {
-  //   return this.http
-  //     .delete<number>(`${this.url}/columns/${id}`)
-  //     .pipe(tap(({}) => this.columnService.deleteColumn(id)));
-  // }
-
-  // //#### TASKS
-
-  // getTasks(id: number): Observable<Task[]> {
-  //   return this.http
-  //     .get<Task[]>(`${this.url}/tasks/byboard/${id}`)
-  //     .pipe(tap((arrTasks) => (this.taskService._setTasks = arrTasks)));
-  // }
-
-  // getAllTasks(): Observable<Task[]> {
-  //   return this.http
-  //     .get<Task[]>(`${this.url}/tasks`)
-  //     .pipe(tap((arrTasks) => (this.taskService._setAllTasks = arrTasks)));
-  // }
-
-  // getTasksColumn(id: number): Observable<Task[]> {
-  //   return this.http
-  //     .get<Task[]>(`${this.url}/tasks/bycolumn/${id}`)
-  //     .pipe(tap((arrTasks) => (this.taskService._setTasks = arrTasks)));
-  // }
-
-  // addTask(task: Task): Observable<Task> {
-  //   return this.http
-  //     .post<Task>(`${this.url}/task`, task)
-  //     .pipe(tap((task) => this.taskService.addTask(task)));
-  // }
-
-  // updateTask(
-  //   id: number,
-  //   task: Omit<Task, 'taskId' | 'boardId'>
-  // ): Observable<Task> {
-  //   return this.http
-  //     .patch<Task>(`${this.url}/task/${id}`, task)
-  //     .pipe(tap((task) => this.taskService.updateTask(id, task)));
-  // }
-
-  // deleteTask(id: number): Observable<number> {
-  //   return this.http
-  //     .delete<number>(`${this.url}/tasks/${id}`)
-  //     .pipe(tap(({}) => this.taskService.deleteTask(id)));
-  // }
-
-  // // #### SUBTASKS
-
-  // getAllSubtasks(): Observable<Subtask[]> {
-  //   return this.http
-  //     .get<Subtask[]>(`${this.url}/subtasks`)
-  //     .pipe(
-  //       tap(
-  //         (arrSubtasks) => (this.subtaskService._setAllSubtasks = arrSubtasks)
-  //       )
-  //     );
-  // }
-
-  // getSubtasks(id: number): Observable<Subtask[]> {
-  //   return this.http
-  //     .get<Subtask[]>(`${this.url}/subtasks/byboard/${id}`)
-  //     .pipe(
-  //       tap((arrSubtasks) => (this.subtaskService._setSubtasks = arrSubtasks))
-  //     );
-  // }
-
-  // addSubtask(subtask: Subtask): Observable<Subtask> {
-  //   return this.http
-  //     .post<Subtask>(`${this.url}/subtask`, subtask)
-  //     .pipe(tap((subtask) => this.subtaskService.addSubtask(subtask)));
-  // }
-
-  // updateSubtask(
-  //   id: number,
-  //   subtask: Omit<Subtask, 'subtaskId' | 'taskId' | 'boardId'>
-  // ): Observable<Subtask> {
-  //   return this.http.patch<Subtask>(`${this.url}/subtask/${id}`, subtask).pipe(
-  //     tap((subtask) => {
-  //       this.subtaskService.updateSubtask(id, subtask.subtaskTitle);
-  //     })
-  //   );
-  // }
-
-  // deleteSubtask(id: number): Observable<number> {
-  //   return this.http
-  //     .delete<number>(`${this.url}/subtask/${id}`)
-  //     .pipe(tap(({}) => this.subtaskService.deleteSubtask(id)));
-  // }
 }

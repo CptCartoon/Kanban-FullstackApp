@@ -28,6 +28,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { BoardService } from '../../core/services/board.service';
+import { TaskService } from '../../core/services/task.service';
 
 @Component({
   selector: 'app-add-task',
@@ -52,7 +53,7 @@ export class AddTaskComponent implements OnInit {
   selectedColumn!: BoardColumn;
 
   constructor(
-    private apiService: ApiService,
+    private taskService: TaskService,
     private form: FormBuilder,
     private boardService: BoardService
   ) {}
@@ -76,9 +77,12 @@ export class AddTaskComponent implements OnInit {
   }
 
   getColumns() {
-    this.apiService.getColumnsByBoard(this.board.id).subscribe((columns) => {
-      this.columns = columns;
-      this.selectedColumn = this.columns[0];
+    this.boardService.getBoardColumns(this.board.id);
+    this.boardService.boardColumnsChange.subscribe({
+      next: (columns) => {
+        this.columns = columns;
+        this.selectedColumn = this.columns[0];
+      },
     });
   }
 
@@ -90,11 +94,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   submitForm() {
-    this.apiService
-      .addTask(this.postTask.value, this.selectedColumn.id)
-      .subscribe();
-    this.apiService.getBoardsNames().subscribe();
-    this.boardService.notifyBoardUpdated();
+    this.taskService.addTask(this.postTask.value, this.selectedColumn.id);
     this.close.emit();
   }
 

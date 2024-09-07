@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -9,16 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import {
-  Board,
-  BoardColumn,
-  BoardName,
-  Column,
-  Subtask,
-  Task,
-  TaskView,
-} from '../../core/models/model';
-import { ApiService } from '../../core/services/api.service';
+import { BoardColumn, TaskView } from '../../core/models/model';
 import {
   FormArray,
   FormBuilder,
@@ -27,9 +17,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
 import { BoardService } from '../../core/services/board.service';
 import { BoardsNamesService } from '../../core/services/boards-names.service';
+import { TaskService } from '../../core/services/task.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -52,7 +42,7 @@ export class EditTaskComponent implements OnInit {
   selectedColumn!: BoardColumn;
 
   constructor(
-    private apiService: ApiService,
+    private taskService: TaskService,
     private form: FormBuilder,
     private boardService: BoardService,
     private boardsNameService: BoardsNamesService
@@ -80,14 +70,10 @@ export class EditTaskComponent implements OnInit {
   }
 
   getColumns() {
-    this.apiService
-      .getColumnsByBoard(this.boardsNameService.activeBoard.id)
-      .subscribe((columns) => {
-        this.columns = columns;
-        this.selectedColumn = this.columns.find(
-          (column) => column.id === this.taskView.columnId
-        ) as BoardColumn;
-      });
+    this.boardService.getBoardColumns(this.boardsNameService.activeBoard.id);
+    this.boardService.boardColumnsChange.subscribe(
+      (columns) => (this.columns = columns)
+    );
   }
 
   getDataColumn(event: any) {
@@ -99,11 +85,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   submitForm() {
-    this.apiService.editTask(this.postTask.value, this.taskView.id).subscribe();
-    this.apiService
-      .getBoardById(this.boardsNameService.activeBoard.id)
-      .subscribe();
-    this.boardService.notifyBoardUpdated();
+    this.taskService.editTask(this.postTask.value, this.taskView.id);
     this.close.emit();
   }
 

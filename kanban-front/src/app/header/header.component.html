@@ -1,5 +1,5 @@
 <app-add-task
-  *ngIf="addtask"
+  *ngIf="addTaskFlag"
   [board]="board"
   [taskId]="taskId"
   [subtaskId]="subtaskId"
@@ -10,7 +10,12 @@
   [board]="board"
   (confirm)="deleteBoard()"
 ></app-delete-board>
-<app-edit-board *ngIf="edit" [board]="board"> </app-edit-board>
+<app-board-editor
+  [addBoard]="false"
+  *ngIf="editBoardFlag"
+  [boardName]="board"
+  (close)="editBoard()"
+></app-board-editor>
 <header>
   <div class="header-wrapper">
     <div class="header-logo">

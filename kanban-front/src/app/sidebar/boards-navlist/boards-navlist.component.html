@@ -1,4 +1,8 @@
-<app-add-board *ngIf="show" (close)="toggleModal()"></app-add-board>
+<app-board-editor
+  [addBoard]="true"
+  *ngIf="show"
+  (close)="toggleModal()"
+></app-board-editor>
 <div class="boards-navlist">
   <h4>ALL BOARDS ({{ boardsNames.length }})</h4>
   <ul class="navlist-buttons">

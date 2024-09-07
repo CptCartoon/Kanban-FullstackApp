@@ -1,16 +1,32 @@
 import { Injectable } from '@angular/core';
-import { AddBoard, AddColumn, Board, Column } from '../models/model';
+import {
+  AddBoard,
+  AddColumn,
+  AddTask,
+  Board,
+  BoardColumn,
+  Column,
+  EditBoard,
+  EditTask,
+} from '../models/model';
 import { Observable, Subject } from 'rxjs';
+import { ApiService } from './api.service';
+import { BoardsNamesService } from './boards-names.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
   private board: Board = {} as Board;
-  boardChange = new Subject<Board>();
-  boardUpdated = new Subject<void>();
+  public boardChange = new Subject<Board>();
 
-  constructor() {}
+  private boardColumns: BoardColumn[] = [];
+  public boardColumnsChange = new Subject<BoardColumn[]>();
+
+  constructor(
+    private api: ApiService,
+    private boardsNamesService: BoardsNamesService
+  ) {}
 
   public get _getBoard() {
     return this.board;
@@ -21,20 +37,75 @@ export class BoardService {
     this.boardChange.next(this._getBoard);
   }
 
-  notifyBoardUpdated() {
-    this.boardUpdated.next();
+  // ########## BOARD
+
+  public loadBoard(boardId: number) {
+    this.api.getBoardById(boardId).subscribe({
+      next: (board) => {
+        this.board = board;
+        this.boardChange.next(this.board);
+      },
+      error: (error) => {
+        console.error('Error fetching board data', error);
+      },
+    });
   }
 
-  getBoardUpdateListener(): Observable<void> {
-    return this.boardUpdated.asObservable();
+  public addBoard(board: AddBoard) {
+    this.api.addBoard(board).subscribe({
+      next: () => {
+        this.boardsNamesService.loadBoardNames();
+      },
+      error: (error) => {
+        console.error('Error adding board', error);
+      },
+    });
   }
 
-  public addColumn(column: Column) {
-    const newColumn: any = {
-      ...column,
-      tasks: [],
-    };
-    this.board.columns.push(newColumn as Column);
-    this.boardChange.next(this._getBoard);
+  editBoard(board: EditBoard, boardId: number) {
+    this.api.editBoard(board, boardId).subscribe({
+      next: () => {
+        this.loadBoard(boardId);
+      },
+      error: (error) => {
+        console.error('Error editing board', error);
+      },
+    });
+  }
+
+  deleteBoard(boardId: number) {
+    this.api.deleteBoard(boardId).subscribe({
+      next: () => {
+        // this.loadBoard(boardId);
+      },
+      error: (error) => {
+        console.error('Error deleting board', error);
+      },
+    });
+  }
+
+  // ########## COLUMN
+
+  public getBoardColumns(boardId: number) {
+    this.api.getBoardColumns(boardId).subscribe({
+      next: (boardColumns) => {
+        this.boardColumns = boardColumns;
+        this.boardColumnsChange.next(this.boardColumns);
+      },
+      error: (error) => {
+        console.error('Error adding column', error);
+      },
+    });
+  }
+
+  public addColumns(columns: AddColumn[], boardId: number) {
+    this.api.addColumns(columns, boardId).subscribe({
+      next: () => {
+        this.loadBoard(boardId);
+      },
+      error: (error) => {
+        console.error('Error adding column', error);
+      },
+    });
   }
 }

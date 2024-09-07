@@ -8,23 +8,23 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ApiService } from '../../core/services/api.service';
-import { Board, BoardName } from '../../core/models/model';
+import { BoardName } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
-import { AddBoardComponent } from '../../modals/add-board/add-board.component';
 import { Subscription } from 'rxjs';
 import { BoardsNamesService } from '../../core/services/boards-names.service';
+import { BoardEditorComponent } from '../../modals/board-editor/board-editor.component';
 
 @Component({
   selector: 'app-boards-navlist',
   standalone: true,
-  imports: [CommonModule, AddBoardComponent],
+  imports: [CommonModule, BoardEditorComponent],
   templateUrl: './boards-navlist.component.html',
   styleUrl: './boards-navlist.component.css',
 })
 export class BoardsNavlistComponent implements OnInit, OnDestroy {
   show = false;
 
-  boardsNames!: BoardName[];
+  boardsNames: BoardName[] = [];
 
   active!: number;
   sub!: Subscription;
@@ -43,7 +43,7 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
   }
 
   getBoards() {
-    this.apiService.getBoardsNames().subscribe((arrBoardsNames) => {});
+    this.boardsNamesService.loadBoardNames();
 
     this.sub = this.boardsNamesService.boardsNamesChange.subscribe({
       next: (arrBoardsNames) => {

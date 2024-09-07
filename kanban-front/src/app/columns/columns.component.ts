@@ -28,32 +28,25 @@ import { BoardsNamesService } from '../core/services/boards-names.service';
     AddColumnComponent,
   ],
 })
-export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
-  board: Board = this.boardService._setBoard;
+export class ColumnsComponent implements OnInit, OnDestroy {
+  board: Board = this.boardService._getBoard;
 
   subBoard!: Subscription;
 
   show = false;
 
   constructor(
-    private apiService: ApiService,
     private boardService: BoardService,
     private boardsNamesService: BoardsNamesService
   ) {}
 
   ngOnInit(): void {
     this.getActiveBoard();
-
-    this.boardService.getBoardUpdateListener().subscribe(() => {
-      this.getBoardById(this.board.id);
-    });
   }
 
   toggleModal(): void {
     this.show = !this.show;
   }
-
-  ngOnChanges(changes: SimpleChanges): void {}
 
   getActiveBoard() {
     this.boardsNamesService.activeBoard$.subscribe((board) => {
@@ -62,9 +55,7 @@ export class ColumnsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getBoardById(id: number) {
-    this.apiService.getBoardById(id).subscribe({
-      error: (err) => console.log('Error on data BOARDS ' + err.message),
-    });
+    this.boardService.loadBoard(id);
 
     this.subBoard = this.boardService.boardChange.subscribe({
       next: (board) => {
