@@ -5,8 +5,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ColumnsComponent } from './columns/columns.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { DeleteBoardComponent } from './modals/delete-board/delete-board.component';
-import { AddTaskComponent } from './modals/add-task/add-task.component';
-import { EditTaskComponent } from './modals/edit-task/edit-task.component';
 import { MobileNavComponent } from './modals/mobile-nav/mobile-nav.component';
 
 @Component({
@@ -21,8 +19,6 @@ import { MobileNavComponent } from './modals/mobile-nav/mobile-nav.component';
     ColumnsComponent,
     ModalComponent,
     DeleteBoardComponent,
-    AddTaskComponent,
-    EditTaskComponent,
     MobileNavComponent,
   ],
 })

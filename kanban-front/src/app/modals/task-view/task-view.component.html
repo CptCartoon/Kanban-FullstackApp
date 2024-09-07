@@ -1,9 +1,9 @@
 <!-- edit task modal -->
-<app-edit-task
+<app-task-editor
   *ngIf="edit"
   [taskView]="taskView"
   (close)="editTaskModal()"
-></app-edit-task>
+></app-task-editor>
 
 <app-modal (close)="closeModal()">
   <!-- confirm modal -->

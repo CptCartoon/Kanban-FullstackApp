@@ -29,7 +29,6 @@ export class TaskService {
       next: (taskView) => {
         this.taskView = taskView;
         this.taskViewChange.next(this.taskView);
-        console.log(this.taskView);
       },
       error: (error) => {
         console.error('Error getching task view data', error);

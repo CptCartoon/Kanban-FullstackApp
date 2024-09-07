@@ -12,17 +12,17 @@ import { ModalComponent } from '../../shared/modal/modal.component';
 import { SimpleColumn, Subtask, TaskView } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { Subscription } from 'rxjs';
 import { BoardService } from '../../core/services/board.service';
 import { TaskService } from '../../core/services/task.service';
+import { TaskEditorComponent } from '../task-editor/task-editor.component';
 
 @Component({
   selector: 'app-task-view',
   standalone: true,
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.css',
-  imports: [ModalComponent, CommonModule, EditTaskComponent],
+  imports: [ModalComponent, CommonModule, TaskEditorComponent],
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild('dropdown') dropdown!: ElementRef;

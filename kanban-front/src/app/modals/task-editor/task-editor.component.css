@@ -1,4 +1,4 @@
-.add-task-wrapper {
+.task-editor-wrapper {
   padding: 2rem;
   display: flex;
   justify-content: center;
@@ -11,7 +11,7 @@
   font-weight: bold;
 }
 
-.board-name-container {
+.task-name-container {
   margin-top: 1.5rem;
 }
 
@@ -30,6 +30,25 @@
   font-size: 0.813rem;
   font-weight: medium;
   color: white;
+}
+
+.invalid {
+  border-color: var(--Red);
+}
+
+.input-pack {
+  position: relative;
+  width: 100%;
+}
+
+.error-message {
+  position: absolute;
+  right: 1rem;
+  color: var(--Red);
+  font-size: 0.813rem;
+  white-space: nowrap;
+  top: 49%;
+  transform: translateY(-49%);
 }
 
 .input::placeholder {
@@ -99,20 +118,20 @@
   margin-top: 1.5rem;
 }
 
-.column-input {
+.subtask-input {
   width: 100%;
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   flex-direction: row;
 }
 
-.column-input:not(:first-child) {
+.subtask-input:not(:first-child) {
   margin-top: 0.75rem;
 }
 
 .remove-btn {
   background-image: url("/assets/icon-cross.svg");
+  margin-left: 1rem;
   width: 1rem;
   height: 1rem;
   background-repeat: no-repeat;
@@ -140,10 +159,6 @@
 
 .btn:hover {
   cursor: pointer;
-}
-
-.create-board-btn {
-  margin-top: 1.5rem;
 }
 
 .add-subtask-btn {
@@ -210,12 +225,13 @@
   display: flex;
 }
 
-.create-board-btn {
+.submit-task-btn {
+  margin-top: 1.5rem;
   background-color: var(--MainPurple);
   color: white;
 }
 
-.create-board-btn:hover {
+.submit-task-btn:hover {
   background-color: var(--MainPurpleHover);
 }
 

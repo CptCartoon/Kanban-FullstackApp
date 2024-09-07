@@ -43,7 +43,7 @@
 }
 .error-message {
   position: absolute;
-  right: 1rem; /* Odległość od prawej krawędzi inputa */
+  right: 1rem;
   color: var(--Red);
   font-size: 0.813rem;
   white-space: nowrap;
@@ -77,7 +77,6 @@
 
 .column-input {
   width: 100%;
-
   display: flex;
   align-items: center;
   flex-direction: row;

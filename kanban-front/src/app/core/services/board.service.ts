@@ -76,7 +76,7 @@ export class BoardService {
   deleteBoard(boardId: number) {
     this.api.deleteBoard(boardId).subscribe({
       next: () => {
-        // this.loadBoard(boardId);
+        this.boardsNamesService.loadBoardNames();
       },
       error: (error) => {
         console.error('Error deleting board', error);

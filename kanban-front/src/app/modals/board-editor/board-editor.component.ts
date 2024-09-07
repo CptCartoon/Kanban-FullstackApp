@@ -29,6 +29,14 @@ export class BoardEditorComponent implements OnInit {
   boardForm!: FormGroup;
   columnForm!: FormGroup;
 
+  get boardControls() {
+    return this.boardForm.controls;
+  }
+
+  get columns() {
+    return this.boardForm.get('columns') as FormArray;
+  }
+
   constructor(private form: FormBuilder, private boardService: BoardService) {}
 
   ngOnInit(): void {
@@ -41,18 +49,6 @@ export class BoardEditorComponent implements OnInit {
     if (this.boardName && this.addBoard === false) {
       this.getColumns();
     }
-  }
-
-  get boardControls() {
-    return this.boardForm.controls;
-  }
-
-  get columnControls() {
-    return this.columnForm.controls;
-  }
-
-  get columns() {
-    return this.boardForm.get('columns') as FormArray;
   }
 
   submitForm() {
@@ -79,6 +75,7 @@ export class BoardEditorComponent implements OnInit {
     this.columns.removeAt(index);
   }
 
+  // if edit mode get columns
   getColumns() {
     this.boardService.getBoardColumns(this.boardName.id);
     this.boardService.boardColumnsChange.subscribe((columns) =>

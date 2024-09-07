@@ -1,0 +1,100 @@
+<app-modal (close)="closeModal()">
+  <div class="task-editor-wrapper">
+    <h2 class="heading">{{ addTask ? "Add New Task" : "Edit task" }}</h2>
+    <form [formGroup]="taskForm">
+      <div class="task-name-container">
+        <div class="input-info">
+          <p class="input-heading">Title</p>
+        </div>
+        <div class="input-pack">
+          <input
+            id="taskTitle"
+            class="input input-name"
+            type="text"
+            [ngClass]="{
+              invalid:
+                taskControls['title'].invalid && taskControls['title'].touched
+            }"
+            placeholder="e.g. Web Design"
+            required
+            formControlName="title"
+          />
+          <span
+            *ngIf="
+              taskControls['title'].invalid && taskControls['title'].touched
+            "
+            class="error-message"
+          >
+            Can't be empty
+          </span>
+        </div>
+      </div>
+
+      <div class="description-container">
+        <div class="input-info">
+          <p class="input-heading">Description</p>
+        </div>
+        <textarea
+          id="taskDescription"
+          class="textarea"
+          formControlName="description"
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."
+        ></textarea>
+      </div>
+
+      <div class="subtasks-container" formArrayName="subtasks">
+        <div class="input-info">
+          <p class="input-heading" *ngIf="subtasks.length">Subtasks</p>
+        </div>
+        <div
+          *ngFor="let subtask of subtasks.controls; index as i"
+          class="new-subtask"
+        >
+          <div class="subtask-input" [formGroupName]="i">
+            <div class="input-pack">
+              <input
+                id="subtaskTitle"
+                class="input subtask-input"
+                [ngClass]="{
+                  invalid: subtask.invalid && subtask.touched
+                }"
+                type="text"
+                formControlName="title"
+                placeholder="e.g. Make Coffee"
+                required
+              />
+              <span
+                *ngIf="subtask.invalid && subtask.touched"
+                class="error-message"
+              >
+                Can't be empty
+              </span>
+            </div>
+            <button class="remove-btn" (click)="removeSubtask(i)"></button>
+          </div>
+        </div>
+        <button class="btn add-subtask-btn" (click)="addSubtask()">
+          +Add New Subtask
+        </button>
+      </div>
+      <div class="status-container">
+        <div class="input-info"><p class="input-heading">Status</p></div>
+        <div class="status-input" (click)="showDropdown()">
+          {{ selectedColumn?.name }}
+        </div>
+        <div class="status-dropdown" #dropdown>
+          <span
+            class="dropdown-option"
+            *ngFor="let column of columns"
+            [attr.data-value]="column.id"
+            (click)="getDataColumn($event)"
+            >{{ column.name }}</span
+          >
+        </div>
+      </div>
+      <button class="btn submit-task-btn" (click)="submitForm()">
+        {{ addTask ? "Create Task" : "Save changes" }}
+      </button>
+    </form>
+  </div>
+</app-modal>

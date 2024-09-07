@@ -1,10 +1,5 @@
-<app-add-task
-  *ngIf="addTaskFlag"
-  [board]="board"
-  [taskId]="taskId"
-  [subtaskId]="subtaskId"
-  (close)="addTaskModal()"
-></app-add-task>
+<app-task-editor *ngIf="addTaskFlag" [addTask]="true" (close)="addTaskModal()">
+</app-task-editor>
 <app-delete-board
   *ngIf="confirm"
   [board]="board"

@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { BoardName } from '../core/models/model';
 import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
-import { AddTaskComponent } from '../modals/add-task/add-task.component';
 import { BoardsNamesService } from '../core/services/boards-names.service';
 import { BoardEditorComponent } from '../modals/board-editor/board-editor.component';
+import { TaskEditorComponent } from '../modals/task-editor/task-editor.component';
 
 @Component({
   selector: 'app-header',
@@ -20,8 +20,8 @@ import { BoardEditorComponent } from '../modals/board-editor/board-editor.compon
   imports: [
     CommonModule,
     DeleteBoardComponent,
-    AddTaskComponent,
     BoardEditorComponent,
+    TaskEditorComponent,
   ],
 })
 export class HeaderComponent implements OnChanges {
