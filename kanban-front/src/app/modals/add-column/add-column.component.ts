@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ApiService } from '../../core/services/api.service';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { CommonModule } from '@angular/common';
 import { BoardService } from '../../core/services/board.service';
@@ -20,37 +19,30 @@ import { BoardService } from '../../core/services/board.service';
 })
 export class AddColumnComponent {
   @Output() close = new EventEmitter<void>();
-  @Output() newColumn = new EventEmitter<void>();
   @Input() boardId!: number;
 
-  postColumns!: FormGroup;
+  columnsForm!: FormGroup;
 
-  constructor(
-    private apiService: ApiService,
-    private boardService: BoardService,
-    private form: FormBuilder
-  ) {}
+  get columns() {
+    return this.columnsForm.get('columns') as FormArray;
+  }
+
+  constructor(private boardService: BoardService, private form: FormBuilder) {}
 
   ngOnInit(): void {
-    this.postColumns = this.form.group({
+    this.columnsForm = this.form.group({
       columns: this.form.array([]),
     });
     this.addColumn();
   }
 
   submitForm() {
-    if (this.postColumns.valid) {
+    if (this.columnsForm.valid) {
       this.boardService.addColumns(this.columns.value, this.boardId);
+      this.close.emit();
+    } else {
+      this.columnsForm.markAllAsTouched();
     }
-    this.close.emit();
-  }
-
-  get controls() {
-    return this.postColumns.controls;
-  }
-
-  get columns() {
-    return this.postColumns.get('columns') as FormArray;
   }
 
   addColumn() {

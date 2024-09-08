@@ -13,6 +13,7 @@ main {
 
 app-columns {
   width: 100%;
+  overflow: auto;
 }
 
 @media screen and (min-width: 765px) and (max-width: 1024px) {

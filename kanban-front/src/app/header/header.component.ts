@@ -1,16 +1,11 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { BoardName } from '../core/models/model';
-import { DeleteBoardComponent } from '../modals/delete-board/delete-board.component';
 import { BoardsNamesService } from '../core/services/boards-names.service';
 import { BoardEditorComponent } from '../modals/board-editor/board-editor.component';
 import { TaskEditorComponent } from '../modals/task-editor/task-editor.component';
+import { DeleteType } from '../core/enums';
+import { DeleteModalComponent } from '../modals/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -19,65 +14,57 @@ import { TaskEditorComponent } from '../modals/task-editor/task-editor.component
   styleUrl: './header.component.css',
   imports: [
     CommonModule,
-    DeleteBoardComponent,
     BoardEditorComponent,
     TaskEditorComponent,
+    DeleteModalComponent,
   ],
 })
-export class HeaderComponent implements OnChanges {
-  @ViewChild('optionsbar') optionsbar!: ElementRef;
+export class HeaderComponent {
+  @ViewChild('optionsbar') optionsbar!: ElementRef; // dropdown with options
 
-  confirm: boolean = false;
+  deleteFlag: boolean = false; // flag to show delete editor
   addTaskFlag: boolean = false; // flag to show task editor
   editBoardFlag: boolean = false; // flag to show board editor
 
+  DeleteTypeEnum = DeleteType; // enum with type of object to delete
+  boardName: BoardName = {} as BoardName; // active board name and id
+
   constructor(private boardsNamesService: BoardsNamesService) {}
-
-  active!: number;
-  board!: BoardName;
-
-  taskId!: number;
-  subtaskId!: number;
 
   ngOnInit(): void {
     this.getActiveBoard();
   }
 
+  // get board name
   getActiveBoard() {
-    this.boardsNamesService.activeBoard$.subscribe((board) => {
-      this.active = board.id;
-      this.board = board;
+    this.boardsNamesService.activeBoardChange.subscribe((board) => {
+      this.boardName = board;
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
-
+  // hide/show add task modal
   addTaskModal() {
     this.addTaskFlag = !this.addTaskFlag;
   }
 
-  deleteBoard() {
-    this.confirm = !this.confirm;
+  // hide/show delete board modal
+  deleteModal() {
+    this.deleteFlag = !this.deleteFlag;
+    if (this.deleteFlag) {
+      this.showDropDown();
+    }
   }
 
+  // show edit board modal
   editBoard() {
     this.editBoardFlag = !this.editBoardFlag;
+    if (this.editBoardFlag) {
+      this.showDropDown();
+    }
   }
 
+  // dropdown with options
   showDropDown() {
     this.optionsbar.nativeElement.classList.toggle('display-none');
-  }
-
-  getBoards() {
-    // this.boardsService.boardsChange.subscribe({
-    //   next: (arrBoards) => {
-    //     this.boards = arrBoards;
-    //     this.board = this.boards[0];
-    //   },
-    // });
-    // this.apiService.getBoards().subscribe({
-    //   error: (err) => console.log('Error on data BOARDS ' + err.message),
-    // });
-    //this.active = this.boards[0]?.boardId;
   }
 }

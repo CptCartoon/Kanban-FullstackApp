@@ -1,21 +1,21 @@
 <app-board-editor
   [addBoard]="true"
-  *ngIf="show"
-  (close)="toggleModal()"
+  *ngIf="addBoard"
+  (close)="addBoardModal()"
 ></app-board-editor>
 <div class="boards-navlist">
   <h4>ALL BOARDS ({{ boardsNames.length }})</h4>
   <ul class="navlist-buttons">
     <li *ngFor="let boardName of boardsNames">
       <button
-        [ngClass]="active == boardName.id ? 'navlist-btn-active' : null"
+        [ngClass]="activeBoard == boardName.id ? 'navlist-btn-active' : null"
         class="navlist-btn"
         (click)="selectBoard(boardName)"
       >
         {{ boardName.name }}
       </button>
     </li>
-    <button class="navlist-btn btn-add" (click)="toggleModal()">
+    <button class="navlist-btn btn-add" (click)="addBoardModal()">
       +Create New Board
     </button>
   </ul>

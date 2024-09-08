@@ -22,10 +22,9 @@ export class EmptyBoardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boardsNamesService.activeBoard$.subscribe({
+    this.boardsNamesService.activeBoardChange.subscribe({
       next: (board) => {
         this.boardName = board;
-        console.log(this.boardName);
       },
     });
   }

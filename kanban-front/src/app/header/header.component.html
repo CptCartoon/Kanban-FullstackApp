@@ -1,16 +1,3 @@
-<app-task-editor *ngIf="addTaskFlag" [addTask]="true" (close)="addTaskModal()">
-</app-task-editor>
-<app-delete-board
-  *ngIf="confirm"
-  [board]="board"
-  (confirm)="deleteBoard()"
-></app-delete-board>
-<app-board-editor
-  [addBoard]="false"
-  *ngIf="editBoardFlag"
-  [boardName]="board"
-  (close)="editBoard()"
-></app-board-editor>
 <header>
   <div class="header-wrapper">
     <div class="header-logo">
@@ -19,7 +6,7 @@
     </div>
     <div class="platform-launch">
       <div class="platform-heading-left">
-        <h2>{{ board?.name }}</h2>
+        <h2>{{ boardName.name }}</h2>
         <div class="mobile-menu">
           <button class="mobile-sidebar-btn"></button>
         </div>
@@ -38,7 +25,7 @@
               </button>
               <button
                 class="manage-board-dropdown-btn red"
-                (click)="deleteBoard()"
+                (click)="deleteModal()"
               >
                 Delete Board
               </button>
@@ -49,3 +36,23 @@
     </div>
   </div>
 </header>
+
+<app-task-editor
+  *ngIf="addTaskFlag"
+  [addTask]="true"
+  (close)="addTaskModal()"
+></app-task-editor>
+<app-board-editor
+  *ngIf="editBoardFlag"
+  [addBoard]="false"
+  [boardName]="boardName"
+  (close)="editBoard()"
+></app-board-editor>
+<app-delete-modal
+  *ngIf="deleteFlag"
+  [deleteType]="DeleteTypeEnum.Board"
+  [boardName]="boardName"
+  [id]="boardName.id"
+  (cancel)="deleteModal()"
+>
+</app-delete-modal>

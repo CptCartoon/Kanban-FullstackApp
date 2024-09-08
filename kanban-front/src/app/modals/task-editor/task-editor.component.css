@@ -71,6 +71,15 @@
   transition: all 0.2s ease-in-out;
 }
 
+.empty-columns {
+  color: var(--Red);
+}
+
+.error-info {
+  color: var(--MediumGrey);
+  font-weight: bold;
+}
+
 .description-container {
   margin-top: 1.5rem;
 }
@@ -167,6 +176,11 @@
   background-color: white;
 }
 
+.add-subtask-btn:disabled {
+  cursor: default;
+  background-color: #e0e0fa;
+}
+
 .status-container {
   margin-top: 1.5rem;
 }
@@ -233,6 +247,11 @@
 
 .submit-task-btn:hover {
   background-color: var(--MainPurpleHover);
+}
+
+.submit-task-btn:disabled {
+  cursor: default;
+  background-color: #8785b9;
 }
 
 .new-subtask:not(:first-child) {

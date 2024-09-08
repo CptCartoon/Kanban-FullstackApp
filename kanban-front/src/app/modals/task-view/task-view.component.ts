@@ -11,18 +11,23 @@ import {
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { SimpleColumn, Subtask, TaskView } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../core/services/api.service';
 import { Subscription } from 'rxjs';
-import { BoardService } from '../../core/services/board.service';
 import { TaskService } from '../../core/services/task.service';
 import { TaskEditorComponent } from '../task-editor/task-editor.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { DeleteType } from '../../core/enums';
 
 @Component({
   selector: 'app-task-view',
   standalone: true,
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.css',
-  imports: [ModalComponent, CommonModule, TaskEditorComponent],
+  imports: [
+    ModalComponent,
+    CommonModule,
+    TaskEditorComponent,
+    DeleteModalComponent,
+  ],
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild('dropdown') dropdown!: ElementRef;
@@ -30,6 +35,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   @Input() id!: number;
   @Output() close = new EventEmitter<void>();
+
+  DeleteTypeEnum = DeleteType;
 
   taskView: TaskView = {} as TaskView;
 
@@ -41,8 +48,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   subTaskView!: Subscription;
 
-  confirm: boolean = false;
-  edit: boolean = false;
+  deleteFlag: boolean = false;
+  editFlag: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -83,11 +90,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   deleteTask() {
     this.taskService.deleteTask(this.taskView.id);
-    this.confirm = !this.confirm;
+    this.deleteFlag = false;
   }
 
   editTaskModal() {
-    this.edit = true;
+    this.editFlag = true;
+  }
+
+  changeCompleteStatus(subtask: Subtask) {
+    subtask.completed = !subtask.completed;
   }
 
   deleteTaskModal(id: number) {}
@@ -111,12 +122,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   //     .subscribe();
   // }
 
-  cancel() {
-    this.confirm = false;
+  cancelDelete() {
+    this.deleteFlag = false;
+    this.closeModal();
   }
 
-  showConfirm() {
-    this.confirm = true;
+  showConfirmDelete() {
+    this.deleteFlag = true;
   }
 
   closeModal() {

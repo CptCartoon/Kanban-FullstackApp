@@ -1,15 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EmptyBoardComponent } from './empty-board/empty-board.component';
-import { Board, Column, Subtask, Task } from '../core/models/model';
+import { Board } from '../core/models/model';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../core/services/api.service';
 import { ColumnComponent } from './column/column.component';
 import { Subscription } from 'rxjs';
 import { AddColumnComponent } from '../modals/add-column/add-column.component';
@@ -29,11 +21,12 @@ import { BoardsNamesService } from '../core/services/boards-names.service';
   ],
 })
 export class ColumnsComponent implements OnInit, OnDestroy {
-  board: Board = this.boardService._getBoard;
+  board: Board = {} as Board;
 
   subBoard!: Subscription;
+  subActiveBoard!: Subscription;
 
-  show = false;
+  addColumn = false;
 
   constructor(
     private boardService: BoardService,
@@ -41,32 +34,29 @@ export class ColumnsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getActiveBoard();
+    this.getBoardById();
   }
 
   toggleModal(): void {
-    this.show = !this.show;
+    this.addColumn = !this.addColumn;
   }
 
-  getActiveBoard() {
-    this.boardsNamesService.activeBoard$.subscribe((board) => {
-      this.getBoardById(board.id);
-    });
-  }
-
-  getBoardById(id: number) {
-    this.boardService.loadBoard(id);
+  getBoardById() {
+    this.subActiveBoard = this.boardsNamesService.activeBoardChange.subscribe(
+      (board) => {
+        this.boardService.loadBoard(board.id);
+      }
+    );
 
     this.subBoard = this.boardService.boardChange.subscribe({
       next: (board) => {
-        this.board = board;
+        this.board = board || [];
       },
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subBoard) {
-      this.subBoard.unsubscribe();
-    }
+    this.subBoard.unsubscribe();
+    this.subActiveBoard.unsubscribe();
   }
 }

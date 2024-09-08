@@ -1,5 +1,5 @@
 <app-modal (close)="closeModal()">
-  <div class="task-editor-wrapper">
+  <div class="task-editor-wrapper" *ngIf="columns.length; else noColumns">
     <h2 class="heading">{{ addTask ? "Add New Task" : "Edit task" }}</h2>
     <form [formGroup]="taskForm">
       <div class="task-name-container">
@@ -80,7 +80,7 @@
       <div class="status-container">
         <div class="input-info"><p class="input-heading">Status</p></div>
         <div class="status-input" (click)="showDropdown()">
-          {{ selectedColumn?.name }}
+          {{ selectedColumn.name }}
         </div>
         <div class="status-dropdown" #dropdown>
           <span
@@ -97,4 +97,17 @@
       </button>
     </form>
   </div>
+
+  <!-- IF NO COLUMNS -->
+  <ng-template class="status-container" #noColumns>
+    <div class="task-editor-wrapper">
+      <h2 class="heading empty-columns">Error</h2>
+      <div class="status-container">
+        <span class="error-info"
+          >You need to add at least one column to add task</span
+        >
+      </div>
+      <button class="btn submit-task-btn" (click)="closeModal()">Back</button>
+    </div>
+  </ng-template>
 </app-modal>

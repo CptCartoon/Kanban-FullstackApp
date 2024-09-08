@@ -1,0 +1,21 @@
+<app-modal (close)="cancelDelete()">
+  <div class="modal-wrapper">
+    <h2 class="delete-heading">
+      Delete this {{ deleteType.toLocaleLowerCase() }}?
+    </h2>
+    <p class="delete-info" [ngSwitch]="deleteType">
+      <span *ngSwitchCase="deleteTypeEnum.Board">
+        Are you sure you want to delete the ‘{{ boardName.name }}’ board? This
+        action will remove all columns and tasks and cannot be reversed.
+      </span>
+      <span *ngSwitchCase="deleteTypeEnum.Task">
+        Are you sure you want to delete the ‘{{ taskView.title }}’ task and its
+        subtasks? This action cannot be reversed.
+      </span>
+    </p>
+    <div class="buttons">
+      <button class="btn btn-delete" (click)="confirmDelete(id)">Delete</button>
+      <button class="btn btn-cancel" (click)="cancelDelete()">Cancel</button>
+    </div>
+  </div>
+</app-modal>

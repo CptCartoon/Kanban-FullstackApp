@@ -55,6 +55,11 @@ export class BoardService {
     this.api.addBoard(board).subscribe({
       next: () => {
         this.boardsNamesService.loadBoardNames();
+
+        this.boardsNamesService.boardsNamesChange.subscribe({
+          next: (boards) =>
+            this.boardsNamesService.selectBoard(boards[boards.length - 1]),
+        });
       },
       error: (error) => {
         console.error('Error adding board', error);

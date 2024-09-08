@@ -9,10 +9,9 @@ import { ApiService } from './api.service';
 export class BoardsNamesService {
   private boardsNames: BoardName[] = [];
   boardsNamesChange = new Subject<BoardName[]>();
-  boardsUpdated = new Subject<void>();
 
-  activeBoard!: BoardName;
-  activeBoard$ = new Subject<BoardName>();
+  activeBoard: BoardName = this.boardsNames[0];
+  activeBoardChange = new Subject<BoardName>();
 
   constructor(private api: ApiService) {}
 
@@ -23,6 +22,15 @@ export class BoardsNamesService {
   public set _setBoardsNames(arr: BoardName[]) {
     this.boardsNames = [...arr];
     this.boardsNamesChange.next(this._getBoardsNames);
+  }
+
+  public get _getActiveBoard() {
+    return this.activeBoard;
+  }
+
+  public set _setActiveBoard(boardName: BoardName) {
+    this.activeBoard = boardName;
+    this.activeBoardChange.next(this._getActiveBoard);
   }
 
   public loadBoardNames() {
@@ -37,16 +45,8 @@ export class BoardsNamesService {
     });
   }
 
-  notifyBoardsUpdated() {
-    this.boardsUpdated.next();
-  }
-
-  getBoardsUpdateListener(): Observable<void> {
-    return this.boardsUpdated.asObservable();
-  }
-
   selectBoard(board: BoardName) {
     this.activeBoard = board;
-    this.activeBoard$.next(this.activeBoard);
+    this.activeBoardChange.next(this.activeBoard);
   }
 }

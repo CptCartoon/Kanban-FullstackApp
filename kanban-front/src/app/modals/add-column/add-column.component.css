@@ -30,6 +30,37 @@
   color: white;
 }
 
+.invalid {
+  border-color: var(--Red);
+}
+
+.input-pack {
+  position: relative;
+  width: 100%;
+}
+
+.error-message {
+  position: absolute;
+  right: 2rem;
+  color: var(--Red);
+  font-size: 0.813rem;
+  white-space: nowrap;
+  top: 49%;
+  transform: translateY(-49%);
+}
+
+.empty-columns {
+  color: var(--Red);
+}
+
+.error-info {
+  color: var(--MediumGrey);
+  font-weight: bold;
+  width: 24.063rem;
+  margin-bottom: 1rem;
+  transition: 0.2s;
+}
+
 .input::placeholder {
   color: rgba(255, 255, 255, 0.25);
   opacity: 1; /* Firefox */
@@ -121,8 +152,14 @@
   background-color: var(--MainPurpleHover);
 }
 
+.confirm-btn:disabled {
+  cursor: default;
+  background-color: #8785b9;
+}
+
 @media screen and (max-width: 765px) {
-  .column {
+  .column,
+  .empty-columns {
     width: 16.5rem;
   }
 

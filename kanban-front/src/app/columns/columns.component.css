@@ -2,7 +2,6 @@
   background-color: var(--VeryDarkGrey);
   width: 100%;
   height: 100%;
-  overflow: auto;
 }
 
 .columns-wrapper {
@@ -10,6 +9,31 @@
   flex-direction: row;
   padding: 1.5rem;
   height: 100%;
+  overflow: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--LinesDark);
+  padding: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--MainPurple);
+  border-radius: 50px;
+  padding: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--MainPurple);
 }
 
 .task {

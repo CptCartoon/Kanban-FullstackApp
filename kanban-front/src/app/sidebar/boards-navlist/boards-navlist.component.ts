@@ -1,13 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BoardName } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -22,51 +13,46 @@ import { BoardEditorComponent } from '../../modals/board-editor/board-editor.com
   styleUrl: './boards-navlist.component.css',
 })
 export class BoardsNavlistComponent implements OnInit, OnDestroy {
-  show = false;
+  addBoard = false; // flag to show/hide board editor
+  boardsNames: BoardName[] = []; // board name and id
 
-  boardsNames: BoardName[] = [];
+  activeBoard!: number; // active board id
 
-  active!: number;
-  sub!: Subscription;
+  subBoardsNames!: Subscription;
+  subActiveBoard!: Subscription;
 
-  constructor(
-    private boardsNamesService: BoardsNamesService,
-    private apiService: ApiService
-  ) {}
+  constructor(private boardsNamesService: BoardsNamesService) {}
 
   ngOnInit(): void {
     this.getBoards();
-
-    this.boardsNamesService.getBoardsUpdateListener().subscribe(() => {
-      this.getBoards();
-    });
   }
 
   getBoards() {
     this.boardsNamesService.loadBoardNames();
 
-    this.sub = this.boardsNamesService.boardsNamesChange.subscribe({
+    this.subBoardsNames = this.boardsNamesService.boardsNamesChange.subscribe({
       next: (arrBoardsNames) => {
         this.boardsNames = arrBoardsNames;
-        this.selectBoard(this.boardsNames[0]);
+        this.boardsNamesService.selectBoard(this.boardsNames[0]);
       },
     });
-  }
 
-  notify() {
-    this.boardsNamesService.notifyBoardsUpdated();
+    this.subActiveBoard = this.boardsNamesService.activeBoardChange.subscribe({
+      next: (board) => (this.activeBoard = board.id),
+    });
   }
 
   selectBoard(board: BoardName) {
     this.boardsNamesService.selectBoard(board);
-    this.active = board.id;
+    this.activeBoard = board.id;
   }
 
-  toggleModal(): void {
-    this.show = !this.show;
+  addBoardModal(): void {
+    this.addBoard = !this.addBoard;
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.subBoardsNames.unsubscribe();
+    this.subActiveBoard.unsubscribe();
   }
 }

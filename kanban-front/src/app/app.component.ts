@@ -4,7 +4,6 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ColumnsComponent } from './columns/columns.component';
 import { ModalComponent } from './shared/modal/modal.component';
-import { DeleteBoardComponent } from './modals/delete-board/delete-board.component';
 import { MobileNavComponent } from './modals/mobile-nav/mobile-nav.component';
 
 @Component({
@@ -18,7 +17,6 @@ import { MobileNavComponent } from './modals/mobile-nav/mobile-nav.component';
     SidebarComponent,
     ColumnsComponent,
     ModalComponent,
-    DeleteBoardComponent,
     MobileNavComponent,
   ],
 })
