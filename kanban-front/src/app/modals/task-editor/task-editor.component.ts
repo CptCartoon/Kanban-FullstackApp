@@ -8,13 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import {
-  Board,
-  BoardColumn,
-  BoardName,
-  Task,
-  TaskView,
-} from '../../core/models/model';
+import { BoardColumn, TaskView } from '../../core/models/model';
 import {
   FormArray,
   FormBuilder,

@@ -30,7 +30,7 @@
           Subtasks ({{ subtasksCompletedCount }} of {{ subtasksCount }})
         </p>
         <label
-          (click)="changeCompleteStatus(subtask)"
+          (click)="changeSubtaskStatus(subtask)"
           class="subtask"
           *ngFor="let subtask of taskView.subtasks"
           [ngClass]="subtask.completed ? 'checked' : ''"
@@ -39,7 +39,7 @@
             [checked]="subtask.completed"
             type="checkbox"
             name="business"
-            (click)="(subtask)"
+            (click)="changeSubtaskStatus(subtask)"
           />
           {{ subtask.title }}
         </label>
@@ -56,7 +56,7 @@
             class="dropdown-option"
             *ngFor="let column of taskView.columns"
             [attr.data-value]="column.id"
-            (click)="getDataColumn($event)"
+            (click)="getDataColumn(column)"
             >{{ column.name }}</span
           >
         </div>

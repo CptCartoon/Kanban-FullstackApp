@@ -59,10 +59,18 @@ export interface TaskView {
   columnId: number;
 }
 
+export interface TaskColumn {
+  columnId: number;
+}
+
 export interface Subtask {
   id: number;
   taskId: number;
   title: string;
+  completed: boolean;
+}
+
+export interface SubtaskStatus {
   completed: boolean;
 }
 

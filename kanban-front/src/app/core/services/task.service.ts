@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AddTask, EditTask, TaskView } from '../models/model';
+import {
+  AddTask,
+  EditTask,
+  SubtaskStatus,
+  TaskColumn,
+  TaskView,
+} from '../models/model';
 import { ApiService } from './api.service';
 import { BoardsNamesService } from './boards-names.service';
 import { BoardService } from './board.service';
@@ -54,6 +60,32 @@ export class TaskService {
       },
       error: (error) => {
         console.error('Error editing task', error);
+      },
+    });
+  }
+
+  public changeTaskColumn(taskColumn: TaskColumn, taskId: number) {
+    this.api.changeTaskColumn(taskColumn, taskId).subscribe({
+      next: () => {
+        this.boardService.loadBoard(this.boardsNamesService.activeBoard.id);
+      },
+      error: (error) => {
+        console.error('Error changing task column', error);
+      },
+    });
+  }
+
+  public changeSubtaskStatus(
+    subtaskStatus: SubtaskStatus,
+    subtaskId: number,
+    taskId: number
+  ) {
+    this.api.changeSubtaskStatus(subtaskStatus, subtaskId).subscribe({
+      next: () => {
+        this.getTaskView(taskId);
+      },
+      error: (error) => {
+        console.error('Error changing subtask status', error);
       },
     });
   }

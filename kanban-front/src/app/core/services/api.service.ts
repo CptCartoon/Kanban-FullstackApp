@@ -11,6 +11,8 @@ import {
   Column,
   EditBoard,
   EditTask,
+  SubtaskStatus,
+  TaskColumn,
   TaskView,
 } from '../models/model';
 
@@ -114,6 +116,36 @@ export class ApiService {
    */
   editTask(task: EditTask, taskId: number): Observable<EditTask> {
     return this.http.put<EditTask>(`${this.url}EditTask/${taskId}`, task);
+  }
+
+  /**
+   * Change task column
+   * @param taskColumn - object with columnId of task { columnId: number }
+   * @param taskId - id of task
+   */
+  changeTaskColumn(
+    taskColumn: TaskColumn,
+    taskId: number
+  ): Observable<TaskColumn> {
+    return this.http.patch<TaskColumn>(
+      `${this.url}ChangeTaskColumn/${taskId}`,
+      taskColumn
+    );
+  }
+
+  /**
+   * Change subtask status
+   * @param subtaskStatus - object with status of subtask { completed: boolean }
+   * @param subtaskId - id of subtask
+   */
+  changeSubtaskStatus(
+    subtaskStatus: SubtaskStatus,
+    subtaskId: number
+  ): Observable<number> {
+    return this.http.patch<number>(
+      `${this.url}ChangeSubtaskStatus/${subtaskId}`,
+      subtaskStatus
+    );
   }
 
   /**

@@ -9,7 +9,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
-import { SimpleColumn, Subtask, TaskView } from '../../core/models/model';
+import {
+  Board,
+  BoardColumn,
+  SimpleColumn,
+  Subtask,
+  SubtaskStatus,
+  TaskColumn,
+  TaskView,
+} from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TaskService } from '../../core/services/task.service';
@@ -44,7 +52,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   subtasksCount!: number;
   subtasksCompletedCount!: number;
 
-  activeColumn!: SimpleColumn | undefined;
+  activeColumn!: BoardColumn;
 
   subTaskView!: Subscription;
 
@@ -68,7 +76,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         ).length;
         this.activeColumn = this.taskView.columns.find(
           (column) => column.id === this.taskView.columnId
-        );
+        ) as BoardColumn;
       },
     });
   }
@@ -81,46 +89,25 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.dropdown.nativeElement.classList.toggle('display-flex');
   }
 
-  getDataColumn(event: any) {
-    this.activeColumn = this.taskView.columns.find(
-      (column) => column.id === +event.target.dataset.value
-    );
+  getDataColumn(column: BoardColumn) {
+    this.activeColumn = column;
+    const newColumn: TaskColumn = { columnId: column.id };
+    this.taskService.changeTaskColumn(newColumn, this.taskView.id);
     this.showDropdownStatus();
-  }
-
-  deleteTask() {
-    this.taskService.deleteTask(this.taskView.id);
-    this.deleteFlag = false;
   }
 
   editTaskModal() {
     this.editFlag = !this.editFlag;
   }
 
-  changeCompleteStatus(subtask: Subtask) {
-    subtask.completed = !subtask.completed;
+  changeSubtaskStatus(subtask: Subtask) {
+    const subtaskStatus: SubtaskStatus = { completed: !subtask.completed };
+    this.taskService.changeSubtaskStatus(
+      subtaskStatus,
+      subtask.id,
+      this.taskView.id
+    );
   }
-
-  deleteTaskModal(id: number) {}
-
-  // changeColumn(task: Task, columnId: number) {
-  //   this.apiService
-  //     .updateTask(task.taskId, {
-  //       columnId: columnId,
-  //       taskTitle: task.taskTitle,
-  //       taskDescription: task.taskDescription,
-  //     })
-  //     .subscribe();
-  // }
-
-  // changeComplete(subtask: Subtask) {
-  //   this.apiService
-  //     .updateSubtask(subtask.subtaskId, {
-  //       subtaskIscomplete: !subtask.subtaskIscomplete,
-  //       subtaskTitle: subtask.subtaskTitle,
-  //     })
-  //     .subscribe();
-  // }
 
   cancelDelete() {
     this.deleteFlag = false;
