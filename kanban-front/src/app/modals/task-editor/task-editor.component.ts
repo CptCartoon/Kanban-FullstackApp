@@ -67,13 +67,14 @@ export class TaskEditorComponent implements OnInit {
 
     this.taskForm = this.form.group({
       title: [
-        this.addTask && this.taskView ? null : this.taskView.title,
+        this.addTask && !this.taskView ? null : this.taskView.title,
         [Validators.required],
       ],
       description: [
-        this.addTask && this.taskView ? null : this.taskView.description,
+        this.addTask && !this.taskView ? null : this.taskView.description,
       ],
       subtasks: this.form.array([]),
+      columnId: [this.selectedColumn.id, [Validators.required]],
     });
 
     // if edit mode get subtasks
@@ -126,25 +127,29 @@ export class TaskEditorComponent implements OnInit {
     this.boardService.boardColumnsChange.subscribe({
       next: (columns) => {
         this.columns = columns;
-        if (this.addTask) {
-          this.selectedColumn = this.columns[0];
-        } else if (this.taskView) {
-          this.selectedColumn = this.columns.find(
-            (column) => column.id === this.taskView.columnId
-          ) as BoardColumn;
+        if (this.columns.length) {
+          if (this.addTask) {
+            this.selectedColumn = this.columns[0];
+            this.taskForm.patchValue({ columnId: this.selectedColumn.id });
+          } else if (!this.addTask) {
+            this.selectedColumn = this.columns.find(
+              (column) => column.id === this.taskView.columnId
+            ) as BoardColumn;
+            this.taskForm.patchValue({ columnId: this.taskView.columnId });
+          }
         }
       },
     });
   }
 
   // selecting column in dropdown
-  getDataColumn(event: any) {
-    this.selectedColumn = this.columns.find(
-      (column) => column.id === +event.target.dataset.value
-    ) as BoardColumn;
+  getDataColumn(column: BoardColumn) {
+    this.selectedColumn = column;
+    this.taskForm.patchValue({ columnId: column.id });
     this.showDropdown();
   }
 
+  //close task editor modal
   closeModal() {
     this.close.emit();
   }

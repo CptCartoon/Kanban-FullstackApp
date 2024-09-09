@@ -94,7 +94,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   editTaskModal() {
-    this.editFlag = true;
+    this.editFlag = !this.editFlag;
   }
 
   changeCompleteStatus(subtask: Subtask) {

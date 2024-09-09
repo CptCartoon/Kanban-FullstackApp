@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  AfterViewInit,
+} from '@angular/core';
 import { BoardName } from '../core/models/model';
 import { BoardsNamesService } from '../core/services/boards-names.service';
 import { BoardEditorComponent } from '../modals/board-editor/board-editor.component';
@@ -19,7 +25,7 @@ import { DeleteModalComponent } from '../modals/delete-modal/delete-modal.compon
     DeleteModalComponent,
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @ViewChild('optionsbar') optionsbar!: ElementRef; // dropdown with options
 
   deleteFlag: boolean = false; // flag to show delete editor

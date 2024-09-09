@@ -98,7 +98,7 @@ export class BoardService {
         this.boardColumnsChange.next(this.boardColumns);
       },
       error: (error) => {
-        console.error('Error adding column', error);
+        console.error('Error getting board columns', error);
       },
     });
   }
@@ -109,7 +109,7 @@ export class BoardService {
         this.loadBoard(boardId);
       },
       error: (error) => {
-        console.error('Error adding column', error);
+        console.error('Error adding columns', error);
       },
     });
   }

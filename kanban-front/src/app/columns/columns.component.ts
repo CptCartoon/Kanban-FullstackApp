@@ -50,7 +50,7 @@ export class ColumnsComponent implements OnInit, OnDestroy {
 
     this.subBoard = this.boardService.boardChange.subscribe({
       next: (board) => {
-        this.board = board || [];
+        this.board = board;
       },
     });
   }

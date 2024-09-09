@@ -31,7 +31,7 @@ export class TaskService {
         this.taskViewChange.next(this.taskView);
       },
       error: (error) => {
-        console.error('Error getching task view data', error);
+        console.error('Error fetching task view data', error);
       },
     });
   }
@@ -42,7 +42,7 @@ export class TaskService {
         this.boardService.loadBoard(this.boardsNamesService.activeBoard.id);
       },
       error: (error) => {
-        console.error('Error adding column', error);
+        console.error('Error adding task', error);
       },
     });
   }
@@ -53,7 +53,7 @@ export class TaskService {
         this.boardService.loadBoard(this.boardsNamesService.activeBoard.id);
       },
       error: (error) => {
-        console.error('Error editing column', error);
+        console.error('Error editing task', error);
       },
     });
   }
@@ -64,7 +64,7 @@ export class TaskService {
         this.boardService.loadBoard(this.boardsNamesService.activeBoard.id);
       },
       error: (error) => {
-        console.error('Error deleting column', error);
+        console.error('Error deleting task', error);
       },
     });
   }
