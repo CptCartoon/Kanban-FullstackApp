@@ -6,6 +6,6 @@
 <div class="task" (click)="toggleModal()">
   <h3 class="task-title">{{ task.title }}</h3>
   <p class="subtasks">
-    {{ subtasksCompletedCount }} of {{ subtasksCount }} subtasks
+    {{ task.completedSubtasks }} of {{ task.totalSubtasks }} subtasks
   </p>
 </div>

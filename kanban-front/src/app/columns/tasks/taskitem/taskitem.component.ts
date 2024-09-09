@@ -6,7 +6,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Subtask, Task } from '../../../core/models/model';
+import { Subtask, Task, TaskBoard } from '../../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
 import { TaskViewComponent } from '../../../modals/task-view/task-view.component';
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
   imports: [CommonModule, TaskViewComponent],
 })
 export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() task!: Task;
+  @Input() task!: TaskBoard;
 
   subtasks!: Subtask[];
   subtasksCount!: number;
@@ -31,11 +31,11 @@ export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.subtasks = this.task.subtasks;
-    this.subtasksCount = this.subtasks.length;
-    this.subtasksCompletedCount = this.subtasks.filter(
-      (subtask) => subtask.completed === true
-    ).length;
+    // this.subtasks = this.task.subtasks;
+    // this.subtasksCount = this.subtasks.length;
+    // this.subtasksCompletedCount = this.subtasks.filter(
+    //   (subtask) => subtask.completed === true
+    // ).length;
   }
 
   ngOnChanges(): void {}

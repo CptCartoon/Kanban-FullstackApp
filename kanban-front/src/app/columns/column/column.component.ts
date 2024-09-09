@@ -34,12 +34,12 @@ export class ColumnComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.column.tasks) {
-      this.columnTasks = this.column.tasks.filter(
-        (task) => task.columnId === this.column.id
-      );
-      this.taskNumber = this.columnTasks.length;
-    }
+    // if (this.column.tasks) {
+    //   this.columnTasks = this.column.tasks.filter(
+    //     (task) => task.columnId === this.column.id
+    //   );
+    //   this.taskNumber = this.columnTasks.length;
+    // }
   }
 
   ngOnDestroy(): void {

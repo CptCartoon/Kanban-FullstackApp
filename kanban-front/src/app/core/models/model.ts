@@ -8,7 +8,8 @@ export interface Column {
   id: number;
   boardId: number;
   name: string;
-  tasks: Task[];
+  tasks: TaskBoard[];
+  totalTasks: number;
 }
 
 export interface AddBoard {
@@ -48,6 +49,14 @@ export interface Task {
   title: string;
   description: string;
   subtasks: Subtask[];
+}
+
+export interface TaskBoard {
+  id: number;
+  columnId: number;
+  title: string;
+  totalSubtasks: number;
+  completedSubtasks: number;
 }
 
 export interface TaskView {
