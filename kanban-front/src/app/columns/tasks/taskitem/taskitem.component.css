@@ -1,6 +1,6 @@
 .task {
   background-color: var(--DarkGrey);
-  margin-top: 1.25rem;
+  /* margin-top: 1.25rem; */
   padding: 1.5rem 1rem;
   border-radius: 0.5rem;
   min-width: 280px;

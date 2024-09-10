@@ -109,6 +109,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     );
   }
 
+  stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
   cancelDelete() {
     this.deleteFlag = false;
     this.closeModal();

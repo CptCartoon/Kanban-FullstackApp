@@ -13,16 +13,31 @@ import { ApiService } from '../../core/services/api.service';
 import { CommonModule } from '@angular/common';
 import { TaskitemComponent } from '../tasks/taskitem/taskitem.component';
 import { Subscription } from 'rxjs';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-column',
   standalone: true,
   templateUrl: './column.component.html',
   styleUrl: './column.component.css',
-  imports: [CommonModule, TaskitemComponent],
+  imports: [
+    CommonModule,
+    TaskitemComponent,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag,
+  ],
 })
 export class ColumnComponent implements OnInit, OnChanges {
   @Input() column!: Column;
+  @Input() input!: any;
   columnTasks?: Task[];
 
   taskNumber!: number;

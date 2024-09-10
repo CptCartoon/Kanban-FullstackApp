@@ -1,16 +1,8 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Subtask, Task, TaskBoard } from '../../../core/models/model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subtask, TaskBoard } from '../../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
 import { TaskViewComponent } from '../../../modals/task-view/task-view.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-taskitem',
@@ -19,34 +11,15 @@ import { Subscription } from 'rxjs';
   styleUrl: './taskitem.component.css',
   imports: [CommonModule, TaskViewComponent],
 })
-export class TaskitemComponent implements OnInit, OnDestroy, OnChanges {
+export class TaskitemComponent implements OnInit {
   @Input() task!: TaskBoard;
-
-  subtasks!: Subtask[];
-  subtasksCount!: number;
-  subtasksCompletedCount!: number;
-
   show = false;
 
-  constructor(private apiService: ApiService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    // this.subtasks = this.task.subtasks;
-    // this.subtasksCount = this.subtasks.length;
-    // this.subtasksCompletedCount = this.subtasks.filter(
-    //   (subtask) => subtask.completed === true
-    // ).length;
-  }
-
-  ngOnChanges(): void {}
+  ngOnInit(): void {}
 
   toggleModal(): void {
     this.show = !this.show;
-  }
-
-  ngOnDestroy(): void {
-    // if (this.subSubtask) {
-    //   this.subSubtask.unsubscribe();
-    // }
   }
 }

@@ -66,3 +66,11 @@
   cursor: pointer;
   background-color: rgba(43, 44, 55, 1);
 }
+
+app-column {
+  display: block;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

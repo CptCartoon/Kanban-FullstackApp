@@ -5,8 +5,12 @@
 ></app-add-column>
 <div class="columns">
   <app-empty-board *ngIf="!board?.columns?.length"></app-empty-board>
-  <div class="columns-wrapper">
+  <div cdkDropListGroup class="columns-wrapper">
     <app-column
+      cdkDropList
+      [cdkDropListData]="column.tasks"
+      (cdkDropListDropped)="drop($event, column.id)"
+      [input]="column.name"
       *ngFor="let column of board.columns"
       [column]="column"
     ></app-column>

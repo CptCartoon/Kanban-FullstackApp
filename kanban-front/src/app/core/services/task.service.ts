@@ -3,6 +3,7 @@ import {
   AddTask,
   EditTask,
   SubtaskStatus,
+  TaskBoard,
   TaskColumn,
   TaskView,
 } from '../models/model';
@@ -83,6 +84,14 @@ export class TaskService {
     this.api.changeSubtaskStatus(subtaskStatus, subtaskId).subscribe({
       next: () => {
         this.getTaskView(taskId);
+
+        const task = this.boardService._getBoard.columns
+          .flatMap((column) => column.tasks)
+          .find((task) => task.id === taskId);
+
+        if (task) {
+          task.completedSubtasks += subtaskStatus.completed ? 1 : -1;
+        }
       },
       error: (error) => {
         console.error('Error changing subtask status', error);

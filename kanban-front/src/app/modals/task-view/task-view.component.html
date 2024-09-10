@@ -39,7 +39,7 @@
             [checked]="subtask.completed"
             type="checkbox"
             name="business"
-            (click)="changeSubtaskStatus(subtask)"
+            (click)="stopPropagation($event)"
           />
           {{ subtask.title }}
         </label>
