@@ -72,7 +72,8 @@ export interface TaskBoard {
 }
 
 export interface TaskColumn {
-  columnId: number;
+  orderIndex?: number;
+  columnId?: number;
 }
 
 export interface TaskView {

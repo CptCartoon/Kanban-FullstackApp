@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EmptyBoardComponent } from './empty-board/empty-board.component';
-import { Board, BoardName, TaskBoard } from '../core/models/model';
+import { Board, BoardName, TaskBoard, TaskColumn } from '../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ColumnComponent } from './column/column.component';
 import { Subscription } from 'rxjs';
@@ -76,7 +76,8 @@ export class ColumnsComponent implements OnInit, OnDestroy {
 
   drop(event: CdkDragDrop<TaskBoard[]>, columnId: number) {
     const draggedItem = event.previousContainer.data[event.previousIndex];
-    const targetColumn = {
+    const targetColumn: TaskColumn = {
+      orderIndex: 0,
       columnId: columnId,
     };
 
@@ -86,6 +87,9 @@ export class ColumnsComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+      targetColumn.orderIndex = event.currentIndex + 1;
+      console.log(targetColumn);
+      this.taskService.changeTaskColumn(targetColumn, draggedItem.id);
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -93,7 +97,7 @@ export class ColumnsComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-
+      targetColumn.orderIndex = event.currentIndex + 1;
       this.taskService.changeTaskColumn(targetColumn, draggedItem.id);
     }
   }
