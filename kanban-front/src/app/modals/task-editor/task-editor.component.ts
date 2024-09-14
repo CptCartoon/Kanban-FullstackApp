@@ -121,6 +121,7 @@ export class TaskEditorComponent implements OnInit {
     this.boardService.boardColumnsChange.subscribe({
       next: (columns) => {
         this.columns = columns;
+
         if (this.columns.length) {
           if (this.addTask) {
             this.selectedColumn = this.columns[0];

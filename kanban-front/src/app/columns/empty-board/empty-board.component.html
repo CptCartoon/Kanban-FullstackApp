@@ -1,8 +1,32 @@
 <div class="backdrop"></div>
 <div class="empty-board-wrapper">
   <h2 class="empty-info">
-    This board is empty. Create a new column to get started.
+    <span *ngIf="emptyBoards"
+      >There is no boards in your kanban. Create a new board to get
+      started.</span
+    >
+    <span *ngIf="!emptyBoards && emptyColumns">
+      This board is empty. Create a new column to get started.</span
+    >
   </h2>
-  <button class="add-column-btn" (click)="addColumn()">+Add New Column</button>
+  <button *ngIf="emptyBoards" class="add-btn" (click)="boardModal()">
+    +Add New Board
+  </button>
+  <button
+    *ngIf="emptyColumns && !emptyBoards"
+    class="add-btn"
+    (click)="columnModal()"
+  >
+    +Add New Column
+  </button>
 </div>
-<app-add-column *ngIf="editModal" [boardId]="boardName.id"></app-add-column>
+<app-add-column
+  *ngIf="editColumnModal"
+  [boardId]="boardId"
+  (close)="columnModal()"
+></app-add-column>
+<app-board-editor
+  *ngIf="editBoardModal"
+  [addBoard]="true"
+  (close)="boardModal()"
+></app-board-editor>

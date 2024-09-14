@@ -6,7 +6,7 @@
     </div>
     <div class="platform-launch">
       <div class="platform-heading-left">
-        <h2 *ngIf="boardName; else noBoards">{{ boardName.name }}</h2>
+        <h2 *ngIf="boardName.id; else noBoards">{{ boardName.name }}</h2>
         <ng-template #noBoards>
           <h2>No Boards</h2>
         </ng-template>
@@ -16,8 +16,12 @@
       </div>
       <div class="platform-options-right">
         <div class="options">
-          <button class="add-new-task-btn" (click)="addTaskModal()"></button>
-          <div class="manage-board-dropdown">
+          <button
+            *ngIf="boardName.columnsCount"
+            class="add-new-task-btn"
+            (click)="addTaskModal()"
+          ></button>
+          <div *ngIf="boardName.id" class="manage-board-dropdown">
             <button class="manage-board-btn" (click)="showDropDown()"></button>
             <div class="manage-board-dropdown-content display-none" #optionsbar>
               <button

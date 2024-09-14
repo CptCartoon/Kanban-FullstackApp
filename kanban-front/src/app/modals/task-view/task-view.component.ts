@@ -10,9 +10,7 @@ import {
 } from '@angular/core';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import {
-  Board,
   BoardColumn,
-  SimpleColumn,
   Subtask,
   SubtaskStatus,
   TaskColumn,
@@ -38,26 +36,22 @@ import { DeleteType } from '../../core/enums';
   ],
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
-  @ViewChild('dropdown') dropdown!: ElementRef;
-  @ViewChild('optionsbar') optionsbar!: ElementRef;
+  @ViewChild('dropdown') dropdown!: ElementRef; // columns dropdown
+  @ViewChild('optionsbar') optionsbar!: ElementRef; // options dropdown
 
   @Input() id!: number;
   @Output() close = new EventEmitter<void>();
 
-  DeleteTypeEnum = DeleteType;
+  DeleteTypeEnum = DeleteType; // enum to check if its delete board or task to show i on delete-modal
 
   taskView: TaskView = {} as TaskView;
 
-  subtasks!: Subtask[];
-  subtasksCount!: number;
-  subtasksCompletedCount!: number;
-
-  activeColumn!: BoardColumn;
-
-  subTaskView!: Subscription;
+  activeColumn: BoardColumn = {} as BoardColumn;
 
   deleteFlag: boolean = false;
   editFlag: boolean = false;
+
+  subTaskView!: Subscription;
 
   constructor(private taskService: TaskService) {}
 
@@ -70,10 +64,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.subTaskView = this.taskService.taskViewChange.subscribe({
       next: (taskView) => {
         this.taskView = taskView;
-        this.subtasksCount = this.taskView.subtasks.length;
-        this.subtasksCompletedCount = this.taskView.subtasks.filter(
-          (subtask) => subtask.completed === true
-        ).length;
+
+        // get active column to select
         this.activeColumn = this.taskView.columns.find(
           (column) => column.id === this.taskView.columnId
         ) as BoardColumn;
@@ -89,6 +81,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.dropdown.nativeElement.classList.toggle('display-flex');
   }
 
+  //get all columns to select dropdown
   getDataColumn(column: BoardColumn) {
     this.activeColumn = column;
     const newColumn: TaskColumn = { columnId: column.id };

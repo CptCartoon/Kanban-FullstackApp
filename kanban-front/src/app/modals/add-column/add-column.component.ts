@@ -38,7 +38,9 @@ export class AddColumnComponent {
 
   submitForm() {
     if (this.columnsForm.valid) {
-      this.boardService.addColumns(this.columns.value, this.boardId);
+      if (this.boardId) {
+        this.boardService.addColumns(this.columns.value, this.boardId);
+      }
       this.close.emit();
     } else {
       this.columnsForm.markAllAsTouched();

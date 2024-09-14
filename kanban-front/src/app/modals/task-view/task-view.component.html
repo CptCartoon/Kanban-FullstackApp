@@ -26,8 +26,9 @@
         <p class="p-description">{{ taskView.description }}</p>
       </div>
       <div class="subtasks-container">
-        <p class="input-heading">
-          Subtasks ({{ subtasksCompletedCount }} of {{ subtasksCount }})
+        <p *ngIf="taskView.totalSubtasks" class="input-heading">
+          Subtasks ({{ taskView.completedSubtasks }} of
+          {{ taskView.totalSubtasks }})
         </p>
         <label
           (click)="changeSubtaskStatus(subtask)"
@@ -49,7 +50,7 @@
           <p class="input-heading">Current Status</p>
         </div>
         <div class="status-input" (click)="showDropdownStatus()">
-          {{ activeColumn?.name }}
+          {{ activeColumn.name }}
         </div>
         <div class="status-dropdown" #dropdown>
           <span

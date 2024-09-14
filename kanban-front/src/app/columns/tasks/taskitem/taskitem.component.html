@@ -1,11 +1,11 @@
-<app-task-view
-  *ngIf="show"
-  (close)="toggleModal()"
-  [id]="task.id"
-></app-task-view>
 <div class="task" (click)="toggleModal()">
   <h3 class="task-title">{{ task.title }}</h3>
   <p class="subtasks">
     {{ task.completedSubtasks }} of {{ task.totalSubtasks }} subtasks
   </p>
 </div>
+<app-task-view
+  *ngIf="showTaskView"
+  (close)="toggleModal()"
+  [id]="task.id"
+></app-task-view>

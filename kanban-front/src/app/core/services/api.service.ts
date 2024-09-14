@@ -27,7 +27,7 @@ export class ApiService {
   // ########## BOARDS
 
   /**
-   * Returns all boards names with id
+   * Returns all boards names with id and columnsCount
    */
   getBoardsNames(): Observable<BoardName[]> {
     return this.http.get<BoardName[]>(`${this.url}GetBoardsNames`);
@@ -60,7 +60,7 @@ export class ApiService {
 
   /**
    * Delete board
-   * @param id - id of board that you want to delete
+   * @param boardId - id of board that you want to delete
    */
   deleteBoard(boardId: number): Observable<number> {
     return this.http.delete<number>(`${this.url}DeleteBoard/${boardId}`);
@@ -80,13 +80,13 @@ export class ApiService {
 
   /**
    * Add column to board
-   * @param column - column model that you want to add
-   * @param board - id of board that you want to add columns
+   * @param columns - column model that you want to add
+   * @param boardId - id of board that you want to add columns
    */
-  addColumns(column: AddColumn[], boardId: number): Observable<AddColumn[]> {
+  addColumns(columns: AddColumn[], boardId: number): Observable<AddColumn[]> {
     return this.http.post<AddColumn[]>(
       `${this.url}AddColumns/${boardId}`,
-      column
+      columns
     );
   }
 
@@ -94,7 +94,7 @@ export class ApiService {
 
   /**
    * Returns task details
-   * @param id - id of task that you want to get more details
+   * @param taskId - id of task that you want to get more details
    */
   getTaskView(taskId: number): Observable<TaskView> {
     return this.http.get<TaskView>(`${this.url}GetTaskViewById/${taskId}`);
@@ -150,7 +150,7 @@ export class ApiService {
 
   /**
    * Delete task
-   * @param id - id of task that you want to delete
+   * @param taskId - id of task that you want to delete
    */
   deleteTask(taskId: number): Observable<number> {
     return this.http.delete<number>(`${this.url}DeleteTask/${taskId}`);

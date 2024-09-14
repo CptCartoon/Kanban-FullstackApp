@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { BoardService } from '../../core/services/board.service';
-import { BoardsNamesService } from '../../core/services/boards-names.service';
-import { BoardName } from '../../core/models/model';
+import { Component, Input } from '@angular/core';
 import { AddColumnComponent } from '../../modals/add-column/add-column.component';
 import { BoardEditorComponent } from '../../modals/board-editor/board-editor.component';
-
 @Component({
   selector: 'app-empty-board',
   standalone: true,
@@ -13,30 +9,21 @@ import { BoardEditorComponent } from '../../modals/board-editor/board-editor.com
   templateUrl: './empty-board.component.html',
   styleUrl: './empty-board.component.css',
 })
-export class EmptyBoardComponent implements OnInit {
+export class EmptyBoardComponent {
   @Input() emptyColumns = false;
   @Input() emptyBoards = false;
+  @Input() boardId!: number;
 
-  boardName!: BoardName;
+  editColumnModal = false; // flag to show add column modal
+  editBoardModal = false; // flag to show add board modal
 
-  editModal = false;
-  boardModal = false;
+  constructor() {}
 
-  constructor(private boardsNamesService: BoardsNamesService) {}
-
-  ngOnInit(): void {
-    this.boardsNamesService.activeBoardChange.subscribe({
-      next: (board) => {
-        this.boardName = board;
-      },
-    });
+  columnModal() {
+    this.editColumnModal = !this.editColumnModal;
   }
 
-  addColumn() {
-    this.editModal = true;
-  }
-
-  addBoard() {
-    this.boardModal = !this.boardModal;
+  boardModal() {
+    this.editBoardModal = !this.editBoardModal;
   }
 }

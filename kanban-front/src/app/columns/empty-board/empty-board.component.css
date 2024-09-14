@@ -17,7 +17,7 @@
 }
 
 /* ADD COLUMN BTN */
-.add-column-btn {
+.add-btn {
   font-size: 0.938rem;
   font-weight: bold;
   color: white;
@@ -28,7 +28,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.add-column-btn:hover {
+.add-btn:hover {
   cursor: pointer;
   background-color: var(--MainPurpleHover);
 }

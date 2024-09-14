@@ -28,8 +28,10 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
   }
 
   getBoards() {
+    //get boards to nav
     this.boardsNamesService.loadBoardNames();
 
+    // change hover on avtice board
     this.subBoardsNames = this.boardsNamesService.boardsNamesChange.subscribe({
       next: (arrBoardsNames) => {
         this.boardsNames = arrBoardsNames;
@@ -37,8 +39,13 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
       },
     });
 
+    // check active board
     this.subActiveBoard = this.boardsNamesService.activeBoardChange.subscribe({
-      next: (board) => (this.activeBoard = board.id),
+      next: (board) => {
+        if (board) {
+          this.activeBoard = board.id;
+        }
+      },
     });
   }
 

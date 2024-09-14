@@ -37,8 +37,16 @@ export class BoardService {
     this.boardChange.next(this._getBoard);
   }
 
+  public get _getBoardColumns() {
+    return this.boardColumns;
+  }
+
   // ########## BOARD
 
+  /**
+   * Returns board selected by id
+   * @param boardId - Id of board you want to get
+   */
   public loadBoard(boardId: number) {
     this.api.getBoardById(boardId).subscribe({
       next: (board) => {
@@ -51,6 +59,10 @@ export class BoardService {
     });
   }
 
+  /**
+   * Add board
+   * @param board - board model that you want to add
+   */
   public addBoard(board: AddBoard) {
     this.api.addBoard(board).subscribe({
       next: () => {
@@ -67,6 +79,11 @@ export class BoardService {
     });
   }
 
+  /**
+   * Edit board
+   * @param board - edited board model
+   * @param boardId - id of board that you want to edit
+   */
   editBoard(board: EditBoard, boardId: number) {
     this.api.editBoard(board, boardId).subscribe({
       next: () => {
@@ -78,6 +95,10 @@ export class BoardService {
     });
   }
 
+  /**
+   * Delete board
+   * @param boardId - id of board that you want to delete
+   */
   deleteBoard(boardId: number) {
     this.api.deleteBoard(boardId).subscribe({
       next: () => {
@@ -91,6 +112,10 @@ export class BoardService {
 
   // ########## COLUMN
 
+  /**
+   * Returns all columns (name and id) that are in selected board
+   * @param id - id of board that you want to get columns
+   */
   public getBoardColumns(boardId: number) {
     this.api.getBoardColumns(boardId).subscribe({
       next: (boardColumns) => {
@@ -103,10 +128,16 @@ export class BoardService {
     });
   }
 
+  /**
+   * Add column to board
+   * @param columns - columns model that you want to add
+   * @param boardId - id of board that you want to add columns
+   */
   public addColumns(columns: AddColumn[], boardId: number) {
     this.api.addColumns(columns, boardId).subscribe({
       next: () => {
         this.loadBoard(boardId);
+        this.boardsNamesService.loadBoardNames();
       },
       error: (error) => {
         console.error('Error adding columns', error);

@@ -33,6 +33,9 @@ export class BoardsNamesService {
     this.activeBoardChange.next(this._getActiveBoard);
   }
 
+  /**
+   * Returns all boards names with id and columnsCount
+   */
   public loadBoardNames() {
     this.api.getBoardsNames().subscribe({
       next: (names) => {
@@ -45,6 +48,9 @@ export class BoardsNamesService {
     });
   }
 
+  /**
+   * Select active board
+   */
   selectBoard(board: BoardName) {
     this.activeBoard = board;
     this.activeBoardChange.next(this.activeBoard);

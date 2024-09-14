@@ -1,19 +1,28 @@
-<app-add-column
-  *ngIf="addColumn"
-  (close)="toggleModal()"
-  [boardId]="board.id"
-></app-add-column>
 <div class="columns">
-  <app-empty-board *ngIf="!board?.columns?.length"></app-empty-board>
-  <div cdkDropListGroup class="columns-wrapper">
+  <div
+    *ngIf="boardName.columnsCount > 0 && boardName.id"
+    cdkDropListGroup
+    class="columns-wrapper"
+  >
     <app-column
+      *ngFor="let column of board?.columns"
       cdkDropList
       [cdkDropListData]="column.tasks"
       (cdkDropListDropped)="drop($event, column.id)"
-      [input]="column.name"
-      *ngFor="let column of board.columns"
       [column]="column"
     ></app-column>
     <button class="add-column" (click)="toggleModal()">+ New Column</button>
   </div>
+  <app-empty-board
+    [emptyColumns]="boardName.columnsCount <= 0"
+    [emptyBoards]="!boardName.id"
+    [boardId]="boardName.id"
+    *ngIf="boardName.columnsCount <= 0 || !boardName.id"
+  ></app-empty-board>
 </div>
+
+<app-add-column
+  *ngIf="addColumnFlag"
+  (close)="toggleModal()"
+  [boardId]="board.id"
+></app-add-column>

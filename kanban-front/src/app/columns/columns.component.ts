@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EmptyBoardComponent } from './empty-board/empty-board.component';
-import { Board, Column, TaskBoard } from '../core/models/model';
+import { Board, BoardName, TaskBoard } from '../core/models/model';
 import { CommonModule } from '@angular/common';
 import { ColumnComponent } from './column/column.component';
 import { Subscription } from 'rxjs';
@@ -33,18 +33,46 @@ import { TaskService } from '../core/services/task.service';
   ],
 })
 export class ColumnsComponent implements OnInit, OnDestroy {
-  board: Board = {} as Board;
+  board!: Board;
+  boardName: BoardName = {} as BoardName;
 
-  subBoard!: Subscription;
-  subActiveBoard!: Subscription;
+  addColumnFlag = false; // flag to show add column modal
 
-  addColumn = false;
+  subBoard$!: Subscription;
+  subActiveBoard$!: Subscription;
 
   constructor(
     private boardService: BoardService,
     private boardsNamesService: BoardsNamesService,
     private taskService: TaskService
   ) {}
+
+  ngOnInit(): void {
+    this.getBoardById();
+  }
+
+  getBoardById() {
+    // load active board
+    this.subActiveBoard$ = this.boardsNamesService.activeBoardChange.subscribe(
+      (board) => {
+        if (board) {
+          this.boardName = board;
+          this.boardService.loadBoard(board.id);
+        } else {
+          this.boardName = {} as BoardName;
+        }
+      }
+    );
+
+    // check changes on board
+    this.subBoard$ = this.boardService.boardChange.subscribe({
+      next: (board) => {
+        if (board) {
+          this.board = board;
+        }
+      },
+    });
+  }
 
   drop(event: CdkDragDrop<TaskBoard[]>, columnId: number) {
     const draggedItem = event.previousContainer.data[event.previousIndex];
@@ -70,30 +98,12 @@ export class ColumnsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    this.getBoardById();
-  }
-
   toggleModal(): void {
-    this.addColumn = !this.addColumn;
-  }
-
-  getBoardById() {
-    this.subActiveBoard = this.boardsNamesService.activeBoardChange.subscribe(
-      (board) => {
-        this.boardService.loadBoard(board.id);
-      }
-    );
-
-    this.subBoard = this.boardService.boardChange.subscribe({
-      next: (board) => {
-        this.board = board;
-      },
-    });
+    this.addColumnFlag = !this.addColumnFlag;
   }
 
   ngOnDestroy(): void {
-    this.subBoard.unsubscribe();
-    this.subActiveBoard.unsubscribe();
+    this.subBoard$.unsubscribe();
+    this.subActiveBoard$.unsubscribe();
   }
 }

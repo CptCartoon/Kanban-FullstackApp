@@ -31,6 +31,10 @@ export class TaskService {
 
   // ########## TASK
 
+  /**
+   * Returns task details
+   * @param taskId - id of task that you want to get more details
+   */
   public getTaskView(taskId: number) {
     this.api.getTaskView(taskId).subscribe({
       next: (taskView) => {
@@ -43,8 +47,13 @@ export class TaskService {
     });
   }
 
-  public addTask(task: AddTask, taskId: number) {
-    this.api.addTask(task, taskId).subscribe({
+  /**
+   * Add task
+   * @param task - task model that you want to add
+   * @param columnId - id of column that you want to add task
+   */
+  public addTask(task: AddTask, columnId: number) {
+    this.api.addTask(task, columnId).subscribe({
       next: () => {
         this.boardService.loadBoard(this.boardsNamesService.activeBoard.id);
       },
@@ -54,6 +63,11 @@ export class TaskService {
     });
   }
 
+  /**
+   * Edit task
+   * @param task - edited task model
+   * @param taskId - id of task that you want to edit
+   */
   public editTask(task: EditTask, taskId: number) {
     this.api.editTask(task, taskId).subscribe({
       next: () => {
@@ -65,6 +79,11 @@ export class TaskService {
     });
   }
 
+  /**
+   * Change task column
+   * @param taskColumn - object with columnId of task { columnId: number }
+   * @param taskId - id of task
+   */
   public changeTaskColumn(taskColumn: TaskColumn, taskId: number) {
     this.api.changeTaskColumn(taskColumn, taskId).subscribe({
       next: () => {
@@ -76,6 +95,12 @@ export class TaskService {
     });
   }
 
+  /**
+   * Change subtask status
+   * @param subtaskStatus - object with status of subtask { completed: boolean }
+   * @param subtaskId - id of subtask
+   * @param taskId - id of task that subtask's status is changed
+   */
   public changeSubtaskStatus(
     subtaskStatus: SubtaskStatus,
     subtaskId: number,
@@ -99,6 +124,10 @@ export class TaskService {
     });
   }
 
+  /**
+   * Delete task
+   * @param taskId - id of task that you want to delete
+   */
   public deleteTask(taskId: number) {
     this.api.deleteTask(taskId).subscribe({
       next: () => {
