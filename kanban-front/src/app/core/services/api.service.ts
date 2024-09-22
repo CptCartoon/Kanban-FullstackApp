@@ -15,6 +15,7 @@ import {
   TaskColumn,
   TaskView,
 } from '../models/model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ import {
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  url = 'https://localhost:7176/api/kanban/';
+  url = environment.apiUrl;
 
   // ########## BOARDS
 

@@ -1,36 +1,39 @@
-# Frontend Mentor - Kanban task management web app
+# Frontend Mentor - Kanban task management web app solution
 
-![Design preview for the Kanban task management web app coding challenge](./preview.jpg)
-
-## Welcome! 👋
+This is a solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## WARNING
 
-App is during refactoring to new API you can see it on my Github:
+Frontend was refactored to work with new Backend built in ASP.NET Core 8. [You can chek it here](https://github.com/CptCartoon/Kanban-FullstackApp-Backend-ASP.NET-Core-API). Java Spring Backend in this repository is deprecated and need to be refactored.
 
-- KANBAN ASP.NET CORE API: (https://github.com/CptCartoon/Kanban-FullstackApp-Backend-ASP.NET-Core-API)
+### Links
 
-Project is in progress. It's almost work. Need some CSS fixes, logic fixes. Most important to do:
+- Live Site URL: [Live Server Preview](https://your-live-site-url.com)
 
-- Editing task and board
-- When we change task status, it dissapears form column but not showing in new one, need to refresh
-- Drag and drop
-- Form validation
-- Some small bugs
+## Overview
 
-Here u can watch current status of app:
+This time I didn't focus on RWD and some other things like light/dark mode. The goal was to improve fullstack skills.
 
-### Expected Behaviour
+### The challenge
 
-- Boards
-  - [x] Clicking different boards in the sidebar will change to the selected board. DONE ✓
-  - [x] Clicking "Create New Board" in the sidebar opens the "Add New Board" modal. DONE ✓
-  - [x] Clicking in the dropdown menu "Edit Board" opens up the "Edit Board" modal where details can be changed. DONE ✓
-  - [ ] Columns are added and removed for the Add/Edit Board modals. ADDING DONE ✓ | REMOVE TO DO
-  - [x] Deleting a board deletes all columns and tasks and requires confirmation. DONE ✓
-- Columns
-  - [x] A board needs at least one column before tasks can be added. If no columns exist, the "Add New Task" button in the header is disabled. DONE ✓ | BUTTON DISABLED TO DO
-  - [x] Clicking "Add New Column" opens the "Edit Board" modal where columns are added. DONE IN DIFFERENT WAY ✓
-- Tasks
-  - [x] Adding a new task adds it to the bottom of the relevant column. DONE ✓
-  - [ ] Updating a task's status will move the task to the relevant column. If you're taking on the drag-and-drop bonus, dragging a task to a different column will also update the status. DONE ✓ but it doesn't show task in different colum - to do | drag and drop to do
+Users should be able to:
+
+- See hover states for all interactive elements on the page
+- Create, read, update, and delete boards and tasks
+- Receive form validations when trying to create/edit boards and tasks
+- Mark subtasks as complete and move tasks between columns
+- Hide/show the board sidebar
+- **Bonus**: Allow users to drag and drop tasks to change their status and re-order them in a column
+- **Bonus**: Keep track of any changes, even after refreshing the browser (`localStorage` could be used for this if you're not building out a full-stack app)
+- **Bonus**: Build this project as a full-stack application
+
+### Screenshot
+
+![](screenshot.png)
+
+### Built with
+
+- HTML
+- CSS
+- Angular 17
+- ASP.NET Core 8 (New API)

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { BoardName } from '../../core/models/model';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,9 @@ import { BoardEditorComponent } from '../../modals/board-editor/board-editor.com
   templateUrl: './boards-navlist.component.html',
   styleUrl: './boards-navlist.component.css',
 })
-export class BoardsNavlistComponent implements OnInit, OnDestroy {
+export class BoardsNavlistComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   addBoard = false; // flag to show/hide board editor
   boardsNames: BoardName[] = []; // board name and id
 
@@ -24,6 +26,10 @@ export class BoardsNavlistComponent implements OnInit, OnDestroy {
   constructor(private boardsNamesService: BoardsNamesService) {}
 
   ngOnInit(): void {
+    this.getBoards();
+  }
+
+  ngAfterViewInit(): void {
     this.getBoards();
   }
 
