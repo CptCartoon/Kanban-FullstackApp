@@ -4,7 +4,7 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 ## WARNING
 
-Frontend was refactored to work with new Backend built in ASP.NET Core 8. [You can chek it here](https://github.com/CptCartoon/Kanban-FullstackApp-Backend-ASP.NET-Core-API). Java Spring Backend in this repository is deprecated and need to be refactored.
+Frontend was refactored to work with new Backend built in ASP.NET Core 8. [You can check it here](https://github.com/CptCartoon/Kanban-FullstackApp-Backend-ASP.NET-Core-API). Java Spring Backend in this repository is deprecated and need to be refactored.
 
 ### Links
 
