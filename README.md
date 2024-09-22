@@ -8,7 +8,7 @@ Frontend was refactored to work with new Backend built in ASP.NET Core 8. [You c
 
 ### Links
 
-- Live Site URL: [Live Server Preview](https://your-live-site-url.com)
+- Live Site URL: [Live Server Preview](https://kanban-fe-gfedc9esa3dgb9h4.polandcentral-01.azurewebsites.net/)
 
 ## Overview
 
